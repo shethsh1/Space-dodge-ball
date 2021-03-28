@@ -49,10 +49,13 @@
 
 
 .data
-	asteroid_1:	.word	0
-	asteroid_2:	.word	0
-	asteroid_3:	.word	0
-	ship:		.word	0:2
+	asteroid_1:		.word	0
+	asteroid_1_counter:	.word   0
+	asteroid_2:		.word	0
+	asteroid_2_counter:	.word   0
+	asteroid_3:		.word	0
+	asteroid_3_counter:	.word   0
+	ship:			.word	0:2
 .text
 
 	li $t0, BASE_ADDRESS 	# $t0 stores the base address for display
@@ -223,22 +226,175 @@ WHILE_GAME:
 	
 	
 	keyboard_input_done:
+	
+		obstacles_falling:
+			# asteroid 1
+			la $t3, asteroid_1_counter	# $t3 = addr(counter)
+			lw $t4, 0($t3)			# $t4 = $t3[0]
+			beq $t4, 0, SET_ASTEROID_1
+			
+			# erase asteroid 1
+			la $t4, asteroid_1	# $t4 = addr(asteroid_1)
+			lw $t5, 0($t4)		# $t5 = $t4[0]
+			add $t6, $t5, $t0	# $t6 = addr(default + $t5)
+			li $v0, 32
+			li $a0, 42
+			syscall
+			sw $t2, 0($t6)			# $t6[0] = $t2 - black
+			lw $t7, 0($t3)			# $t7 = addr(counter)
+			beq $t7, 33, RESET_COUNTER	# if $t7 == 33, reset
+			addi $t5, $t5, -4		# $t5 = $t5 - 4
+			sw $t5, 0($t4)			# $t4[0] = $t5
+			add $t6, $t5, $t0		# $t6 = addr(default + $t5)
+			sw $t1, 0($t6)			# $t4[0] = $t1 - grey
+			
+			la $t3, asteroid_1_counter	# $t3 = addr(counter)
+			lw $t4, 0($t3)			# $t4 = $t3[0]
+			addi $t4, $t4, 1		# $t4 = $t4 + 1
+			sw $t4, 0($t3)			# counter[0] = $t4
+			
+			
+			# asteroid 2
+			la $t3, asteroid_2_counter	# $t3 = addr(counter)
+			lw $t4, 0($t3)			# $t4 = $t3[0]
+			beq $t4, 0, SET_ASTEROID_2
+			
+			# erase asteroid 2
+			la $t4, asteroid_2	# $t4 = addr(asteroid_1)
+			lw $t5, 0($t4)		# $t5 = $t4[0]
+			add $t6, $t5, $t0	# $t6 = addr(default + $t5)
+			li $v0, 32
+			li $a0, 42
+			syscall
+			sw $t2, 0($t6)			# $t6[0] = $t2 - black
+			lw $t7, 0($t3)			# $t7 = addr(counter)
+			beq $t7, 33, RESET_COUNTER	# if $t7 == 33, reset
+			addi $t5, $t5, -4		# $t5 = $t5 - 4
+			sw $t5, 0($t4)			# $t4[0] = $t5
+			add $t6, $t5, $t0		# $t6 = addr(default + $t5)
+			sw $t1, 0($t6)			# $t4[0] = $t1 - grey
+			
+			la $t3, asteroid_2_counter	# $t3 = addr(counter)
+			lw $t4, 0($t3)			# $t4 = $t3[0]
+			addi $t4, $t4, 1		# $t4 = $t4 + 1
+			sw $t4, 0($t3)			# counter[0] = $t4
+			
+			
+			# asteroid 3
+			la $t3, asteroid_3_counter	# $t3 = addr(counter)
+			lw $t4, 0($t3)			# $t4 = $t3[0]
+			beq $t4, 0, SET_ASTEROID_3
+			
+			# erase asteroid 3
+			la $t4, asteroid_3	# $t4 = addr(asteroid_1)
+			lw $t5, 0($t4)		# $t5 = $t4[0]
+			add $t6, $t5, $t0	# $t6 = addr(default + $t5)
+			li $v0, 32
+			li $a0, 42
+			syscall
+			sw $t2, 0($t6)			# $t6[0] = $t2 - black
+			lw $t7, 0($t3)			# $t7 = addr(counter)
+			beq $t7, 33, RESET_COUNTER	# if $t7 == 33, reset
+			addi $t5, $t5, -4		# $t5 = $t5 - 4
+			sw $t5, 0($t4)			# $t4[0] = $t5
+			add $t6, $t5, $t0		# $t6 = addr(default + $t5)
+			sw $t1, 0($t6)			# $t4[0] = $t1 - grey
+			
+			la $t3, asteroid_3_counter	# $t3 = addr(counter)
+			lw $t4, 0($t3)			# $t4 = $t3[0]
+			addi $t4, $t4, 1		# $t4 = $t4 + 1
+			sw $t4, 0($t3)			# counter[0] = $t4
+			
+	
+	
+
+	
 		j WHILE_GAME
 	
 	
 	
+RESET_COUNTER:
+	li $t4, 0
+	sw $t4, 0($t3)
+	j WHILE_GAME
+	
+
+SET_ASTEROID_1:
+	# asteroid 1
+	li $v0, 42
+	li $a0, 0	# a0 contains the random number from 0 to 32
+	li $a1, 32
+	syscall
+	li $t3, 128
+	mult $a0, $t3	# $a0 x 128 + 124
+	mflo $a0
+	addi $a0, $a0, 124
+	
+	la $t3, asteroid_1	# $t3 = addr(asteroid_1)
+	sw $a0, 0($t3)		# $t3[0] = $a0
+	add $t4, $t0, $a0 	# $t4 = addr($t0+$a0)
+	sw $t1, 0($t4)		# $t4[0] = $t1 - grey
+	
+	la $t3, asteroid_1_counter	# $t3 = addr(counter)
+	li $t4, 1			# $t4 = 1
+	sw $t4, 0($t3)			# $t3[0] = 1 
+	
+	j WHILE_GAME
+	
+	
+SET_ASTEROID_2:
+	# asteroid 2
+	li $v0, 42
+	li $a0, 0	# a0 contains the random number from 0 to 32
+	li $a1, 32
+	syscall
+	li $t3, 128
+	mult $a0, $t3	# $a0 x 128 + 124
+	mflo $a0
+	addi $a0, $a0, 124
+	
+	la $t3, asteroid_2	# $t3 = addr(asteroid_1)
+	sw $a0, 0($t3)		# $t3[0] = $a0
+	add $t4, $t0, $a0 	# $t4 = addr($t0+$a0)
+	sw $t1, 0($t4)		# $t4[0] = $t1 - grey
+	
+	la $t3, asteroid_2_counter	# $t3 = addr(counter)
+	li $t4, 1			# $t4 = 1
+	sw $t4, 0($t3)			# $t3[0] = 1 
+	
+	j WHILE_GAME
+	
+	
+SET_ASTEROID_3:
+	# asteroid 3
+	li $v0, 42
+	li $a0, 0	# a0 contains the random number from 0 to 32
+	li $a1, 32
+	syscall
+	li $t3, 128
+	mult $a0, $t3	# $a0 x 128 + 124
+	mflo $a0
+	addi $a0, $a0, 124
+	
+	la $t3, asteroid_3	# $t3 = addr(asteroid_1)
+	sw $a0, 0($t3)		# $t3[0] = $a0
+	add $t4, $t0, $a0 	# $t4 = addr($t0+$a0)
+	sw $t1, 0($t4)		# $t4[0] = $t1 - grey
+	
+	la $t3, asteroid_3_counter	# $t3 = addr(counter)
+	li $t4, 1			# $t4 = 1
+	sw $t4, 0($t3)			# $t3[0] = 1 
+	
+	j WHILE_GAME
 	
 
 
 	
-
-
 	
 	
 	
 	
-	
-end:
+END:
 	li $v0, 10
 	syscall
 
