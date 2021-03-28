@@ -51,14 +51,50 @@
 	asteroid_1:	.word	0
 	asteroid_2:	.word	0
 	asteroid_3:	.word	0
+	ship:		.word	0:2
 .text
 
 	li $t0, BASE_ADDRESS # $t0 stores the base address for display
 	li $t1, 0xd3d3d3 # $t1 stores the grey colour code
 	li $t2, 0x000000 # $t2 stores the black colour code
+	li $t8, 0x0000FF	# blue
+	li $t9, 0xFFFF00	# yellow
 	
+	
+game_start:
+
+
+
+	
+	la $t3, ship 		# $t3 = addr(ship)
+	li $t4, 2700
+	li $t5, 2568
+	li $t6, 2824
+	sw $t4, 0($t3)
+	sw $t5, 4($t3)
+	sw $t6, 8($t3)
+		
 	
 asteroids:
+
+	# create ship
+	la $t3, ship		# $t3 = addr(ship)
+	lw $t4, 0($t3)		# $t4 = $t3[0] 
+	add $t5, $t0, $t4	# $t5 = addr($t0 + $t4)
+	sw $t8, 0($t5)		# $t5[0] = $t8
+	
+	lw $t4, 4($t3)		# $t4 = $t3[1]
+	add $t5, $t0, $t4	# $t5 = addr($t0 + $t4)
+	sw $t9, 0($t5)		# $t9[0] = $t8
+		
+	lw $t4, 8($t3)		# $t4 = $t3[1]
+	add $t5, $t0, $t4	# $t5 = addr($t0 + $t4)
+	sw $t9, 0($t5)		# $t9[0] = $t8
+	
+	
+
+
+	
 	
 	# asteroid 1
 	li $v0, 42
