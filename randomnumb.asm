@@ -110,15 +110,15 @@ asteroids:
 	
 	li $t3, 0		# i = 0
 	while_asteroids:
-		beq $t3, 31 asteroids
-		beq $t3, 30, last_asteroid	# handle last
+		beq $t3, 31 last_asteroid
+	
 		
 		# erase asteroid 1
 		la $t4, asteroid_1	# $t4 = addr(asteroid_1)
 		lw $t5, 0($t4)		# $t5 = $t4[0]
 		add $t6, $t5, $t0	# $t6 = addr(default + $t5)
 		li $v0, 32
-		li $a0, 42
+		li $a0, 10
 		syscall
 		sw $t2, 0($t6)			# $t6[0] = $t2 - black
 		addi $t5, $t5, -4		# $t5 = $t5 - 4
@@ -134,7 +134,7 @@ asteroids:
 		lw $t5, 0($t4)		# $t5 = $t4[0]
 		add $t6, $t5, $t0	# $t6 = addr(default + $t5)
 		li $v0, 32
-		li $a0, 42
+		li $a0, 25
 		syscall
 		sw $t2, 0($t6)		# $t6[0] = $t2 - black
 		addi $t5, $t5, -4	# $t5 = $t5 - 4
@@ -160,10 +160,25 @@ asteroids:
 		j while_asteroids
 		
 		
-
 last_asteroid:
-	add $t6, $t5, $t0		# $t6 = addr(default + $t5)
-	sw $t1, 0($t6)			# $t4[0] = $t1 - grey	
+	la $t3, asteroid_1	# $t3 = addr(asteroid_1)
+	lw $t4, 0($t3)		# $t4 = $t3[0]
+	add $t5, $t4, $t0	# $t5 = addr(default + $t4)
+	sw $t2, 0($t5)		# $t5[0] = $t2
+	
+	la $t3, asteroid_2	# $t3 = addr(asteroid_1)
+	lw $t4, 0($t3)		# $t4 = $t3[0]
+	add $t5, $t4, $t0	# $t5 = addr(default + $t4)
+	sw $t2, 0($t5)		# $t5[0] = $t2
+	
+	la $t3, asteroid_3	# $t3 = addr(asteroid_1)
+	lw $t4, 0($t3)		# $t4 = $t3[0]
+	add $t5, $t4, $t0	# $t5 = addr(default + $t4)
+	sw $t2, 0($t5)		# $t5[0] = $t2
+	
+	j asteroids
+
+	
 	
 	
 	
