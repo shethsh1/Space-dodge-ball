@@ -45,7 +45,7 @@
 #
 
 .eqv BASE_ADDRESS 0x10008000
-.eqv A_KEY 0x61
+.eqv obstacle_time 30
 
 
 .data
@@ -282,7 +282,7 @@ WHILE_GAME:
 			
 			# erase asteroid 1
 			li $v0, 32
-			li $a0, 42
+			li $a0, obstacle_time
 			syscall
 			la $t4, asteroid_1	# $t4 = addr(asteroid_1)
 			lw $t5, 0($t4)		# $t5 = $t4[0]
@@ -382,7 +382,7 @@ WHILE_GAME:
 			
 			# erase asteroid 1
 			li $v0, 32
-			li $a0, 42
+			li $a0, obstacle_time
 			syscall
 			la $t4, asteroid_2	# $t4 = addr(asteroid_1)
 			lw $t5, 0($t4)		# $t5 = $t4[0]
@@ -480,7 +480,7 @@ WHILE_GAME:
 			
 			# erase asteroid 1
 			li $v0, 32
-			li $a0, 42
+			li $a0, obstacle_time
 			syscall
 			la $t4, asteroid_3	# $t4 = addr(asteroid_1)
 			lw $t5, 0($t4)		# $t5 = $t4[0]
@@ -574,7 +574,6 @@ WHILE_GAME:
 		j WHILE_GAME
 	
 RESET_COUNTER_COLLISION:
-
 	li $a0, 0
 	sw $a0, 0($t3)
 	
