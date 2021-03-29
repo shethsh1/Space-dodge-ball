@@ -49,13 +49,23 @@
 
 
 .data
+
 	asteroid_1:		.word	0:5
 	asteroid_1_counter:	.word   0
 	asteroid_2:		.word	0:5
 	asteroid_2_counter:	.word   0
 	asteroid_3:		.word	0:5
 	asteroid_3_counter:	.word   0
-	ship:			.word	0:2
+	ship:			.word	0:3
+	d_edge:			.word   124, 252, 380, 508, 636, 764, 892, 1020, 1148, 1276, 1404, 1532, 1660, 1788, 1916, 2044, 2172, 2300, 2428, 2556, 2684, 2812, 2940, 3068, 3196, 3324, 3452, 3580, 3708, 3836, 3964, 4092, -1
+	w_edge:			.word	0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 68, 72, 76, 80, 84, 88, 92, 96, 100, 104, 108, 112, 116, 120, 124, -1
+	s_edge:			.word	3968, 3972, 3976, 3980, 3984, 3988, 3992, 3996, 4000, 4004, 4008, 4012, 4016, 4020, 4024, 4028, 4032, 4036, 4040, 4044, 4048, 4052, 4056, 4060, 4064, 4068, 4072, 4076, 4080, 4084, 4088, 4092, -1
+	a_edge:			.word	0, 128, 256, 384, 512, 640, 768, 896, 1024, 1152, 1280, 1408, 1536, 1664, 1792, 1920, 2048, 2176, 2304, 2432, 2560, 2688, 2816, 2944, 3072, 3200, 3328, 3456, 3584, 3712, 3840, 3968, -1
+
+
+
+
+
 .text
 
 	li $t0, BASE_ADDRESS 	# $t0 stores the base address for display
@@ -77,6 +87,8 @@ GAME_START:
 	sw $t4, 0($t3)
 	sw $t5, 4($t3)
 	sw $t6, 8($t3)
+	
+	#sw $t9, 3968($t0) # - test pixel here
 		
 	
 	# create ship
@@ -108,9 +120,21 @@ WHILE_GAME:
 		j keyboard_input_done
 		
 	respond_to_d:
-		la $t3, ship		# $t3 = addr(ship)
 		
+		la $t4, ship
+		lw $t5, 0($t4)
+		la $t3, d_edge
+		j TEST_D_EDGE
+		
+		not_d_edge:
+		la $t3, ship		# $t3 = addr(ship)
+
 		lw $t5, 0($t3)		# $t5 = ship[0]
+		
+		
+		
+
+				
 		addi $t6, $t5, 4	# $t6 = $t5 + 4  - change this for others
 		add $t5, $t0, $t5	# $t5 = addr(default + t5)
 		sw $t2, 0($t5)		# map[i] = $t2 - erase to black
@@ -137,6 +161,14 @@ WHILE_GAME:
 		j keyboard_input_done
 		
 	respond_to_a:
+	
+		la $t4, ship
+		lw $t5, 8($t4)
+		la $t3, a_edge
+		j TEST_A_EDGE
+		
+		not_a_edge:
+	
 		la $t3, ship		# $t3 = addr(ship)
 		
 		lw $t5, 0($t3)		# $t5 = ship[0]
@@ -167,6 +199,14 @@ WHILE_GAME:
 		
 		
 	respond_to_s:
+		la $t4, ship
+		lw $t5, 8($t4)
+		la $t3, s_edge
+		j TEST_S_EDGE
+		
+		not_s_edge:	
+	
+	
 		la $t3, ship		# $t3 = addr(ship)
 		
 		lw $t5, 0($t3)		# $t5 = ship[0]
@@ -196,6 +236,13 @@ WHILE_GAME:
 		j keyboard_input_done
 		
 	respond_to_w:
+		la $t4, ship
+		lw $t5, 4($t4)
+		la $t3, w_edge
+		j TEST_W_EDGE
+		
+		not_w_edge:
+	
 		la $t3, ship		# $t3 = addr(ship)
 		
 		lw $t5, 0($t3)		# $t5 = ship[0]
@@ -607,7 +654,49 @@ SET_ASTEROID_3:
 	
 	
 
+TEST_D_EDGE:
+
+	lw $t6, 0($t3)			# $t6 = $t3[0]
 	
+	beq $t5, $t6, keyboard_input_done
+	blt $t5, $t6, not_d_edge  
+	beq $t6, -1, not_d_edge
+	addi $t3, $t3, 4
+	j TEST_D_EDGE
+	
+	
+TEST_W_EDGE:
+
+	lw $t6, 0($t3)			# $t6 = $t3[0]
+	
+	beq $t5, $t6, keyboard_input_done
+	blt $t5, $t6, not_w_edge  
+	beq $t6, -1, not_w_edge
+	addi $t3, $t3, 4
+	j TEST_W_EDGE
+	
+	
+TEST_S_EDGE:
+
+	lw $t6, 0($t3)			# $t6 = $t3[0]
+	
+	beq $t5, $t6, keyboard_input_done
+	blt $t5, $t6, not_s_edge  
+	beq $t6, -1, not_s_edge
+	addi $t3, $t3, 4
+	j TEST_S_EDGE
+	
+TEST_A_EDGE:
+
+	lw $t6, 0($t3)			# $t6 = $t3[0]
+	
+	beq $t5, $t6, keyboard_input_done
+	blt $t5, $t6, not_a_edge  
+	beq $t6, -1, not_a_edge
+	addi $t3, $t3, 4
+	j TEST_A_EDGE
+
+		
 	
 	
 	
