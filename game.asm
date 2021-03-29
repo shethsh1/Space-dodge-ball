@@ -45,7 +45,7 @@
 #
 
 .eqv BASE_ADDRESS 0x10008000
-.eqv obstacle_time 42
+.eqv obstacle_time 15
 
 
 .data
@@ -61,6 +61,8 @@
 	w_edge:			.word	0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 68, 72, 76, 80, 84, 88, 92, 96, 100, 104, 108, 112, 116, 120, 124, -1
 	s_edge:			.word	3968, 3972, 3976, 3980, 3984, 3988, 3992, 3996, 4000, 4004, 4008, 4012, 4016, 4020, 4024, 4028, 4032, 4036, 4040, 4044, 4048, 4052, 4056, 4060, 4064, 4068, 4072, 4076, 4080, 4084, 4088, 4092, -1
 	a_edge:			.word	0, 128, 256, 384, 512, 640, 768, 896, 1024, 1152, 1280, 1408, 1536, 1664, 1792, 1920, 2048, 2176, 2304, 2432, 2560, 2688, 2816, 2944, 3072, 3200, 3328, 3456, 3584, 3712, 3840, 3968, -1
+	total_collisions:	.word	0
+	hearts:		.word	3928, 3936, 3944, 3952, 3960
 
 
 
@@ -104,6 +106,31 @@ GAME_START:
 	lw $t4, 8($t3)		# $t4 = $t3[1]
 	add $t5, $t0, $t4	# $t5 = addr($t0 + $t4)
 	sw $t9, 0($t5)		# $t9[0] = $t8
+	
+	# create hearts
+	
+	li $a0 0xFF0000
+	la $t3, hearts
+	
+	lw $t4, 0($t3)
+	add $t5, $t4, $t0
+	sw $a0, 0($t5) 
+	
+	lw $t4, 4($t3)
+	add $t5, $t4, $t0
+	sw $a0, 0($t5) 
+	
+	lw $t4, 8($t3)
+	add $t5, $t4, $t0
+	sw $a0, 0($t5) 
+	
+	lw $t4, 12($t3)
+	add $t5, $t4, $t0
+	sw $a0, 0($t5) 
+	
+	lw $t4, 16($t3)
+	add $t5, $t4, $t0
+	sw $a0, 0($t5) 
 	
 	
 WHILE_GAME:
@@ -740,6 +767,26 @@ RESET_COUNTER_COLLISION:
 	lw $t4, 8($t3)
 	add $t5, $t0, $t4
 	sw $t9, 0($t5)
+	
+	
+	la $t3, total_collisions
+	lw $t4, 0($t3)
+	addi $t4, $t4, 1
+	sw $t4, 0($t3)
+	beq $t4, 5, END
+	
+	
+	# check if 5 is reached  
+	
+	la $t6, hearts
+	addi $t4, $t4, -1
+	sll $t4, $t4, 2
+	add $t4, $t4, $t6
+	lw $t7, 0($t4)
+	
+	add $t7, $t0, $t7
+
+	sw $t2, 0($t7) 
 			
 	j WHILE_GAME
 
@@ -754,7 +801,7 @@ SET_ASTEROID_1:
 	# asteroid 1
 	li $v0, 42
 	li $a0, 0	# a0 contains the random number from 0 to 32
-	li $a1, 14
+	li $a1, 13
 	syscall
 	addi $a0, $a0, 1
 	li $t3, 2
@@ -801,7 +848,7 @@ SET_ASTEROID_2:
 	# asteroid 2
 	li $v0, 42
 	li $a0, 0	# a0 contains the random number from 0 to 32
-	li $a1, 14
+	li $a1, 13
 	syscall
 	addi $a0, $a0, 1
 	li $t3, 2
@@ -848,7 +895,7 @@ SET_ASTEROID_3:
 	# asteroid 3
 	li $v0, 42
 	li $a0, 0	# a0 contains the random number from 0 to 32
-	li $a1, 14
+	li $a1, 13
 	syscall
 	addi $a0, $a0, 1
 	li $t3, 2
@@ -993,6 +1040,8 @@ D_MOVEMENT_COLLISION:
 	lw $t4, 16($t3)			# $t4 = $t3[0]
 	beq $a0, $t4, ERASE_ASTEROID_3	# if its equal
 	
+	
+	
 
 	
 	
@@ -1056,6 +1105,24 @@ ERASE_ASTEROID_1:
 	lw $t4, 8($t3)
 	add $t5, $t0, $t4
 	sw $t9, 0($t5)
+	
+	la $t3, total_collisions
+	lw $t4, 0($t3)
+	addi $t4, $t4, 1
+	sw $t4, 0($t3)
+	
+	beq $t4, 5, END
+	
+	# check if 5 is reached 
+	la $t6, hearts
+	addi $t4, $t4, -1
+	sll $t4, $t4, 2
+	add $t4, $t4, $t6
+	lw $t7, 0($t4)
+	
+	add $t7, $t0, $t7
+
+	sw $t2, 0($t7) 
 	
 	
 	
@@ -1121,7 +1188,22 @@ ERASE_ASTEROID_2:
 	add $t5, $t0, $t4
 	sw $t9, 0($t5)
 	
+	la $t3, total_collisions
+	lw $t4, 0($t3)
+	addi $t4, $t4, 1
+	sw $t4, 0($t3)
 	
+	beq $t4, 5, END
+	
+	la $t6, hearts
+	addi $t4, $t4, -1
+	sll $t4, $t4, 2
+	add $t4, $t4, $t6
+	lw $t7, 0($t4)
+	
+	add $t7, $t0, $t7
+
+	sw $t2, 0($t7) 
 	
 	
 	j WHILE_GAME
@@ -1184,6 +1266,26 @@ ERASE_ASTEROID_3:
 	lw $t4, 8($t3)
 	add $t5, $t0, $t4
 	sw $t9, 0($t5)
+	
+	la $t3, total_collisions
+	lw $t4, 0($t3)
+	addi $t4, $t4, 1
+	sw $t4, 0($t3)
+	
+	beq $t4, 5, END
+	
+	la $t6, hearts			# $t6 = addr(hearts)
+	addi $t4, $t4, -1		# $t4 = $t4 - 1
+	sll $t4, $t4, 2			# $t4 = $t4 x 4
+	add $t4, $t4, $t6		# $t4 = $t6(0) + 4 
+	lw $t7, 0($t4)
+	
+	add $t7, $t0, $t7
+
+	sw $t2, 0($t7) 
+
+	
+	
 	
 	
 	
