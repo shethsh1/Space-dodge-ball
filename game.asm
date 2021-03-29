@@ -235,7 +235,7 @@ WHILE_GAME:
 			
 			# erase asteroid 1
 			li $v0, 32
-			li $a0, 150
+			li $a0, 42
 			syscall
 			la $t4, asteroid_1	# $t4 = addr(asteroid_1)
 			lw $t5, 0($t4)		# $t5 = $t4[0]
@@ -309,7 +309,7 @@ WHILE_GAME:
 			
 			# erase asteroid 2
 			li $v0, 32
-			li $a0, 150
+			li $a0, 42
 			syscall
 			la $t4, asteroid_2	# $t4 = addr(asteroid_1)
 			lw $t5, 0($t4)		# $t5 = $t4[0]
@@ -382,7 +382,7 @@ WHILE_GAME:
 			
 			# erase asteroid 1
 			li $v0, 32
-			li $a0, 150
+			li $a0, 42
 			syscall
 			la $t4, asteroid_3	# $t4 = addr(asteroid_1)
 			lw $t5, 0($t4)		# $t5 = $t4[0]
