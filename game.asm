@@ -45,7 +45,7 @@
 #
 
 .eqv BASE_ADDRESS 0x10008000
-.eqv obstacle_time 30
+.eqv obstacle_time 20
 
 
 .data
@@ -128,35 +128,50 @@ WHILE_GAME:
 		
 		not_d_edge:
 		la $t3, ship		# $t3 = addr(ship)
-
-		lw $t5, 0($t3)		# $t5 = ship[0]
+		
+		# erases
+		lw $t4, 0($t3)		# $t5 = ship[0]
+		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		sw $t2, 0($t5)		# erases ship[0] with black
+		
+		lw $t4, 4($t3)		# $t5 = ship[0]
+		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		sw $t2, 0($t5)		# erases ship[1] with black
+		
+		lw $t4, 8($t3)		# $t5 = ship[0]
+		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		sw $t2, 0($t5)		# erases ship[1] with black
+		
+		# adds it again by 4 paces 
+		lw $t4, 0($t3)		# $t4 = ship[0]
+		add $t4, $t4, 4		# $t4 = $t4 + 4
+		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		sw $t4, 0($t3)		# ship[0] = $t4
+		sw $t8, 0($t5)		# adds blue
+		
+		lw $t4, 4($t3)		# $t4 = ship[0]
+		add $t4, $t4, 4		# $t4 = $t4 + 4
+		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		sw $t4, 4($t3)		# ship[0] = $t4
+		sw $t9, 0($t5)		# adds yellow
+		
+		lw $t4, 8($t3)		# $t4 = ship[0]
+		add $t4, $t4, 4		# $t4 = $t4 + 4
+		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		sw $t4, 8($t3)		# ship[0] = $t4
+		sw $t9, 0($t5)		# adds yellow	
+		
+		
+		
+		
+		
+		
 		
 		
 		
 
 				
-		addi $t6, $t5, 4	# $t6 = $t5 + 4  - change this for others
-		add $t5, $t0, $t5	# $t5 = addr(default + t5)
-		sw $t2, 0($t5)		# map[i] = $t2 - erase to black
-		sw $t6, 0($t3)		# ship[0] = $t6
-		add $t5, $t0, $t6	# $t5 = addr(default + t6)
-		sw $t8, 0($t5)		# map[i] = $t8 - change to blue
-		
-		lw $t5, 4($t3)		# $t5 = ship[1]
-		addi $t6, $t5, 4	# $t6 = $t5 + 4  - change this for others
-		add $t5, $t0, $t5	# $t5 = addr(default + t5)
-		sw $t2, 0($t5)		# map[i] = $t2 - erase to black
-		sw $t6, 4($t3)		# ship[1] = $t6
-		add $t5, $t0, $t6	# $t5 = addr(default + t6)
-		sw $t9, 0($t5)		# map[i] = $t8 - change to blue
-		
-		lw $t5, 8($t3)		# $t5 = ship[1]
-		addi $t6, $t5, 4	# $t6 = $t5 + 4  - change this for others
-		add $t5, $t0, $t5	# $t5 = addr(default + t5)
-		sw $t2, 0($t5)		# map[i] = $t2 - erase to black
-		sw $t6, 8($t3)		# ship[2] = $t6
-		add $t5, $t0, $t6	# $t5 = addr(default + t6)
-		sw $t9, 0($t5)		# map[i] = $t8 - change to blue
+
 		
 		j keyboard_input_done
 		
@@ -171,29 +186,37 @@ WHILE_GAME:
 	
 		la $t3, ship		# $t3 = addr(ship)
 		
-		lw $t5, 0($t3)		# $t5 = ship[0]
-		addi $t6, $t5, -4	# $t6 = $t5 + 4  - change this for others
-		add $t5, $t0, $t5	# $t5 = addr(default + t5)
-		sw $t2, 0($t5)		# map[i] = $t2 - erase to black
-		sw $t6, 0($t3)		# ship[0] = $t6
-		add $t5, $t0, $t6	# $t5 = addr(default + t6)
-		sw $t8, 0($t5)		# map[i] = $t8 - change to blue
+		# erases
+		lw $t4, 0($t3)		# $t5 = ship[0]
+		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		sw $t2, 0($t5)		# erases ship[0] with black
 		
-		lw $t5, 4($t3)		# $t5 = ship[1]
-		addi $t6, $t5, -4	# $t6 = $t5 + 4  - change this for others
-		add $t5, $t0, $t5	# $t5 = addr(default + t5)
-		sw $t2, 0($t5)		# map[i] = $t2 - erase to black
-		sw $t6, 4($t3)		# ship[1] = $t6
-		add $t5, $t0, $t6	# $t5 = addr(default + t6)
-		sw $t9, 0($t5)		# map[i] = $t8 - change to blue
+		lw $t4, 4($t3)		# $t5 = ship[0]
+		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		sw $t2, 0($t5)		# erases ship[1] with black
 		
-		lw $t5, 8($t3)		# $t5 = ship[1]
-		addi $t6, $t5, -4	# $t6 = $t5 + 4  - change this for others
-		add $t5, $t0, $t5	# $t5 = addr(default + t5)
-		sw $t2, 0($t5)		# map[i] = $t2 - erase to black
-		sw $t6, 8($t3)		# ship[2] = $t6
-		add $t5, $t0, $t6	# $t5 = addr(default + t6)
-		sw $t9, 0($t5)		# map[i] = $t8 - change to blue
+		lw $t4, 8($t3)		# $t5 = ship[0]
+		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		sw $t2, 0($t5)		# erases ship[1] with black
+		
+		# adds it again by 4 paces 
+		lw $t4, 0($t3)		# $t4 = ship[0]
+		add $t4, $t4, -4		# $t4 = $t4 + 4
+		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		sw $t4, 0($t3)		# ship[0] = $t4
+		sw $t8, 0($t5)		# adds blue
+		
+		lw $t4, 4($t3)		# $t4 = ship[0]
+		add $t4, $t4, -4		# $t4 = $t4 + 4
+		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		sw $t4, 4($t3)		# ship[0] = $t4
+		sw $t9, 0($t5)		# adds yellow
+		
+		lw $t4, 8($t3)		# $t4 = ship[0]
+		add $t4, $t4, -4		# $t4 = $t4 + 4
+		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		sw $t4, 8($t3)		# ship[0] = $t4
+		sw $t9, 0($t5)		# adds yellow	
 		
 		j keyboard_input_done
 		
@@ -205,33 +228,39 @@ WHILE_GAME:
 		j TEST_S_EDGE
 		
 		not_s_edge:	
-	
-	
 		la $t3, ship		# $t3 = addr(ship)
 		
-		lw $t5, 0($t3)		# $t5 = ship[0]
-		addi $t6, $t5, 128	# $t6 = $t5 + 4  - change this for others
-		add $t5, $t0, $t5	# $t5 = addr(default + t5)
-		sw $t2, 0($t5)		# map[i] = $t2 - erase to black
-		sw $t6, 0($t3)		# ship[0] = $t6
-		add $t5, $t0, $t6	# $t5 = addr(default + t6)
-		sw $t8, 0($t5)		# map[i] = $t8 - change to blue
+		# erases
+		lw $t4, 0($t3)		# $t5 = ship[0]
+		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		sw $t2, 0($t5)		# erases ship[0] with black
 		
-		lw $t5, 4($t3)		# $t5 = ship[1]
-		addi $t6, $t5, 128	# $t6 = $t5 + 4  - change this for others
-		add $t5, $t0, $t5	# $t5 = addr(default + t5)
-		sw $t2, 0($t5)		# map[i] = $t2 - erase to black
-		sw $t6, 4($t3)		# ship[1] = $t6
-		add $t5, $t0, $t6	# $t5 = addr(default + t6)
-		sw $t9, 0($t5)		# map[i] = $t8 - change to blue
+		lw $t4, 4($t3)		# $t5 = ship[0]
+		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		sw $t2, 0($t5)		# erases ship[1] with black
 		
-		lw $t5, 8($t3)		# $t5 = ship[1]
-		addi $t6, $t5, 128	# $t6 = $t5 + 4  - change this for others
-		add $t5, $t0, $t5	# $t5 = addr(default + t5)
-		sw $t2, 0($t5)		# map[i] = $t2 - erase to black
-		sw $t6, 8($t3)		# ship[2] = $t6
-		add $t5, $t0, $t6	# $t5 = addr(default + t6)
-		sw $t9, 0($t5)		# map[i] = $t8 - change to blue
+		lw $t4, 8($t3)		# $t5 = ship[0]
+		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		sw $t2, 0($t5)		# erases ship[1] with black
+		
+		# adds it again by 4 paces 
+		lw $t4, 0($t3)		# $t4 = ship[0]
+		add $t4, $t4, 128	# $t4 = $t4 + 4
+		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		sw $t4, 0($t3)		# ship[0] = $t4
+		sw $t8, 0($t5)		# adds blue
+		
+		lw $t4, 4($t3)		# $t4 = ship[0]
+		add $t4, $t4, 128	# $t4 = $t4 + 4
+		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		sw $t4, 4($t3)		# ship[0] = $t4
+		sw $t9, 0($t5)		# adds yellow
+		
+		lw $t4, 8($t3)		# $t4 = ship[0]
+		add $t4, $t4, 128	# $t4 = $t4 + 4
+		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		sw $t4, 8($t3)		# ship[0] = $t4
+		sw $t9, 0($t5)		# adds yellow	
 		
 		j keyboard_input_done
 		
@@ -242,32 +271,39 @@ WHILE_GAME:
 		j TEST_W_EDGE
 		
 		not_w_edge:
-	
 		la $t3, ship		# $t3 = addr(ship)
 		
-		lw $t5, 0($t3)		# $t5 = ship[0]
-		addi $t6, $t5, -128	# $t6 = $t5 + 4  - change this for others
-		add $t5, $t0, $t5	# $t5 = addr(default + t5)
-		sw $t2, 0($t5)		# map[i] = $t2 - erase to black
-		sw $t6, 0($t3)		# ship[0] = $t6
-		add $t5, $t0, $t6	# $t5 = addr(default + t6)
-		sw $t8, 0($t5)		# map[i] = $t8 - change to blue
+		# erases
+		lw $t4, 0($t3)		# $t5 = ship[0]
+		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		sw $t2, 0($t5)		# erases ship[0] with black
 		
-		lw $t5, 4($t3)		# $t5 = ship[1]
-		addi $t6, $t5, -128	# $t6 = $t5 + 4  - change this for others
-		add $t5, $t0, $t5	# $t5 = addr(default + t5)
-		sw $t2, 0($t5)		# map[i] = $t2 - erase to black
-		sw $t6, 4($t3)		# ship[1] = $t6
-		add $t5, $t0, $t6	# $t5 = addr(default + t6)
-		sw $t9, 0($t5)		# map[i] = $t8 - change to blue
+		lw $t4, 4($t3)		# $t5 = ship[0]
+		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		sw $t2, 0($t5)		# erases ship[1] with black
 		
-		lw $t5, 8($t3)		# $t5 = ship[1]
-		addi $t6, $t5, -128	# $t6 = $t5 + 4  - change this for others
-		add $t5, $t0, $t5	# $t5 = addr(default + t5)
-		sw $t2, 0($t5)		# map[i] = $t2 - erase to black
-		sw $t6, 8($t3)		# ship[2] = $t6
-		add $t5, $t0, $t6	# $t5 = addr(default + t6)
-		sw $t9, 0($t5)		# map[i] = $t8 - change to blue
+		lw $t4, 8($t3)		# $t5 = ship[0]
+		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		sw $t2, 0($t5)		# erases ship[1] with black
+		
+		# adds it again by 4 paces 
+		lw $t4, 0($t3)		# $t4 = ship[0]
+		add $t4, $t4, -128	# $t4 = $t4 + 4
+		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		sw $t4, 0($t3)		# ship[0] = $t4
+		sw $t8, 0($t5)		# adds blue
+		
+		lw $t4, 4($t3)		# $t4 = ship[0]
+		add $t4, $t4, -128	# $t4 = $t4 + 4
+		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		sw $t4, 4($t3)		# ship[0] = $t4
+		sw $t9, 0($t5)		# adds yellow
+		
+		lw $t4, 8($t3)		# $t4 = ship[0]
+		add $t4, $t4, -128	# $t4 = $t4 + 4
+		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		sw $t4, 8($t3)		# ship[0] = $t4
+		sw $t9, 0($t5)		# adds yellow	
 		
 		j keyboard_input_done
 	
@@ -374,13 +410,12 @@ WHILE_GAME:
 			
 			
 			
-			
-			# asteroid 1
+			# asteroid 2
 			la $t3, asteroid_2_counter	# $t3 = addr(counter)
 			lw $t4, 0($t3)			# $t4 = $t3[0]
 			beq $t4, 0, SET_ASTEROID_2
 			
-			# erase asteroid 1
+			# erase asteroid 2
 			li $v0, 32
 			li $a0, obstacle_time
 			syscall
@@ -569,7 +604,7 @@ WHILE_GAME:
 			lw $t4, 0($t3)			# $t4 = $t3[0]
 			addi $t4, $t4, 1		# $t4 = $t4 + 1
 			sw $t4, 0($t3)			# counter[0] = $t4
-			
+
 
 		j WHILE_GAME
 	
@@ -780,7 +815,7 @@ SET_ASTEROID_3:
 	li $t4, 1			# $t4 = 1
 	sw $t4, 0($t3)			# $t3[0] = 1 
 	
-	j WHILE_GAME	
+	j WHILE_GAME
 	
 
 TEST_D_EDGE:
@@ -826,7 +861,66 @@ TEST_A_EDGE:
 	j TEST_A_EDGE
 
 		
+D_MOVEMENT_COLLISION:
 	
+	# delete asteroid
+	la $t3, asteroid_1	# $t3 = addr(asteroid_1)
+	lw $t4, 0($t3)		# $t4 = $t3[0]
+	add $t5, $t4, $t0	# $t5 = addr(base + t4)
+	sw $t2, 0($t5)		# - erase to black
+	
+	lw $t4, 4($t3)		# $t4 = $t3[0]
+	add $t5, $t4, $t0	# $t5 = addr(base + t4)
+	sw $t2, 0($t5)		# - erase to black
+	
+	lw $t4, 8($t3)		# $t4 = $t3[0]
+	add $t5, $t4, $t0	# $t5 = addr(base + t4)
+	sw $t2, 0($t5)		# - erase to black
+	
+	lw $t4, 12($t3)		# $t4 = $t3[0]
+	add $t5, $t4, $t0	# $t5 = addr(base + t4)
+	sw $t2, 0($t5)		# - erase to black
+	
+	lw $t4, 16($t3)		# $t4 = $t3[0]
+	add $t5, $t4, $t0	# $t5 = addr(base + t4)
+	sw $t2, 0($t5)		# - erase to black
+	
+	
+	# make ship go red
+	li $t6, 0xFF2D00	# red
+	la $t3, ship
+	lw $t4, 0($t3)
+	add $t5, $t0, $t4
+	sw $t6, 0($t5)
+	lw $t4, 4($t3)
+	add $t5, $t0, $t4
+	sw $t6, 0($t5)
+	lw $t4, 8($t3)
+	add $t5, $t0, $t4
+	sw $t6, 0($t5)
+	
+	
+	li $v0, 32
+	li $a0, 100
+	syscall
+	
+	
+	la $t3, ship
+	lw $t4, 0($t3)
+	add $t5, $t0, $t4
+	sw $t8, 0($t5)
+	lw $t4, 4($t3)
+	add $t5, $t0, $t4
+	sw $t9, 0($t5)
+	lw $t4, 8($t3)
+	add $t5, $t0, $t4
+	sw $t9, 0($t5)
+	
+	
+	
+	
+	j WHILE_GAME
+			
 	
 	
 	
@@ -837,7 +931,7 @@ END:
 	
 	
 
-	
+
 
 	
 
