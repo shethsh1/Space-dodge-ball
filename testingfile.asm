@@ -16,17 +16,17 @@
 	Alphabet_E_2:	.word	1348, 1352, 1356,1360,1364, 1476, 1604, 1608, 1612,1616, 1732, 1860, 1864,1868,1872,1876
 	Alphabet_R:	.word	1888, 1760, 1632, 1504, 1376, 1380, 1384, 1388, 1520, 1648, 1644,1772, 1904, 1640, 1636
 
-	number_zero:	.word	3232, 3104,2976, 2852, 2856, 2988,3116, 3244, 3368, 3364
-	number_one:	.word	3368, 3240,3112, 2984, 2856
-	number_two:	.word	3360, 3364, 3368, 3372, 3232, 3104, 3108,3112,3116, 2988,2860, 2856,2852,2848
-	number_three:	.word	3360,3364,3368,3372,3244,3116,3112,2988,2860,2856,2852,2848
-	number_four:	.word 	3104, 2976,2848,3108,3112,3116,2988,2860,3244,3372
-	number_five:	.word	3360, 3364,3368,3372,3244,3116,3112,3108,3104, 2976, 2848,2852,2856,2860
-	number_six:	.word	3360, 3364,3368,3372, 3244, 3116, 3112,3108,3104, 3232, 2976, 2848, 2852,2856,2860
-	number_seven:	.word 	3360, 3236, 3112, 2988, 2860, 2856,2852,2848
-	number_eight:	.word	3360, 3364,3368,3372,3244, 3116, 3112,3108,3104,3232, 2976, 2848,2852,2856,2860, 2988
-	number_nine:	.word	3104, 2976,2848,2852,2856,2984,3112,3108,3240,3368
-	obstacles_thrown:	.word	119
+	number_zero:	.word	3364, 3240, 3112, 2984, 2852, 2976, 3104, 3232, 3360, 3368, 2856, 2848
+	number_one:	.word	3360, 3364, 3368, 3236, 3108, 2980, 2852, 2848
+	number_two:	.word	3360, 3364, 3368, 3232,3104,3108,3112,2984, 2856, 2852, 2848
+	number_three:	.word	3360, 3364, 3368,3240,3112, 2984, 2856, 2852, 2848, 3108
+	number_four:	.word 	3368, 3240, 3112, 2984, 2856, 3108, 3104, 2976, 2848
+	number_five:	.word	3360, 3364, 3368, 3240, 3112, 3108, 3104, 2976, 2848, 2852, 2856
+	number_six:	.word	3360, 3364, 3368, 3240,3112,3108,3104,3232, 2976, 2848, 2852, 2856
+	number_seven:	.word 	3368, 3240, 3112,2984, 2856, 2852, 2848
+	number_eight:	.word	3360, 3364, 3368, 3240,3112,3108,3104,3232, 2976, 2848, 2852, 2856, 2984
+	number_nine:	.word	3368, 3240,3112,3108,3104, 2976, 2848, 2852, 2856, 2984
+	obstacles_thrown:	.word	980
 	s2:		.word	0
 	s1:		.word	0
 	s0:		.word	0
@@ -284,6 +284,16 @@ SET_S2_NUMBER_ZERO:
 	add $t5, $t5, $a0 	# change num to follow digit
 	add $t5, $t5, $t0
 	sw $t8, 0($t5)
+	lw $t5, 40($t4)
+	add $t5, $t5, $a0 	# change num to follow digit
+	add $t5, $t5, $t0
+	sw $t8, 0($t5)
+	lw $t5, 44($t4)
+	add $t5, $t5, $a0 	# change num to follow digit
+	add $t5, $t5, $t0
+	sw $t8, 0($t5)
+
+
 
 	
 	j SET_SCORE_BOARD
@@ -311,6 +321,18 @@ SET_S2_NUMBER_ONE:
 	add $t5, $t5, $t0
 	sw $t8, 0($t5)
 	lw $t5, 16($t4)
+	add $t5, $t5, $a0 	# change num to follow digit
+	add $t5, $t5, $t0
+	sw $t8, 0($t5)
+	lw $t5, 20($t4)
+	add $t5, $t5, $a0 	# change num to follow digit
+	add $t5, $t5, $t0
+	sw $t8, 0($t5)
+	lw $t5, 24($t4)
+	add $t5, $t5, $a0 	# change num to follow digit
+	add $t5, $t5, $t0
+	sw $t8, 0($t5)
+	lw $t5, 28($t4)
 	add $t5, $t5, $a0 	# change num to follow digit
 	add $t5, $t5, $t0
 	sw $t8, 0($t5)
@@ -366,18 +388,7 @@ SET_S2_NUMBER_TWO:
 	add $t5, $t5, $a0 	# change num to follow digit
 	add $t5, $t5, $t0
 	sw $t8, 0($t5)
-	lw $t5, 44($t4)
-	add $t5, $t5, $a0 	# change num to follow digit
-	add $t5, $t5, $t0
-	sw $t8, 0($t5)
-	lw $t5, 48($t4)
-	add $t5, $t5, $a0 	# change num to follow digit
-	add $t5, $t5, $t0
-	sw $t8, 0($t5)
-	lw $t5, 52($t4)
-	add $t5, $t5, $a0 	# change num to follow digit
-	add $t5, $t5, $t0
-	sw $t8, 0($t5)
+
 
 	
 	j SET_SCORE_BOARD
@@ -426,14 +437,7 @@ SET_S2_NUMBER_THREE:
 	add $t5, $t5, $a0 	# change num to follow digit
 	add $t5, $t5, $t0
 	sw $t8, 0($t5)
-	lw $t5, 40($t4)
-	add $t5, $t5, $a0 	# change num to follow digit
-	add $t5, $t5, $t0
-	sw $t8, 0($t5)
-	lw $t5, 44($t4)
-	add $t5, $t5, $a0 	# change num to follow digit
-	add $t5, $t5, $t0
-	sw $t8, 0($t5)
+
 
 	
 	j SET_SCORE_BOARD
@@ -477,10 +481,7 @@ SET_S2_NUMBER_FOUR:
 	add $t5, $t5, $a0 	# change num to follow digit
 	add $t5, $t5, $t0
 	sw $t8, 0($t5)
-	lw $t5, 36($t4)
-	add $t5, $t5, $a0 	# change num to follow digit
-	add $t5, $t5, $t0
-	sw $t8, 0($t5)
+
 
 
 	
@@ -533,18 +534,7 @@ SET_S2_NUMBER_FIVE:
 	add $t5, $t5, $a0 	# change num to follow digit
 	add $t5, $t5, $t0
 	sw $t8, 0($t5)
-	lw $t5, 44($t4)
-	add $t5, $t5, $a0 	# change num to follow digit
-	add $t5, $t5, $t0
-	sw $t8, 0($t5)
-	lw $t5, 48($t4)
-	add $t5, $t5, $a0 	# change num to follow digit
-	add $t5, $t5, $t0
-	sw $t8, 0($t5)
-	lw $t5, 52($t4)
-	add $t5, $t5, $a0 	# change num to follow digit
-	add $t5, $t5, $t0
-	sw $t8, 0($t5)
+
 
 
 
@@ -602,18 +592,7 @@ SET_S2_NUMBER_SIX:
 	add $t5, $t5, $a0 	# change num to follow digit
 	add $t5, $t5, $t0
 	sw $t8, 0($t5)
-	lw $t5, 48($t4)
-	add $t5, $t5, $a0 	# change num to follow digit
-	add $t5, $t5, $t0
-	sw $t8, 0($t5)
-	lw $t5, 52($t4)
-	add $t5, $t5, $a0 	# change num to follow digit
-	add $t5, $t5, $t0
-	sw $t8, 0($t5)
-	lw $t5, 56($t4)
-	add $t5, $t5, $a0 	# change num to follow digit
-	add $t5, $t5, $t0
-	sw $t8, 0($t5)
+
 
 
 	
@@ -651,14 +630,7 @@ SET_S2_NUMBER_SEVEN:
 	add $t5, $t5, $a0 	# change num to follow digit
 	add $t5, $t5, $t0
 	sw $t8, 0($t5)
-	lw $t5, 28($t4)
-	add $t5, $t5, $a0 	# change num to follow digit
-	add $t5, $t5, $t0
-	sw $t8, 0($t5)
-	lw $t5, 32($t4)
-	add $t5, $t5, $a0 	# change num to follow digit
-	add $t5, $t5, $t0
-	sw $t8, 0($t5)
+
 
 
 
@@ -726,20 +698,7 @@ SET_S2_NUMBER_EIGHT:
 	add $t5, $t5, $t0
 	sw $t8, 0($t5)
 	
-	lw $t5, 52($t4)
-	add $t5, $t5, $a0 	# change num to follow digit
-	add $t5, $t5, $t0
-	sw $t8, 0($t5)
-	
-	lw $t5, 56($t4)
-	add $t5, $t5, $a0 	# change num to follow digit
-	add $t5, $t5, $t0
-	sw $t8, 0($t5)
-	
-	lw $t5, 60($t4)
-	add $t5, $t5, $a0 	# change num to follow digit
-	add $t5, $t5, $t0
-	sw $t8, 0($t5)
+
 	
 	
 
