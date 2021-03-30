@@ -14,7 +14,7 @@
 #
 # Which milestones have been reached in this submission?
 # (See the assignment handout for descriptions of the milestones)
-# - Milestone 1/2/3/4 (choose the one the applies)
+# - Milestone 3
 #
 # Which approved features have been implemented for milestone 4?
 # (See the assignment handout for the list of additional features)
@@ -27,7 +27,7 @@
 # - (insert YouTube / MyMedia / other URL here). Make sure we can view it!
 #
 # Are you OK with us sharing the video with people outside course staff?
-# - yes / no / yes, and please share this project github link as well!
+# - yes, https://github.com/shethsh1/CSCB58-Space-asteroid-game (currently private)
 #
 # Any additional information that the TA needs to know:
 # - (write here, if any)
@@ -63,6 +63,14 @@
 	a_edge:			.word	0, 128, 256, 384, 512, 640, 768, 896, 1024, 1152, 1280, 1408, 1536, 1664, 1792, 1920, 2048, 2176, 2304, 2432, 2560, 2688, 2816, 2944, 3072, 3200, 3328, 3456, 3584, 3712, 3840, 3968, -1
 	total_collisions:	.word	0
 	hearts:		.word	3928, 3936, 3944, 3952, 3960
+	Alphabet_G:	.word 	524, 652, 780, 908, 912, 916, 920, 924, 796, 668, 664, 412, 408, 404, 400
+	Alphabet_A:	.word   936, 808, 680, 552, 428, 432, 436, 568, 696, 824, 952, 812, 816, 820
+	Alphabet_M:	.word	964, 836, 708, 580, 456, 460, 588, 716, 844, 972, 464, 596, 724, 852, 980
+	Alphabet_E_1:	.word	992, 996, 1000, 1004, 1008, 864, 736, 740, 744, 748, 608, 480, 484, 488, 492, 496
+	Alphabet_O:	.word	1420, 1548, 1676, 1808,1812,1816, 1692, 1564, 1436, 1304, 1300, 1296
+	Alphabet_V:	.word	1448, 1320, 1576, 1708, 1840, 1716, 1592, 1464, 1336
+	Alphabet_E_2:	.word	1348, 1352, 1356,1360,1364, 1476, 1604, 1608, 1612,1616, 1732, 1860, 1864,1868,1872,1876
+	Alphabet_R:	.word	1888, 1760, 1632, 1504, 1376, 1380, 1384, 1388, 1520, 1648, 1644,1772, 1904, 1640, 1636
 
 
 
@@ -81,6 +89,18 @@ GAME_START:
 
 
 
+	la $t3, total_collisions
+	sw $zero, 0($t3)
+	
+	la $t3, asteroid_1_counter
+	sw $zero, 0($t3)
+	
+	la $t3, asteroid_2_counter
+	sw $zero, 0($t3)
+	
+	la $t3, asteroid_3_counter
+	sw $zero, 0($t3)
+	
 	
 	la $t3, ship 		# $t3 = addr(ship)
 	li $t4, 2700
@@ -144,7 +164,22 @@ WHILE_GAME:
 		beq $t4, 0x73, respond_to_s
 		beq $t4, 0x64, respond_to_d
 		beq $t4, 0x77, respond_to_w
+		beq $t4, 0x70, respond_to_p
 		j keyboard_input_done
+		
+	respond_to_p:
+		# set background to black
+		li $t3, 0
+		WHILE_ERASE:
+
+
+			add $t5, $t0, $t3
+			sw $t2, 0($t5)
+			add $t3, $t3, 4
+			beq $t3, 4100, GAME_START
+			j WHILE_ERASE
+
+		
 		
 	respond_to_d:
 		
@@ -1295,8 +1330,138 @@ ERASE_ASTEROID_3:
 	
 	
 END:
-	li $v0, 10
-	syscall
+	
+	# set background to black
+	li $t3, 0
+	WHILE_GAME_OVER:
+
+
+		add $t5, $t0, $t3
+		sw $t9, 0($t5)
+		add $t3, $t3, 4
+		beq $t3, 4100, DRAW_LETTERS
+		j WHILE_GAME_OVER
+		
+DRAW_LETTERS:
+    la $t4, Alphabet_G
+    li $a0, 0
+    create_G:
+        sll $a1, $a0, 2
+        add $a1, $a1, $t4
+        lw $t5, 0($a1)
+        add $t6, $t5, $t0
+        li $t7, 0xFF0000	# red
+        sw $t7, 0($t6)
+        addi $a0, $a0, 1
+        bne $t5, 400, create_G
+        li $a0, 0
+        la $t4, Alphabet_A
+        j create_A
+    
+    
+    create_A:
+        sll $a1, $a0, 2
+        add $a1, $a1, $t4
+        lw $t5, 0($a1)
+        add $t6, $t5, $t0
+        li $t7, 0xFF0000	# red
+        sw $t7, 0($t6)
+        addi $a0, $a0, 1
+        bne $t5, 820, create_A
+        li $a0, 0
+        la $t4, Alphabet_M
+        j create_M
+    
+    create_M:
+        sll $a1, $a0, 2
+        add $a1, $a1, $t4
+        lw $t5, 0($a1)
+        add $t6, $t5, $t0
+        li $t7, 0xFF0000	# red
+        sw $t7, 0($t6)
+        addi $a0, $a0, 1
+        bne $t5, 980, create_M
+        li $a0, 0
+        la $t4, Alphabet_E_1
+        j create_E_1
+    
+    create_E_1:
+        sll $a1, $a0, 2
+        add $a1, $a1, $t4
+        lw $t5, 0($a1)
+        add $t6, $t5, $t0
+        li $t7, 0xFF0000	# red
+        sw $t7, 0($t6)
+        addi $a0, $a0, 1
+        bne $t5, 496, create_E_1
+        li $a0, 0
+        la $t4, Alphabet_O
+        j create_O
+    
+    create_O:
+        sll $a1, $a0, 2
+        add $a1, $a1, $t4
+        lw $t5, 0($a1)
+        add $t6, $t5, $t0
+        li $t7, 0xFF0000	# red
+        sw $t7, 0($t6)
+        addi $a0, $a0, 1
+        bne $t5, 1296, create_O	# change, + number
+        li $a0, 0
+        la $t4, Alphabet_V	# change
+        j create_V		# change
+    
+    create_V:
+        sll $a1, $a0, 2
+        add $a1, $a1, $t4
+        lw $t5, 0($a1)
+        add $t6, $t5, $t0
+        li $t7, 0xFF0000	# red
+        sw $t7, 0($t6)
+        addi $a0, $a0, 1
+        bne $t5, 1336, create_V	# change, + number
+        li $a0, 0
+        la $t4, Alphabet_E_2		# change
+        j create_E_2			# change
+    
+    create_E_2:
+    
+        sll $a1, $a0, 2
+        add $a1, $a1, $t4
+        lw $t5, 0($a1)
+        add $t6, $t5, $t0
+        li $t7, 0xFF0000	# red
+        sw $t7, 0($t6)
+        addi $a0, $a0, 1
+        bne $t5, 1876, create_E_2		# change, + number
+        li $a0, 0
+        la $t4, Alphabet_R		# change
+        j create_R			# change
+    
+    create_R:
+        sll $a1, $a0, 2
+        add $a1, $a1, $t4
+        lw $t5, 0($a1)
+        add $t6, $t5, $t0
+        li $t7, 0xFF0000	# red
+        sw $t7, 0($t6)
+        addi $a0, $a0, 1
+        bne $t5, 1636, create_R		# change, + number
+    
+        j DRAWING_DONE				# change
+		
+DRAWING_DONE:
+	lw $t3, 0xffff0000
+	beq $t3, 1, pressed_p
+	j DRAWING_DONE
+	
+	
+	
+pressed_p:
+	lw $t4, 0xffff0004
+	beq $t4, 0x70, respond_to_p
+	j DRAWING_DONE
+
 
 	
 	
