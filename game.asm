@@ -234,39 +234,33 @@ WHILE_GAME:
 		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
 		
 		lw $t7, 0($t5)
-		move $a0, $t4
-		beq $t7, $t1, D_MOVEMENT_COLLISION
+		sw $t4, 0($t3)
+		move $a0, $t7
+
 		sw $t8, 0($t5)		# adds blue
 		
 		lw $t4, 4($t3)		# $t4 = ship[0]
 		add $t4, $t4, 4		# $t4 = $t4 + 4
 		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
 		lw $t7, 0($t5)
-		move $a0, $t4
-		beq $t7, $t1, D_MOVEMENT_COLLISION
+		sw $t4, 4($t3)
+		move $a1, $t7
+
 		sw $t9, 0($t5)		# adds yellow
 		
 		lw $t4, 8($t3)		# $t4 = ship[0]
 		add $t4, $t4, 4		# $t4 = $t4 + 4
 		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
-		move $a0, $t4
-		beq $t7, $t1, D_MOVEMENT_COLLISION
+		sw $t4, 8($t3)
+		move $a2, $t7
+
 		sw $t9, 0($t5)		# adds yellow	
 		
 		
-		# update ship
 		
-		lw $t4, 0($t3)		# $t4 = ship[0]
-		add $t4, $t4, 4
-		sw $t4, 0($t3)
-		
-		lw $t4, 4($t3)		# $t4 = ship[0]
-		add $t4, $t4, 4
-		sw $t4, 4($t3)
-		
-		lw $t4, 8($t3)		# $t4 = ship[0]
-		add $t4, $t4, 4
-		sw $t4, 8($t3)
+		beq $a0, $t1, D_MOVEMENT_COLLISION
+		beq $a1, $t1, D_MOVEMENT_COLLISION
+		beq $a2, $t1, D_MOVEMENT_COLLISION
 	
 
 		
@@ -280,7 +274,6 @@ WHILE_GAME:
 		j TEST_A_EDGE
 		
 		not_a_edge:
-	
 		la $t3, ship		# $t3 = addr(ship)
 		
 		# erases
@@ -296,47 +289,41 @@ WHILE_GAME:
 		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
 		sw $t2, 0($t5)		# erases ship[1] with black
 		
-		
-		
 		# adds it again by 4 paces 
 		lw $t4, 0($t3)		# $t4 = ship[0]
 		add $t4, $t4, -4		# $t4 = $t4 + 4
 		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
 		
 		lw $t7, 0($t5)
-		move $a0, $t4
-		beq $t7, $t1, D_MOVEMENT_COLLISION
+		sw $t4, 0($t3)
+		move $a0, $t7
+
 		sw $t8, 0($t5)		# adds blue
 		
 		lw $t4, 4($t3)		# $t4 = ship[0]
 		add $t4, $t4, -4		# $t4 = $t4 + 4
 		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
 		lw $t7, 0($t5)
-		move $a0, $t4
-		beq $t7, $t1, D_MOVEMENT_COLLISION
+		sw $t4, 4($t3)
+		move $a1, $t7
+
 		sw $t9, 0($t5)		# adds yellow
 		
 		lw $t4, 8($t3)		# $t4 = ship[0]
 		add $t4, $t4, -4		# $t4 = $t4 + 4
 		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
-		move $a0, $t4
-		beq $t7, $t1, D_MOVEMENT_COLLISION
+		sw $t4, 8($t3)
+		move $a2, $t7
+
 		sw $t9, 0($t5)		# adds yellow	
 		
 		
-		# update ship
 		
-		lw $t4, 0($t3)		# $t4 = ship[0]
-		add $t4, $t4, -4
-		sw $t4, 0($t3)
-		
-		lw $t4, 4($t3)		# $t4 = ship[0]
-		add $t4, $t4, -4
-		sw $t4, 4($t3)
-		
-		lw $t4, 8($t3)		# $t4 = ship[0]
-		add $t4, $t4, -4
-		sw $t4, 8($t3)
+		beq $a0, $t1, D_MOVEMENT_COLLISION
+		beq $a1, $t1, D_MOVEMENT_COLLISION
+		beq $a2, $t1, D_MOVEMENT_COLLISION
+	
+
 		
 		j keyboard_input_done
 		
@@ -365,42 +352,39 @@ WHILE_GAME:
 		
 		# adds it again by 4 paces 
 		lw $t4, 0($t3)		# $t4 = ship[0]
-		add $t4, $t4, 128	# $t4 = $t4 + 4
+		add $t4, $t4, 128		# $t4 = $t4 + 4
 		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
 		
-		move $a0, $t4
-		beq $t7, $t1, D_MOVEMENT_COLLISION
+		lw $t7, 0($t5)
+		sw $t4, 0($t3)
+		move $a0, $t7
+
 		sw $t8, 0($t5)		# adds blue
 		
 		lw $t4, 4($t3)		# $t4 = ship[0]
-		add $t4, $t4, 128	# $t4 = $t4 + 4
+		add $t4, $t4, 128		# $t4 = $t4 + 4
 		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
 		lw $t7, 0($t5)
-		move $a0, $t4
-		beq $t7, $t1, D_MOVEMENT_COLLISION
+		sw $t4, 4($t3)
+		move $a1, $t7
+
 		sw $t9, 0($t5)		# adds yellow
 		
 		lw $t4, 8($t3)		# $t4 = ship[0]
-		add $t4, $t4, 128	# $t4 = $t4 + 4
+		add $t4, $t4, 128		# $t4 = $t4 + 4
 		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
-		move $a0, $t4
-		beq $t7, $t1, D_MOVEMENT_COLLISION
+		sw $t4, 8($t3)
+		move $a2, $t7
+
 		sw $t9, 0($t5)		# adds yellow	
 		
 		
-		# update ship
 		
-		lw $t4, 0($t3)		# $t4 = ship[0]
-		add $t4, $t4, 128
-		sw $t4, 0($t3)
-		
-		lw $t4, 4($t3)		# $t4 = ship[0]
-		add $t4, $t4, 128
-		sw $t4, 4($t3)
-		
-		lw $t4, 8($t3)		# $t4 = ship[0]
-		add $t4, $t4, 128
-		sw $t4, 8($t3)
+		beq $a0, $t1, D_MOVEMENT_COLLISION
+		beq $a1, $t1, D_MOVEMENT_COLLISION
+		beq $a2, $t1, D_MOVEMENT_COLLISION
+	
+
 		
 		j keyboard_input_done
 		
@@ -428,43 +412,39 @@ WHILE_GAME:
 		
 		# adds it again by 4 paces 
 		lw $t4, 0($t3)		# $t4 = ship[0]
-		add $t4, $t4, -128	# $t4 = $t4 + 4
+		add $t4, $t4, -128		# $t4 = $t4 + 4
 		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
 		
 		lw $t7, 0($t5)
-		move $a0, $t4
-		beq $t7, $t1, D_MOVEMENT_COLLISION
+		sw $t4, 0($t3)
+		move $a0, $t7
+
 		sw $t8, 0($t5)		# adds blue
 		
 		lw $t4, 4($t3)		# $t4 = ship[0]
-		add $t4, $t4, -128	# $t4 = $t4 + 4
+		add $t4, $t4, -128		# $t4 = $t4 + 4
 		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
 		lw $t7, 0($t5)
-		move $a0, $t4
-		beq $t7, $t1, D_MOVEMENT_COLLISION
+		sw $t4, 4($t3)
+		move $a1, $t7
+
 		sw $t9, 0($t5)		# adds yellow
 		
 		lw $t4, 8($t3)		# $t4 = ship[0]
-		add $t4, $t4, -128	# $t4 = $t4 + 4
+		add $t4, $t4, -128		# $t4 = $t4 + 4
 		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
-		move $a0, $t4
-		beq $t7, $t1, D_MOVEMENT_COLLISION
+		sw $t4, 8($t3)
+		move $a2, $t7
+
 		sw $t9, 0($t5)		# adds yellow	
 		
 		
-		# update ship
 		
-		lw $t4, 0($t3)		# $t4 = ship[0]
-		add $t4, $t4, -128
-		sw $t4, 0($t3)
-		
-		lw $t4, 4($t3)		# $t4 = ship[0]
-		add $t4, $t4, -128
-		sw $t4, 4($t3)
-		
-		lw $t4, 8($t3)		# $t4 = ship[0]
-		add $t4, $t4, -128
-		sw $t4, 8($t3)
+		beq $a0, $t1, D_MOVEMENT_COLLISION
+		beq $a1, $t1, D_MOVEMENT_COLLISION
+		beq $a2, $t1, D_MOVEMENT_COLLISION
+	
+
 		
 		j keyboard_input_done
 	
@@ -1066,57 +1046,168 @@ D_MOVEMENT_COLLISION:
 
 	# first check asteroid_1
 	la $t3, asteroid_1		# $t3 = addr(asteroid_1)
-	
+	la $s0, ship
+	# first
+	lw $s1, 0($s0)
 	lw $t4, 0($t3)			# $t4 = $t3[0]
-	beq $a0, $t4, ERASE_ASTEROID_1	# if its equal
+	beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
 	
 	lw $t4, 4($t3)			# $t4 = $t3[0]
-	beq $a0, $t4, ERASE_ASTEROID_1	# if its equal
+	beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
 	
 	lw $t4, 8($t3)			# $t4 = $t3[0]
-	beq $a0, $t4, ERASE_ASTEROID_1	# if its equal
+	beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
 	
 	lw $t4, 12($t3)			# $t4 = $t3[0]
-	beq $a0, $t4, ERASE_ASTEROID_1	# if its equal
+	beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
 	
 	lw $t4, 16($t3)			# $t4 = $t3[0]
-	beq $a0, $t4, ERASE_ASTEROID_1	# if its equal
+	beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
 	
-	# first check asteroid_1
+	# second
+	lw $s1, 4($s0)
+	lw $t4, 0($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
+	
+	lw $t4, 4($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
+	
+	lw $t4, 8($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
+	
+	lw $t4, 12($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
+	
+	lw $t4, 16($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
+	
+	# third
+	lw $s1, 8($s0)
+	lw $t4, 0($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
+	
+	lw $t4, 4($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
+	
+	lw $t4, 8($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
+	
+	lw $t4, 12($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
+	
+	lw $t4, 16($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
+	
+
+
+	# first check asteroid_2
 	la $t3, asteroid_2		# $t3 = addr(asteroid_1)
-	
+	la $s0, ship
+	# first
+	lw $s1, 0($s0)
 	lw $t4, 0($t3)			# $t4 = $t3[0]
-	beq $a0, $t4, ERASE_ASTEROID_2	# if its equal
+	beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
 	
 	lw $t4, 4($t3)			# $t4 = $t3[0]
-	beq $a0, $t4, ERASE_ASTEROID_2	# if its equal
+	beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
 	
 	lw $t4, 8($t3)			# $t4 = $t3[0]
-	beq $a0, $t4, ERASE_ASTEROID_2	# if its equal
+	beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
 	
 	lw $t4, 12($t3)			# $t4 = $t3[0]
-	beq $a0, $t4, ERASE_ASTEROID_2	# if its equal
+	beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
 	
 	lw $t4, 16($t3)			# $t4 = $t3[0]
-	beq $a0, $t4, ERASE_ASTEROID_2	# if its equal
+	beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
+	
+	# second
+	lw $s1, 4($s0)
+	lw $t4, 0($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
+	
+	lw $t4, 4($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
+	
+	lw $t4, 8($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
+	
+	lw $t4, 12($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
+	
+	lw $t4, 16($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
+	
+	# third
+	lw $s1, 8($s0)
+	lw $t4, 0($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
+	
+	lw $t4, 4($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
+	
+	lw $t4, 8($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
+	
+	lw $t4, 12($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
+	
+	lw $t4, 16($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
+	
 	
 	# first check asteroid_3
 	la $t3, asteroid_3		# $t3 = addr(asteroid_1)
-	
+	la $s0, ship
+	# first
+	lw $s1, 0($s0)
 	lw $t4, 0($t3)			# $t4 = $t3[0]
-	beq $a0, $t4, ERASE_ASTEROID_3	# if its equal
+	beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
 	
 	lw $t4, 4($t3)			# $t4 = $t3[0]
-	beq $a0, $t4, ERASE_ASTEROID_3	# if its equal
+	beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
 	
 	lw $t4, 8($t3)			# $t4 = $t3[0]
-	beq $a0, $t4, ERASE_ASTEROID_3	# if its equal
+	beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
 	
 	lw $t4, 12($t3)			# $t4 = $t3[0]
-	beq $a0, $t4, ERASE_ASTEROID_3	# if its equal
+	beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
 	
 	lw $t4, 16($t3)			# $t4 = $t3[0]
-	beq $a0, $t4, ERASE_ASTEROID_3	# if its equal
+	beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
+	
+	# second
+	lw $s1, 4($s0)
+	lw $t4, 0($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
+	
+	lw $t4, 4($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
+	
+	lw $t4, 8($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
+	
+	lw $t4, 12($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
+	
+	lw $t4, 16($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
+	
+	# third
+	lw $s1, 8($s0)
+	lw $t4, 0($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
+	
+	lw $t4, 4($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
+	
+	lw $t4, 8($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
+	
+	lw $t4, 12($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
+	
+	lw $t4, 16($t3)			# $t4 = $t3[0]
+	beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
 	
 	
 	
