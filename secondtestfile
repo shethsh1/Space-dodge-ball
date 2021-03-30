@@ -7,11 +7,11 @@
 .text
 
 	# andi $t0, $s0, 1 will get the least significant bit of $s0 and put it in $t0
-	li $t0, 564
-	li $t1, 1000
+	li $t0, 3564
+	li $t1, 100
 	div $t0, $t1
 	mfhi $t0
-	li $t1, 100
+	li $t1, 10
 	div $t0, $t1
 	mflo $t0
 	li $v0, 10
