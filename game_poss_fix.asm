@@ -69,7 +69,9 @@
 	coin_spawn_counter:	.word	0
 	hearts:			.word	3928, 3936, 3944, 3952, 3960
 	total_collisions:	.word	0
-	slow_item:		.word	0
+	heart_item:		.word	0
+	heart_spawn_counter:	.word	0
+	heart_location:	.word	3136, 3000, 2872
 	
 
 
@@ -87,6 +89,12 @@ GAME_START:
 	li $s4, obstacle_time
 	sw $t3, 0($sp)  
 
+	
+	la $t3, heart_item
+	sw $zero, 0($t3)
+	
+	la $t3, heart_spawn_counter
+	sw $zero, 0($t3)
 	
 	la $t3, obstacles_thrown
 	sw $zero, obstacles_thrown
@@ -380,6 +388,7 @@ WHILE_GAME:
 		lw $t4, 8($t3)		# $t4 = ship[0]
 		add $t4, $t4, -128		# $t4 = $t4 + 4
 		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		lw $t7, 0($t5)
 		sw $t4, 8($t3)
 		move $a2, $t7
 
@@ -501,8 +510,15 @@ WHILE_GAME:
 			sw $t4, 0($t3)			# counter[0] = $t4
 			
 	
+	
+		la $t3, heart_item
+		lw $t4, 0($t3)
+		beq $t4, 0, COIN_RESPAWN
+		li $t7, red
+		add $t4, $t4, $t0
+		sw $t7, 0($t4)
 			
-
+		COIN_RESPAWN:
 			
 		la $t3, coin_item
 		lw $t4, 0($t3)
@@ -635,14 +651,65 @@ SET_ASTEROID_1:
 	addi $t4, $t4, 1
 	sw $t4, 0($t3)
 	
-	la $t3, coin_spawn_counter
-	lw $t4, 0($t3)
-	beq $t4, 5, SPAWN_COIN
-	addi $t4, $t4, 1
+	
+	j HEART_DROP_CHECK
+	
+	
+	COIN_DROP_CHECK:
+	
+		la $t3, coin_spawn_counter
+		lw $t4, 0($t3)
+		beq $t4, 5, SPAWN_COIN
+		addi $t4, $t4, 1
+		sw $t4, 0($t3)
+	
+
+		j WHILE_GAME
+		
+		
+HEART_DROP_CHECK:
+	la $t3, heart_spawn_counter	# $t3 = addr(counter)
+	lw $t4, 0($t3)			# $t4 = counter[0]
+	beq $t4, 5, HEART_SPAWN		# if $t4 == 5, jump to spawn heart
+	addi $t4, $t4, 1		# else, increment t4 by 1
+	sw $t4, 0($t3)			# $t3[0] = $t4
+	
+	j COIN_DROP_CHECK
+	
+REMOVE_HEART:
+	sw $t2, 0($t5)
+	j HEART_SPAWN
+HEART_SPAWN:
+	la $t3, heart_spawn_counter
+	sw $zero, 0($t3)
+	
+	la $t3, heart_item		# $t3 = addr(heart_item)
+	lw $t4, 0($t3)			# $t4 = $t3[0]
+	add $t5, $t0, $t4		# $t5 = $t0 + $t4
+	lw $t6, 0($t5)			# $t6 = $t0[i]
+	li $t7, red
+	beq $t7, $t6, REMOVE_HEART
+
+	
+	li $v0, 42
+	li $a0, 0	# a0 contains the random number from 0 to 32
+	li $a1, 3
+	syscall
+	
+	sll $a0, $a0, 2
+	la $t4, heart_location
+	add $t5, $t4, $a0
+	lw $t4, 0($t5)
+	
+	la $t3, heart_item
 	sw $t4, 0($t3)
 	
 
-	j WHILE_GAME
+	
+	j COIN_DROP_CHECK	
+	
+
+	
 	
 REMOVE_COIN:
 	sw $t2, 0($t5)

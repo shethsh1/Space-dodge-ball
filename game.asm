@@ -46,7 +46,7 @@
 #
 
 .eqv BASE_ADDRESS 0x10008000
-.eqv obstacle_time 15
+.eqv obstacle_time 42
 .eqv gold 0xFFD700
 
 
