@@ -47,6 +47,8 @@
 
 .eqv BASE_ADDRESS 0x10008000
 .eqv obstacle_time 15
+.eqv gold 0xFFD700
+
 
 
 .data
@@ -86,7 +88,9 @@
 	s2:			.word	0
 	s1:			.word	0
 	s0:			.word	0
-	
+	coin_item:		.word	0
+	coin_location:		.word	1168,3232, 24
+	coin_spawn_counter:	.word	0
 
 
 
@@ -101,6 +105,13 @@
 	
 	
 GAME_START:
+
+
+	la $t3, coin_spawn_counter
+	sw $zero, 0($t3)
+	
+	la $t3, coin_item
+	sw $zero, 0($t3)
 
 	la $t3, obstacles_thrown
 	sw $zero, 0($t3)
@@ -263,6 +274,10 @@ WHILE_GAME:
 		beq $a0, $t1, D_MOVEMENT_COLLISION
 		beq $a1, $t1, D_MOVEMENT_COLLISION
 		beq $a2, $t1, D_MOVEMENT_COLLISION
+		li $t7, gold
+		beq $a0, $t7, PICK_UP_COIN
+		beq $a1, $t7, PICK_UP_COIN
+		beq $a2, $t7, PICK_UP_COIN
 	
 
 		
@@ -324,6 +339,10 @@ WHILE_GAME:
 		beq $a0, $t1, D_MOVEMENT_COLLISION
 		beq $a1, $t1, D_MOVEMENT_COLLISION
 		beq $a2, $t1, D_MOVEMENT_COLLISION
+		li $t7, gold
+		beq $a0, $t7, PICK_UP_COIN
+		beq $a1, $t7, PICK_UP_COIN
+		beq $a2, $t7, PICK_UP_COIN
 	
 
 		
@@ -385,6 +404,10 @@ WHILE_GAME:
 		beq $a0, $t1, D_MOVEMENT_COLLISION
 		beq $a1, $t1, D_MOVEMENT_COLLISION
 		beq $a2, $t1, D_MOVEMENT_COLLISION
+		li $t7, gold
+		beq $a0, $t7, PICK_UP_COIN
+		beq $a1, $t7, PICK_UP_COIN
+		beq $a2, $t7, PICK_UP_COIN
 	
 
 		
@@ -445,6 +468,10 @@ WHILE_GAME:
 		beq $a0, $t1, D_MOVEMENT_COLLISION
 		beq $a1, $t1, D_MOVEMENT_COLLISION
 		beq $a2, $t1, D_MOVEMENT_COLLISION
+		li $t7, gold
+		beq $a0, $t7, PICK_UP_COIN
+		beq $a1, $t7, PICK_UP_COIN
+		beq $a2, $t7, PICK_UP_COIN
 	
 
 		
@@ -746,7 +773,12 @@ WHILE_GAME:
 			addi $t4, $t4, 1		# $t4 = $t4 + 1
 			sw $t4, 0($t3)			# counter[0] = $t4			
 			
-
+		la $t3, coin_item
+		lw $t4, 0($t3)
+		beq $t4, 0, WHILE_GAME
+		li $t7, 0xFFD700
+		add $t4, $t4, $t0
+		sw $t7, 0($t4)
 
 
 		j WHILE_GAME
@@ -837,6 +869,41 @@ RESET_COUNTER:
 	sw $t4, 0($t3)
 	j WHILE_GAME
 	
+	
+	
+REMOVE_COIN:
+	sw $t2, 0($t5)
+	j SPAWN_COIN
+
+SPAWN_COIN:
+	la $t3, coin_spawn_counter
+	sw $zero, 0($t3)
+	
+	la $t3, coin_item
+	lw $t4, 0($t3)
+	add $t5, $t0, $t4
+	lw $t6, 0($t5)
+	li $t7, 0xFFD700
+	beq $t7, $t6, REMOVE_COIN
+
+	
+	li $v0, 42
+	li $a0, 0	# a0 contains the random number from 0 to 32
+	li $a1, 2
+	syscall
+	
+	sll $a0, $a0, 2
+	la $t4, coin_location
+	add $t5, $t4, $a0
+	lw $t4, 0($t5)
+	
+	la $t3, coin_item
+	sw $t4, 0($t3)
+	
+
+	
+	j WHILE_GAME
+	
 
 SET_ASTEROID_1:
 	# asteroid 1
@@ -887,6 +954,12 @@ SET_ASTEROID_1:
 	la $t3, obstacles_thrown
 	lw $t4, 0($t3)
 	beq $t4, 999, WHILE_GAME # $t4 = 999
+	addi $t4, $t4, 1
+	sw $t4, 0($t3)
+	
+	la $t3, coin_spawn_counter
+	lw $t4, 0($t3)
+	beq $t4, 20, SPAWN_COIN
 	addi $t4, $t4, 1
 	sw $t4, 0($t3)
 	
@@ -943,6 +1016,12 @@ SET_ASTEROID_2:
 	addi $t4, $t4, 1
 	sw $t4, 0($t3)
 	
+	la $t3, coin_spawn_counter
+	lw $t4, 0($t3)
+	beq $t4, 20, SPAWN_COIN
+	addi $t4, $t4, 1
+	sw $t4, 0($t3)
+	
 	j WHILE_GAME
 	
 SET_ASTEROID_3:
@@ -993,6 +1072,12 @@ SET_ASTEROID_3:
 	la $t3, obstacles_thrown
 	lw $t4, 0($t3)
 	beq $t4, 999, WHILE_GAME # $t4 = 999
+	addi $t4, $t4, 1
+	sw $t4, 0($t3)
+	
+	la $t3, coin_spawn_counter
+	lw $t4, 0($t3)
+	beq $t4, 20, SPAWN_COIN
 	addi $t4, $t4, 1
 	sw $t4, 0($t3)
 	
@@ -2184,6 +2269,24 @@ SET_S2_NUMBER_NINE:
 
 	
 	j SET_SCORE_BOARD    
+	
+	
+PICK_UP_COIN:
+	la $t3, coin_spawn_counter
+	sw $zero, 0($t3)
+	
+	la $t3, coin_item
+	lw $t4, 0($t3)
+	
+	add $t5, $t0, $t4
+	sw $zero, 0($t3)
+	
+	la $t3, obstacles_thrown
+	lw $t4, obstacles_thrown
+	add $t4, $t4, 20
+	beq $t4, 999, WHILE_GAME
+	sw $t4, 0($t3)
+	J WHILE_GAME
  
 		
 DRAWING_DONE:
@@ -2199,7 +2302,7 @@ pressed_p:
 	j DRAWING_DONE
 
 
-	
+
 	
 
 
