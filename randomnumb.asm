@@ -52,6 +52,7 @@
 	asteroid_2:	.word	0
 	asteroid_3:	.word	0
 	ship:		.word	0:2
+		asteroid:	.word	3232
 .text
 
 	li $t0, BASE_ADDRESS # $t0 stores the base address for display
@@ -59,163 +60,24 @@
 	li $t2, 0x000000 # $t2 stores the black colour code
 	li $t8, 0x0000FF	# blue
 	li $t9, 0xFFFF00	# yellow
+
 	
 	
 game_start:
 
-
-
-	
-	la $t3, ship 		# $t3 = addr(ship)
-	li $t4, 2700
-	li $t5, 2568
-	li $t6, 2824
+	la $t3, asteroid
+	lw $t4, 0($t3)		# $t4 = ship[0]
+	add $t4, $t4, 128		# $t4 = $t4 + 4
+	add $t5, $t0, $t4	# $t5 = addr(map + $t4)
+	lw $t7, 0($t5)
+	beq $t7, $t2, hey
 	sw $t4, 0($t3)
-	sw $t5, 4($t3)
-	sw $t6, 8($t3)
-		
-	
-asteroids:
-
-	# create ship
-	la $t3, ship		# $t3 = addr(ship)
-	lw $t4, 0($t3)		# $t4 = $t3[0] 
-	add $t5, $t0, $t4	# $t5 = addr($t0 + $t4)
-	sw $t8, 0($t5)		# $t5[0] = $t8
-	
-	lw $t4, 4($t3)		# $t4 = $t3[1]
-	add $t5, $t0, $t4	# $t5 = addr($t0 + $t4)
-	sw $t9, 0($t5)		# $t9[0] = $t8
-		
-	lw $t4, 8($t3)		# $t4 = $t3[1]
-	add $t5, $t0, $t4	# $t5 = addr($t0 + $t4)
-	sw $t9, 0($t5)		# $t9[0] = $t8
-	
-	
 
 
-	
-	
-	# asteroid 1
-	li $v0, 42
-	li $a0, 0	# a0 contains the random number from 0 to 32
-	li $a1, 32
-	syscall
-	li $t3, 128
-	mult $a0, $t3	# $a0 x 128 + 124
-	mflo $a0
-	addi $a0, $a0, 124
-	
-	la $t3, asteroid_1	# $t3 = addr(asteroid_1)
-	sw $a0, 0($t3)		# $t3[0] = $a0
-	add $t4, $t0, $a0 	# $t4 = addr($t0+$a0)
-	sw $t1, 0($t4)		# $t4[0] = $t1 - grey
-	
-	
-	# asteroid 2
-	li $v0, 42
-	li $a0, 0	# a0 contains the random number from 0 to 32
-	li $a1, 32
-	syscall
-	li $t3, 128
-	mult $a0, $t3	# $a0 x 128 + 124
-	mflo $a0
-	addi $a0, $a0, 124
-	
-	la $t3, asteroid_2	# $t3 = addr(asteroid_1)
-	sw $a0, 0($t3)		# $t3[0] = $a0
-	add $t4, $t0, $a0 	# $t4 = addr($t0+$a0)
-	sw $t1, 0($t4)		# $t4[0] = $t1 - grey
-	
-	
-	# asteroid 3
-	li $v0, 42
-	li $a0, 0	# a0 contains the random number from 0 to 32
-	li $a1, 32
-	syscall
-	li $t3, 128
-	mult $a0, $t3	# $a0 x 128 + 124
-	mflo $a0
-	addi $a0, $a0, 124
-	
-	la $t3, asteroid_3	# $t3 = addr(asteroid_1)
-	sw $a0, 0($t3)		# $t3[0] = $a0
-	add $t4, $t0, $a0 	# $t4 = addr($t0+$a0)
-	sw $t1, 0($t4)		# $t4[0] = $t1 - grey
-	
-	
-	li $t3, 0		# i = 0
-	while_asteroids:
-		beq $t3, 31 last_asteroid
-	
-		
-		# erase asteroid 1
-		la $t4, asteroid_1	# $t4 = addr(asteroid_1)
-		lw $t5, 0($t4)		# $t5 = $t4[0]
-		add $t6, $t5, $t0	# $t6 = addr(default + $t5)
-		li $v0, 32
-		li $a0, 10
-		syscall
-		sw $t2, 0($t6)			# $t6[0] = $t2 - black
-		addi $t5, $t5, -4		# $t5 = $t5 - 4
-		sw $t5, 0($t4)			# $t4[0] = $t5
-		add $t6, $t5, $t0		# $t6 = addr(default + $t5)
-		sw $t1, 0($t6)			# $t4[0] = $t1 - grey
-		
-		
-		
-		
-		# erase asteroid 2
-		la $t4, asteroid_2	# $t4 = addr(asteroid_1)
-		lw $t5, 0($t4)		# $t5 = $t4[0]
-		add $t6, $t5, $t0	# $t6 = addr(default + $t5)
-		li $v0, 32
-		li $a0, 25
-		syscall
-		sw $t2, 0($t6)		# $t6[0] = $t2 - black
-		addi $t5, $t5, -4	# $t5 = $t5 - 4
-		sw $t5, 0($t4)		# $t4[0] = $t5
-		add $t6, $t5, $t0	# $t6 = addr(default + $t5)
-		sw $t1, 0($t6)		# $t4[0] = $t1 - grey
-		
-		# erase asteroid 3
-		la $t4, asteroid_3	# $t4 = addr(asteroid_1)
-		lw $t5, 0($t4)		# $t5 = $t4[0]
-		add $t6, $t5, $t0	# $t6 = addr(default + $t5)
-		li $v0, 32
-		li $a0, 42
-		syscall
-		sw $t2, 0($t6)		# $t6[0] = $t2 - black
-		addi $t5, $t5, -4	# $t5 = $t5 - 4
-		sw $t5, 0($t4)		# $t4[0] = $t5
-		add $t6, $t5, $t0	# $t6 = addr(default + $t5)
-		sw $t1, 0($t6)		# $t4[0] = $t1 - grey
-		
-		addi $t3, $t3, 1	# i = i + 1
-		
-		j while_asteroids
-		
-		
-last_asteroid:
-	la $t3, asteroid_1	# $t3 = addr(asteroid_1)
-	lw $t4, 0($t3)		# $t4 = $t3[0]
-	add $t5, $t4, $t0	# $t5 = addr(default + $t4)
-	sw $t2, 0($t5)		# $t5[0] = $t2
-	
-	la $t3, asteroid_2	# $t3 = addr(asteroid_1)
-	lw $t4, 0($t3)		# $t4 = $t3[0]
-	add $t5, $t4, $t0	# $t5 = addr(default + $t4)
-	sw $t2, 0($t5)		# $t5[0] = $t2
-	
-	la $t3, asteroid_3	# $t3 = addr(asteroid_1)
-	lw $t4, 0($t3)		# $t4 = $t3[0]
-	add $t5, $t4, $t0	# $t5 = addr(default + $t4)
-	sw $t2, 0($t5)		# $t5[0] = $t2
-	
-	j asteroids
 
-	
-	
+
+hey:
+	li $t8, 11
 	
 	
 	

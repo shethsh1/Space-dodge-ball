@@ -47,6 +47,7 @@
 .eqv BASE_ADDRESS 0x10008000
 .eqv obstacle_time 42
 .eqv gold 0xFFD700
+.eqv red 0xFF0000
 
 
 .data
@@ -66,6 +67,10 @@
 	coin_location:		.word	1168,3232, 24
 	obstacles_thrown:	.word	0
 	coin_spawn_counter:	.word	0
+	hearts:			.word	3928, 3936, 3944, 3952, 3960
+	total_collisions:	.word	0
+	slow_item:		.word	0
+	
 
 
 
@@ -79,8 +84,8 @@
 	
 	
 GAME_START:
-
-
+	li $s4, obstacle_time
+	sw $t3, 0($sp)  
 
 	
 	la $t3, obstacles_thrown
@@ -88,6 +93,9 @@ GAME_START:
 	
 	la $t3, coin_spawn_counter
 	sw $zero, coin_spawn_counter
+	
+	la $t3 total_collisions
+	sw $zero, 0($t3)
 	
 	la $t3, ship 		# $t3 = addr(ship)
 	li $t4, 2700
@@ -177,6 +185,7 @@ WHILE_GAME:
 		lw $t4, 8($t3)		# $t4 = ship[0]
 		add $t4, $t4, 4		# $t4 = $t4 + 4
 		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		lw $t7, 0($t5)
 		sw $t4, 8($t3)
 		move $a2, $t7
 
@@ -241,6 +250,7 @@ WHILE_GAME:
 		lw $t4, 8($t3)		# $t4 = ship[0]
 		add $t4, $t4, -4		# $t4 = $t4 + 4
 		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		lw $t7, 0($t5)
 		sw $t4, 8($t3)
 		move $a2, $t7
 
@@ -306,6 +316,7 @@ WHILE_GAME:
 		lw $t4, 8($t3)		# $t4 = ship[0]
 		add $t4, $t4, 128		# $t4 = $t4 + 4
 		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		lw $t7, 0($t5)
 		sw $t4, 8($t3)
 		move $a2, $t7
 
@@ -397,8 +408,9 @@ WHILE_GAME:
 			beq $t4, 0, SET_ASTEROID_1
 			
 			# erase asteroid 1
+
 			li $v0, 32
-			li $a0, obstacle_time
+			add $a0, $zero, $s4
 			syscall
 			la $t4, asteroid_1	# $t4 = addr(asteroid_1)
 			lw $t5, 0($t4)		# $t5 = $t4[0]
@@ -862,15 +874,15 @@ PICK_UP_COIN:
 	la $t3, coin_item
 	lw $t4, 0($t3)
 	
-	add $t5, $t0, $t4
+	add $t5, $t0, $t4			# get location of coinww
 	sw $zero, 0($t3)
 	
 	la $t3, obstacles_thrown
 	lw $t4, obstacles_thrown
 	add $t4, $t4, 20
-	beq $t4, 999, WHILE_GAME
+	beq $t4, 999, keyboard_input_done
 	sw $t4, 0($t3)
-	J WHILE_GAME
+	J keyboard_input_done
 	
 	
 	

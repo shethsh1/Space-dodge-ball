@@ -264,6 +264,7 @@ WHILE_GAME:
 		lw $t4, 8($t3)		# $t4 = ship[0]
 		add $t4, $t4, 4		# $t4 = $t4 + 4
 		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		lw $t7, 0($t5)
 		sw $t4, 8($t3)
 		move $a2, $t7
 
@@ -329,6 +330,7 @@ WHILE_GAME:
 		lw $t4, 8($t3)		# $t4 = ship[0]
 		add $t4, $t4, -4		# $t4 = $t4 + 4
 		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		lw $t7, 0($t5)
 		sw $t4, 8($t3)
 		move $a2, $t7
 
@@ -394,6 +396,7 @@ WHILE_GAME:
 		lw $t4, 8($t3)		# $t4 = ship[0]
 		add $t4, $t4, 128		# $t4 = $t4 + 4
 		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		lw $t7, 0($t5)
 		sw $t4, 8($t3)
 		move $a2, $t7
 
@@ -458,6 +461,7 @@ WHILE_GAME:
 		lw $t4, 8($t3)		# $t4 = ship[0]
 		add $t4, $t4, -128		# $t4 = $t4 + 4
 		add $t5, $t4, $t0	# $t5 = addr(map + $t4)
+		lw $t7, 0($t5)
 		sw $t4, 8($t3)
 		move $a2, $t7
 
