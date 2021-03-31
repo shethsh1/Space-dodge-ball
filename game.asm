@@ -46,9 +46,9 @@
 #
 
 .eqv BASE_ADDRESS 0x10008000
-.eqv obstacle_time 42
+.eqv obstacle_time 15
 .eqv gold 0xFFD700
-
+.eqv red 0xFF0000
 
 
 .data
@@ -91,6 +91,9 @@
 	coin_item:		.word	0
 	coin_location:		.word	1168,3232, 24
 	coin_spawn_counter:	.word	0
+	heart_item:		.word	0
+	heart_spawn_counter:	.word	0
+	heart_location:	.word	3136, 3000, 1228
 
 
 
@@ -106,6 +109,12 @@
 	
 GAME_START:
 
+
+	la $t3, heart_item
+	sw $zero, 0($t3)
+	
+	la $t3, heart_spawn_counter
+	sw $zero, 0($t3)
 
 	la $t3, coin_spawn_counter
 	sw $zero, 0($t3)
@@ -279,6 +288,11 @@ WHILE_GAME:
 		beq $a0, $t7, PICK_UP_COIN
 		beq $a1, $t7, PICK_UP_COIN
 		beq $a2, $t7, PICK_UP_COIN
+		
+		li $t7, red
+		beq $a0, $t7, PICK_UP_HEART
+		beq $a1, $t7, PICK_UP_HEART
+		beq $a2, $t7, PICK_UP_HEART
 	
 
 		
@@ -345,6 +359,10 @@ WHILE_GAME:
 		beq $a0, $t7, PICK_UP_COIN
 		beq $a1, $t7, PICK_UP_COIN
 		beq $a2, $t7, PICK_UP_COIN
+		li $t7, red
+		beq $a0, $t7, PICK_UP_HEART
+		beq $a1, $t7, PICK_UP_HEART
+		beq $a2, $t7, PICK_UP_HEART
 	
 
 		
@@ -411,7 +429,10 @@ WHILE_GAME:
 		beq $a0, $t7, PICK_UP_COIN
 		beq $a1, $t7, PICK_UP_COIN
 		beq $a2, $t7, PICK_UP_COIN
-	
+		li $t7, red
+		beq $a0, $t7, PICK_UP_HEART
+		beq $a1, $t7, PICK_UP_HEART
+		beq $a2, $t7, PICK_UP_HEART
 
 		
 		j keyboard_input_done
@@ -476,7 +497,10 @@ WHILE_GAME:
 		beq $a0, $t7, PICK_UP_COIN
 		beq $a1, $t7, PICK_UP_COIN
 		beq $a2, $t7, PICK_UP_COIN
-	
+		li $t7, red
+		beq $a0, $t7, PICK_UP_HEART
+		beq $a1, $t7, PICK_UP_HEART
+		beq $a2, $t7, PICK_UP_HEART
 
 		
 		j keyboard_input_done
@@ -777,6 +801,15 @@ WHILE_GAME:
 			addi $t4, $t4, 1		# $t4 = $t4 + 1
 			sw $t4, 0($t3)			# counter[0] = $t4			
 			
+		la $t3, heart_item
+		lw $t4, 0($t3)
+		beq $t4, 0, COIN_RESPAWN
+		li $t7, red
+		add $t4, $t4, $t0
+		sw $t7, 0($t4)
+			
+		COIN_RESPAWN:
+			
 		la $t3, coin_item
 		lw $t4, 0($t3)
 		beq $t4, 0, WHILE_GAME
@@ -961,13 +994,64 @@ SET_ASTEROID_1:
 	addi $t4, $t4, 1
 	sw $t4, 0($t3)
 	
-	la $t3, coin_spawn_counter
+	la $t3, total_collisions
 	lw $t4, 0($t3)
-	beq $t4, 20, SPAWN_COIN
-	addi $t4, $t4, 1
+	
+	bne $t4, 0, HEART_DROP_CHECK	# $t4 != 0
+	
+	
+	COIN_DROP_CHECK:
+	
+		la $t3, coin_spawn_counter
+		lw $t4, 0($t3)
+		beq $t4, 20, SPAWN_COIN
+		addi $t4, $t4, 1
+		sw $t4, 0($t3)
+	
+
+		j WHILE_GAME
+		
+		
+HEART_DROP_CHECK:
+	la $t3, heart_spawn_counter	# $t3 = addr(counter)
+	lw $t4, 0($t3)			# $t4 = counter[0]
+	beq $t4, 20, HEART_SPAWN		# if $t4 == 5, jump to spawn heart
+	addi $t4, $t4, 1		# else, increment t4 by 1
+	sw $t4, 0($t3)			# $t3[0] = $t4
+	
+	j COIN_DROP_CHECK
+	
+REMOVE_HEART:
+	sw $t2, 0($t5)
+	j HEART_SPAWN
+HEART_SPAWN:
+	la $t3, heart_spawn_counter
+	sw $zero, 0($t3)
+	
+	la $t3, heart_item		# $t3 = addr(heart_item)
+	lw $t4, 0($t3)			# $t4 = $t3[0]
+	add $t5, $t0, $t4		# $t5 = $t0 + $t4
+	lw $t6, 0($t5)			# $t6 = $t0[i]
+	li $t7, red
+	beq $t7, $t6, REMOVE_HEART
+
+	
+	li $v0, 42
+	li $a0, 0	# a0 contains the random number from 0 to 32
+	li $a1, 3
+	syscall
+	
+	sll $a0, $a0, 2
+	la $t4, heart_location
+	add $t5, $t4, $a0
+	lw $t4, 0($t5)
+	
+	la $t3, heart_item
 	sw $t4, 0($t3)
 	
-	j WHILE_GAME
+
+	
+	j COIN_DROP_CHECK
 	
 SET_ASTEROID_2:
 	# asteroid 2
@@ -1020,13 +1104,13 @@ SET_ASTEROID_2:
 	addi $t4, $t4, 1
 	sw $t4, 0($t3)
 	
-	la $t3, coin_spawn_counter
+	la $t3, total_collisions
 	lw $t4, 0($t3)
-	beq $t4, 20, SPAWN_COIN
-	addi $t4, $t4, 1
-	sw $t4, 0($t3)
 	
-	j WHILE_GAME
+	bne $t4, 0, HEART_DROP_CHECK	# $t4 != 0
+	j COIN_DROP_CHECK
+	
+
 	
 SET_ASTEROID_3:
 	# asteroid 3
@@ -1079,13 +1163,12 @@ SET_ASTEROID_3:
 	addi $t4, $t4, 1
 	sw $t4, 0($t3)
 	
-	la $t3, coin_spawn_counter
+	la $t3, total_collisions
 	lw $t4, 0($t3)
-	beq $t4, 20, SPAWN_COIN
-	addi $t4, $t4, 1
-	sw $t4, 0($t3)
 	
-	j WHILE_GAME	
+	bne $t4, 0, HEART_DROP_CHECK	# $t4 != 0
+	
+	j HEART_DROP_CHECK
 
 	
 
@@ -2291,6 +2374,34 @@ PICK_UP_COIN:
 	beq $t4, 999, WHILE_GAME
 	sw $t4, 0($t3)
 	J WHILE_GAME
+	
+PICK_UP_HEART:
+	la $t3, heart_spawn_counter
+	sw $zero, 0($t3)
+	
+	la $t3, heart_item
+	lw $t4, 0($t3)
+	
+	add $t5, $t0, $t4
+	sw $zero, 0($t3)
+	
+	la $t3, total_collisions
+	lw $t4, 0($t3)
+	addi $t4, $t4, -1
+	sw $t4, 0($t3)
+	
+	la $t3, hearts
+	sll $t4, $t4, 2
+	add $t4, $t4, $t3
+	lw $t5, 0($t4)
+	add $t6, $t5, $t0
+	li $t7, red
+	sw $t7, 0($t6) 
+	
+
+
+	J WHILE_GAME
+	
  
 		
 DRAWING_DONE:
