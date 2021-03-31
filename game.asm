@@ -6,29 +6,31 @@
 # Student: Shaahid Sheth, 1002546060, shethsh1
 #
 # Bitmap Display Configuration:
-# - Unit width in pixels: 8 (update this as needed)
-# - Unit height in pixels: 8 (update this as needed)
-# - Display width in pixels: 256 (update this as needed)
-# - Display height in pixels: 256 (update this as needed)
+# - Unit width in pixels: 8 
+# - Unit height in pixels: 8 
+# - Display width in pixels: 256 
+# - Display height in pixels: 256 
 # - Base Address for Display: 0x10008000 ($gp)
 #
 # Which milestones have been reached in this submission?
-# (See the assignment handout for descriptions of the milestones)
 # - Milestone 4
 #
 # Which approved features have been implemented for milestone 4?
-# (See the assignment handout for the list of additional features)
-# 1. Scoreboard at the gameover screen based on how many obstacles launched (capped at 999)
-# 2. (fill in the feature, if any)
-# 3. (fill in the feature, if any)
-# ... (add more if necessary)
+# 1. Scoreboard. Scoreboard is shown at the gameover screen. 
+# Score is based on number of flying obstacles launched (e.g., 16 obstacles = 16 points)
+#
+# 2. health and coins pickup. Health is red pixel granting you one health
+# Coin pickup is a golden pixel granting 20 points per pick up. They appear per 
+# twenty obstacles and health only appears if you are under five health bar.
+#
+# 3. verticle obstacles. Every twenty or so obstacles a verticle obstacle appears
 #
 # Link to video demonstration for final submission:
 # - (insert YouTube / MyMedia / other URL here). Make sure we can view it!
 #
 # Are you OK with us sharing the video with people outside course staff?
 # - yes
-# - https://github.com/shethsh1/Space-dodge-ball (current private)
+# - https://github.com/shethsh1/Space-dodge-ball (public after due date)
 #
 # Any additional information that the TA needs to know:
 # - (write here, if any)
@@ -60,7 +62,7 @@
 	asteroid_2_counter:	.word   0
 	asteroid_3:		.word	0:5
 	asteroid_3_counter:	.word   0
-	meteor:			.word	0:4
+	meteor:			.word	0:3
 	meteor_counter:		.word   0
 	ship:			.word	0:3
 	d_edge:			.word   116, 244, 372, 500, 628, 756, 884, 1012, 1140, 1268, 1396, 1524, 1652, 1780, 1908, 2036, 2164, 2292, 2420, 2548, 2676, 2804, 2932, 3060, 3188, 3316, 3444, 3572, 3700, 3828, 3956, 4084, -1
@@ -96,7 +98,8 @@
 	coin_spawn_counter:	.word	0
 	heart_item:		.word	0
 	heart_spawn_counter:	.word	0
-	heart_location:	.word	3136, 3000, 1228
+	heart_location:		.word	3136, 3000, 1228
+	
 	
 	
 
@@ -108,140 +111,108 @@
 	li $t0, BASE_ADDRESS 	# $t0 stores the base address for display
 	li $t1, 0xd3d3d3 	# $t1 stores the grey colour code
 	li $t2, 0x000000 	# $t2 stores the black colour code
-	li $t8, 0x0000FF	# blue
-	li $t9, 0xFFFF00	# yellow
+	li $t8, 0x0000FF	# $t8 stores the blue colour code
+	li $t9, 0xFFFF00	# $t9 stores the yellow colour code
 	
 	
 GAME_START:
-
-	li $s5, 0 # meteor counter
-	
-	la $t3, heart_item
-	sw $zero, 0($t3)
-	
-	la $t3, heart_spawn_counter
-	sw $zero, 0($t3)
-
-	la $t3, coin_spawn_counter
-	sw $zero, 0($t3)
-	
-	la $t3, coin_item
-	sw $zero, 0($t3)
-
-	la $t3, obstacles_thrown
-	sw $zero, 0($t3)
-	
-	la $t3, s2
-	sw $zero, 0($t3)
-	
-	la $t3, s1
-	sw $zero, 0($t3)
-	
-	la $t3, s0
-	sw $zero, 0($t3)
-	
-
-	la $t3, total_collisions
-	sw $zero, 0($t3)
-	
-	la $t3, asteroid_1_counter
-	sw $zero, 0($t3)
-	
-	la $t3, asteroid_2_counter
-	sw $zero, 0($t3)
-	
-	la $t3, asteroid_3_counter
-	sw $zero, 0($t3)
-	
-	la $t3, meteor_counter
-	sw $zero, 0($t3)
-	
-	
-	la $t3, ship 		# $t3 = addr(ship)
-	li $t4, 2700
-	li $t5, 2568
-	li $t6, 2824
-	sw $t4, 0($t3)
-	sw $t5, 4($t3)
-	sw $t6, 8($t3)
-	
-	#sw $t9, 3968($t0) # - test pixel here
 		
+	la $t3, heart_item		# resets heart item to 0
+	sw $zero, 0($t3)
+	la $t3, heart_spawn_counter	# reset heart spwan counter to 0
+	sw $zero, 0($t3)
+	la $t3, coin_spawn_counter	# resets coin spawn to 0
+	sw $zero, 0($t3)
+	la $t3, coin_item		# resets coin item value to 0
+	sw $zero, 0($t3)
+	la $t3, obstacles_thrown	# resets obstacle thrown to 0
+	sw $zero, 0($t3)
+	la $t3, s2			# resets s2 to 0 (MSD)
+	sw $zero, 0($t3)
+	la $t3, s1			# reset s1 to 0 
+	sw $zero, 0($t3)
+	la $t3, s0			# reset s0 to 0
+	sw $zero, 0($t3)
+	la $t3, total_collisions	# resets total collisions to 0
+	sw $zero, 0($t3)
+	la $t3, asteroid_1_counter	# resets asteroid 1 counter to 0
+	sw $zero, 0($t3)
+	la $t3, asteroid_2_counter	# resets asteroid 2 counter to 0
+	sw $zero, 0($t3)
+	la $t3, asteroid_3_counter	# resets asteroid 3 counter to 0
+	sw $zero, 0($t3)
+	la $t3, meteor_counter		# resets meteor counter to 0
+	sw $zero, 0($t3)
 	
-	# create ship
+	la $t3, ship 		# t3 = addr(ship) - resets ship to default location
+	li $t4, 2700		# t4 = 2700 
+	li $t5, 2568		# t5 = 2568
+	li $t6, 2824		# t6 = 2824
+	sw $t4, 0($t3)		# t3[0] = t4
+	sw $t5, 4($t3)		# t3[1] = t5 
+	sw $t6, 8($t3)		# t3[2]	= t6
 	la $t3, ship		# $t3 = addr(ship)
 	lw $t4, 0($t3)		# $t4 = $t3[0] 
 	add $t5, $t0, $t4	# $t5 = addr($t0 + $t4)
 	sw $t8, 0($t5)		# $t5[0] = $t8
-	
 	lw $t4, 4($t3)		# $t4 = $t3[1]
 	add $t5, $t0, $t4	# $t5 = addr($t0 + $t4)
 	sw $t9, 0($t5)		# $t9[0] = $t8
-		
 	lw $t4, 8($t3)		# $t4 = $t3[1]
 	add $t5, $t0, $t4	# $t5 = addr($t0 + $t4)
-	sw $t9, 0($t5)		# $t9[0] = $t8
+	sw $t9, 0($t5)		# $t9[0] = $t8	
 	
-	# create hearts
-	
-	li $a0 0xFF0000
-	la $t3, hearts
-	
-	lw $t4, 0($t3)
-	add $t5, $t4, $t0
-	sw $a0, 0($t5) 
-	
-	lw $t4, 4($t3)
-	add $t5, $t4, $t0
-	sw $a0, 0($t5) 
-	
-	lw $t4, 8($t3)
-	add $t5, $t4, $t0
-	sw $a0, 0($t5) 
-	
-	lw $t4, 12($t3)
-	add $t5, $t4, $t0
-	sw $a0, 0($t5) 
-	
-	lw $t4, 16($t3)
-	add $t5, $t4, $t0
-	sw $a0, 0($t5) 
+	li $a0 0xFF0000		# resets health bar back to 5
+	la $t3, hearts		# t3 = addr(hearts)
+	lw $t4, 0($t3)		# t4 = t3[0]
+	add $t5, $t4, $t0	# t5 = addr(t4 + t0)
+	sw $a0, 0($t5) 		# t5[0] = a0
+	lw $t4, 4($t3)		# t4 = t3[1]
+	add $t5, $t4, $t0	# t5 = t4 + t0
+	sw $a0, 0($t5) 		# t5[0] = a0
+	lw $t4, 8($t3)		# t4 = t3[2]
+	add $t5, $t4, $t0	# t5 = t4 + t0
+	sw $a0, 0($t5) 		# t5[0] = a0
+	lw $t4, 12($t3)		# t4 = t3[2]
+	add $t5, $t4, $t0	# t5 = t4 + t0
+	sw $a0, 0($t5) 		# t5[0] = a0
+	lw $t4, 16($t3)		# t4 = t3[4]
+	add $t5, $t4, $t0	# t5 = t4 + t0
+	sw $a0, 0($t5) 		# t5[0] = a0
 	
 	
 WHILE_GAME:
-	lw $t3, 0xffff0000
-	beq $t3, 1, keypress_happened
-	j keyboard_input_done
+	lw $t3, 0xffff0000			# record keystroke event
+	beq $t3, 1, keypress_happened		# branch if $t3 = 1
+	j keypress_finished			# since no key pres event branch
 	
 	keypress_happened:
-		lw $t4, 0xffff0004
-		beq $t4, 0x61, respond_to_a
-		beq $t4, 0x73, respond_to_s
-		beq $t4, 0x64, respond_to_d
-		beq $t4, 0x77, respond_to_w
-		beq $t4, 0x70, respond_to_p
-		j keyboard_input_done
+		lw $t4, 0xffff0004		
+		beq $t4, 0x61, respond_to_a	# responds to keypress a
+		beq $t4, 0x73, respond_to_s	# responds to keypress s
+		beq $t4, 0x64, respond_to_d	# responds to keypress d
+		beq $t4, 0x77, respond_to_w	# responds to keypress w
+		beq $t4, 0x70, respond_to_p	# responds to keypress p
+		j keypress_finished		# once all key presses are finished
 		
 	respond_to_p:
 		# set background to black
-		li $t3, 0
+		li $t3, 0	# t3 = 0
 		WHILE_ERASE:
-
-
-			add $t5, $t0, $t3
-			sw $t2, 0($t5)
-			add $t3, $t3, 4
-			beq $t3, 4100, GAME_START
-			j WHILE_ERASE
+			add $t5, $t0, $t3		# t5 = t0 + t3
+			sw $t2, 0($t5)			# t5[0] = t2
+			add $t3, $t3, 4			# t3 = t3 + 4
+			beq $t3, 4100, GAME_START	# if t3 = 4100 jump to GAME_START
+			j WHILE_ERASE			# jump back to WHILE_ERASE
 
 		
 		
 	respond_to_d:
 		
-		la $t4, ship
-		lw $t5, 0($t4)
-		la $t3, d_edge
-		j TEST_D_EDGE
+		la $t4, ship		# t4 = addr(ship)
+		lw $t5, 0($t4)		# t5 = t4[0]
+		la $t3, d_edge		# t3 = addr(d_edge)
+		j TEST_D_EDGE		# jump to TEST_D_EDGE
 		
 		not_d_edge:
 		la $t3, ship		# $t3 = addr(ship)
@@ -309,7 +280,7 @@ WHILE_GAME:
 	
 
 		
-		j keyboard_input_done
+		j keypress_finished
 		
 	respond_to_a:
 	
@@ -383,7 +354,7 @@ WHILE_GAME:
 	
 
 		
-		j keyboard_input_done
+		j keypress_finished
 		
 		
 	respond_to_s:
@@ -456,7 +427,7 @@ WHILE_GAME:
 		beq $a2, $t7, PICK_UP_HEART
 
 		
-		j keyboard_input_done
+		j keypress_finished
 		
 	respond_to_w:
 		la $t4, ship
@@ -528,10 +499,10 @@ WHILE_GAME:
 		beq $a2, $t7, PICK_UP_HEART
 
 		
-		j keyboard_input_done
+		j keypress_finished
 	
 	
-	keyboard_input_done:
+	keypress_finished:
 	
 		obstacles_falling:
 			# asteroid 1
@@ -828,7 +799,7 @@ WHILE_GAME:
 			
 					
 			# meteor
-			blt $s5, 10, DROPS		# s5 < 10
+			blt $s5, 25, DROPS		# s5 < 10
 			la $t3, meteor_counter
 			lw $t4, 0($t3)
 			beq $t4, 0 SET_METEOR
@@ -853,9 +824,7 @@ WHILE_GAME:
 			add $t6, $t5, $t0	# $t6 = addr(default + $t5)
 			sw $t2, 0($t6)		# $t6[0] = $t2 - black
 			
-			lw $t5, 12($t4)		# $t5 = $t4[2]
-			add $t6, $t5, $t0	# $t6 = addr(default + $t5)
-			sw $t2, 0($t6)		# $t6[0] = $t2 - black
+
 			
 
 			lw $t7, 0($t3)			# $t7 = addr(counter)
@@ -895,16 +864,7 @@ WHILE_GAME:
 			
 			sw $s0, 0($t6)			# $t4[0] = $t1 - grey
 			
-			lw $t5, 12($t4)			# $t5 = asteroid[0]
-			addi $t5, $t5, -128		# $t5 = $t5 - 4
-			sw $t5, 12($t4)			# $t4[0] = $t5
-			add $t6, $t5, $t0		# $t6 = addr(default + $t5)
-			
-			lw $t7, 0($t6)
-			beq $t7, $t8, RESET_COUNTER_COLLISION_METEOR
-			beq $t7, $t9, RESET_COUNTER_COLLISION_METEOR
-			
-			sw $s0, 0($t6)			# $t4[0] = $t1 - grey
+
 
 			la $t3, meteor_counter		# $t3 = addr(counter)
 			lw $t4, 0($t3)			# $t4 = $t3[0]
@@ -950,9 +910,7 @@ RESET_COUNTER_COLLISION_METEOR:
 	add $t6, $t5, $t0	# $t6 = addr(default + $t5)
 	sw $t2, 0($t6)		# $t6[0] = $t2 - black
 			
-	lw $t5, 12($t4)		# $t5 = $t4[2]
-	add $t6, $t5, $t0	# $t6 = addr(default + $t5)
-	sw $t2, 0($t6)		# $t6[0] = $t2 - black
+
 	
 	li $t6, 0xFF2D00	# red
 	la $t3, ship
@@ -1025,18 +983,13 @@ SET_METEOR:
 	add $t4, $a0, $t0
 	sw $t5, 0($t4)
 	
-	add $a0, $a0, 4
+	add $a0, $a0, 8
 	sw $a0, 4($t3)
 	add $t4, $a0, $t0
 	sw $t5, 0($t4)
 	
-	add $a0, $a0, -128
+	add $a0, $a0, -132
 	sw $a0, 8($t3)
-	add $t4, $a0, $t0
-	sw $t5, 0($t4)
-	
-	add $a0, $a0, -4
-	sw $a0, 12($t3)
 	add $t4, $a0, $t0
 	sw $t5, 0($t4)
 	
@@ -1065,8 +1018,7 @@ D_MOVEMENT_COLLISION_METEOR:
 	lw $t4, 8($t3)			# $t4 = $t3[0]
 	beq $s1, $t4, ERASE_METEOR	# if its equal
 	
-	lw $t4, 12($t3)			# $t4 = $t3[0]
-	beq $s1, $t4, ERASE_METEOR	# if its equal
+
 	
 
 	
@@ -1081,8 +1033,7 @@ D_MOVEMENT_COLLISION_METEOR:
 	lw $t4, 8($t3)			# $t4 = $t3[0]
 	beq $s1, $t4, ERASE_METEOR	# if its equal
 	
-	lw $t4, 12($t3)			# $t4 = $t3[0]
-	beq $s1, $t4, ERASE_METEOR	# if its equal
+
 
 	
 	# third
@@ -1096,8 +1047,7 @@ D_MOVEMENT_COLLISION_METEOR:
 	lw $t4, 8($t3)			# $t4 = $t3[0]
 	beq $s1, $t4, ERASE_METEOR	# if its equal
 	
-	lw $t4, 12($t3)			# $t4 = $t3[0]
-	beq $s1, $t4, ERASE_METEOR	# if its equal
+
 	
 ERASE_METEOR:
 	# delete meteor
@@ -1113,9 +1063,7 @@ ERASE_METEOR:
 	add $t5, $t4, $t0	# $t5 = addr(base + t4)
 	sw $t2, 0($t5)		# - erase to black
 	
-	lw $t4, 12($t3)		# $t4 = $t3[0]
-	add $t5, $t4, $t0	# $t5 = addr(base + t4)
-	sw $t2, 0($t5)		# - erase to black
+
 	
 
 	
@@ -1547,7 +1495,7 @@ TEST_D_EDGE:
 
 	lw $t6, 0($t3)			# $t6 = $t3[0]
 	
-	beq $t5, $t6, keyboard_input_done
+	beq $t5, $t6, keypress_finished
 	blt $t5, $t6, not_d_edge  
 	beq $t6, -1, not_d_edge
 	addi $t3, $t3, 4
@@ -1558,7 +1506,7 @@ TEST_W_EDGE:
 
 	lw $t6, 0($t3)			# $t6 = $t3[0]
 	
-	beq $t5, $t6, keyboard_input_done
+	beq $t5, $t6, keypress_finished
 	blt $t5, $t6, not_w_edge  
 	beq $t6, -1, not_w_edge
 	addi $t3, $t3, 4
@@ -1569,7 +1517,7 @@ TEST_S_EDGE:
 
 	lw $t6, 0($t3)			# $t6 = $t3[0]
 	
-	beq $t5, $t6, keyboard_input_done
+	beq $t5, $t6, keypress_finished
 	blt $t5, $t6, not_s_edge  
 	beq $t6, -1, not_s_edge
 	addi $t3, $t3, 4
@@ -1579,7 +1527,7 @@ TEST_A_EDGE:
 
 	lw $t6, 0($t3)			# $t6 = $t3[0]
 	
-	beq $t5, $t6, keyboard_input_done
+	beq $t5, $t6, keypress_finished
 	blt $t5, $t6, not_a_edge  
 	beq $t6, -1, not_a_edge
 	addi $t3, $t3, 4
@@ -2666,12 +2614,6 @@ SET_S2_NUMBER_EIGHT:
 	sw $t8, 0($t5)
 	
 
-	
-	
-
-
-
-	
 	j SET_SCORE_BOARD
 	
 SET_S2_NUMBER_NINE:
@@ -2718,14 +2660,7 @@ SET_S2_NUMBER_NINE:
 	add $t5, $t5, $a0 	# change num to follow digit
 	add $t5, $t5, $t0
 	sw $t8, 0($t5)
-	
 
-	
-	
-
-
-
-	
 	j SET_SCORE_BOARD    
 	
 	

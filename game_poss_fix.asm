@@ -48,19 +48,16 @@
 .eqv obstacle_time 42
 .eqv gold 0xFFD700
 .eqv red 0xFF0000
-.eqv tomato 0xff6347
 
 
 .data
 
 	asteroid_1:		.word	0:5
-	asteroid_1_counter:	.word   0
+
 	asteroid_2:		.word	0:5
 	asteroid_2_counter:	.word   0
 	asteroid_3:		.word	0:5
 	asteroid_3_counter:	.word   0
-	meteor:			.word	0:4
-	meteor_counter:		.word   0
 	ship:			.word	0:3
 	d_edge:			.word   124, 252, 380, 508, 636, 764, 892, 1020, 1148, 1276, 1404, 1532, 1660, 1788, 1916, 2044, 2172, 2300, 2428, 2556, 2684, 2812, 2940, 3068, 3196, 3324, 3452, 3580, 3708, 3836, 3964, 4092, -1
 	w_edge:			.word	0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 68, 72, 76, 80, 84, 88, 92, 96, 100, 104, 108, 112, 116, 120, 124, -1
@@ -88,8 +85,8 @@
 	
 GAME_START:
 
-	
-	
+	li $s3, 0	# ASTEROID 1 COUNTER
+
 	li $s4, obstacle_time
 	sw $t3, 0($sp)  
 
@@ -202,15 +199,10 @@ WHILE_GAME:
 		beq $a0, $t1, D_MOVEMENT_COLLISION
 		beq $a1, $t1, D_MOVEMENT_COLLISION
 		beq $a2, $t1, D_MOVEMENT_COLLISION
-		li $t7, tomato
-		beq $a0, $t1, D_MOVEMENT_COLLISION_METEOR
-		beq $a1, $t1, D_MOVEMENT_COLLISION_METEOR
-		beq $a2, $t1, D_MOVEMENT_COLLISION_METEOR
 		li $t7, gold
 		beq $a0, $t7, PICK_UP_COIN
 		beq $a1, $t7, PICK_UP_COIN
 		beq $a2, $t7, PICK_UP_COIN
-
 
 		
 		j keyboard_input_done
@@ -272,10 +264,6 @@ WHILE_GAME:
 		beq $a0, $t1, D_MOVEMENT_COLLISION
 		beq $a1, $t1, D_MOVEMENT_COLLISION
 		beq $a2, $t1, D_MOVEMENT_COLLISION
-		li $t7, tomato
-		beq $a0, $t1, D_MOVEMENT_COLLISION_METEOR
-		beq $a1, $t1, D_MOVEMENT_COLLISION_METEOR
-		beq $a2, $t1, D_MOVEMENT_COLLISION_METEOR
 		li $t7, gold
 		beq $a0, $t7, PICK_UP_COIN
 		beq $a1, $t7, PICK_UP_COIN
@@ -342,10 +330,6 @@ WHILE_GAME:
 		beq $a0, $t1, D_MOVEMENT_COLLISION
 		beq $a1, $t1, D_MOVEMENT_COLLISION
 		beq $a2, $t1, D_MOVEMENT_COLLISION
-		li $t7, tomato
-		beq $a0, $t1, D_MOVEMENT_COLLISION_METEOR
-		beq $a1, $t1, D_MOVEMENT_COLLISION_METEOR
-		beq $a2, $t1, D_MOVEMENT_COLLISION_METEOR
 		li $t7, gold
 		beq $a0, $t7, PICK_UP_COIN
 		beq $a1, $t7, PICK_UP_COIN
@@ -409,10 +393,6 @@ WHILE_GAME:
 		beq $a0, $t1, D_MOVEMENT_COLLISION
 		beq $a1, $t1, D_MOVEMENT_COLLISION
 		beq $a2, $t1, D_MOVEMENT_COLLISION
-		li $t7, tomato
-		beq $a0, $t1, D_MOVEMENT_COLLISION_METEOR
-		beq $a1, $t1, D_MOVEMENT_COLLISION_METEOR
-		beq $a2, $t1, D_MOVEMENT_COLLISION_METEOR
 		li $t7, gold
 		beq $a0, $t7, PICK_UP_COIN
 		beq $a1, $t7, PICK_UP_COIN
@@ -425,23 +405,20 @@ WHILE_GAME:
 	keyboard_input_done:
 	
 		obstacles_falling:
+			# asteroid 1
 
+			beq $s3, 0, SET_ASTEROID_1
 			
-			
-			# meteor
-			la $t3, meteor_counter
-			lw $t4, 0($t3)
-			beq $t4, 0 SET_METEOR
-			
+			# erase asteroid 1
+
 			li $v0, 32
-			li $a0, obstacle_time
-			syscall	
-			
-			# erase
-			li $s0, tomato
-			la $t4, meteor	# $t4 = addr(asteroid_1)
+			add $a0, $zero, $s4
+			syscall
+			la $t4, asteroid_1	# $t4 = addr(asteroid_1)
 			lw $t5, 0($t4)		# $t5 = $t4[0]
 			add $t6, $t5, $t0	# $t6 = addr(default + $t5)
+
+			
 			sw $t2, 0($t6)		# $t6[0] = $t2 - black
 			
 			lw $t5, 4($t4)		# $t5 = $t4[1]
@@ -457,62 +434,72 @@ WHILE_GAME:
 			add $t6, $t5, $t0	# $t6 = addr(default + $t5)
 			sw $t2, 0($t6)		# $t6[0] = $t2 - black
 			
+			lw $t5, 16($t4)		# $t5 = $t4[1]
+			add $t6, $t5, $t0	# $t6 = addr(default + $t5)
+			sw $t2, 0($t6)		# $t6[0] = $t2 - black
+			
 
-			lw $t7, 0($t3)			# $t7 = addr(counter)
-			beq $t7, 30, RESET_COUNTER	# if $t7 == 33, reset
+			beq $s3, 30, RESET_COUNTER	# if $t7 == 33, reset
 			
 
 			lw $t5, 0($t4)			# $t5 = asteroid[0]
-			addi $t5, $t5, -128		# $t5 = $t5 - 4
+			addi $t5, $t5, -4		# $t5 = $t5 - 4
 			sw $t5, 0($t4)			# $t4[0] = $t5
 			add $t6, $t5, $t0		# $t6 = addr(default + $t5)
 			
 			lw $t7, 0($t6)
-			beq $t7, $t8, RESET_COUNTER_COLLISION_METEOR
-			beq $t7, $t9, RESET_COUNTER_COLLISION_METEOR
+			beq $t7, $t8, RESET_COUNTER_COLLISION
+			beq $t7, $t9, RESET_COUNTER_COLLISION
 			
-			sw $s0, 0($t6)			# $t4[0] = $t1 - grey
+			sw $t1, 0($t6)			# $t4[0] = $t1 - grey
 			
 			lw $t5, 4($t4)			# $t5 = asteroid[0]
-			addi $t5, $t5, -128		# $t5 = $t5 - 4
+			addi $t5, $t5, -4		# $t5 = $t5 - 4
 			sw $t5, 4($t4)			# $t4[0] = $t5
 			add $t6, $t5, $t0		# $t6 = addr(default + $t5)
 			
 			lw $t7, 0($t6)
-			beq $t7, $t8, RESET_COUNTER_COLLISION_METEOR
-			beq $t7, $t9, RESET_COUNTER_COLLISION_METEOR
+			beq $t7, $t8, RESET_COUNTER_COLLISION
+			beq $t7, $t9, RESET_COUNTER_COLLISION
 			
-			sw $s0, 0($t6)			# $t4[0] = $t1 - grey
+			sw $t1, 0($t6)			# $t4[0] = $t1 - grey
 			
 			lw $t5, 8($t4)			# $t5 = asteroid[0]
-			addi $t5, $t5, -128		# $t5 = $t5 - 4
+			addi $t5, $t5, -4		# $t5 = $t5 - 4
 			sw $t5, 8($t4)			# $t4[0] = $t5
 			add $t6, $t5, $t0		# $t6 = addr(default + $t5)
 			
 			lw $t7, 0($t6)
-			beq $t7, $t8, RESET_COUNTER_COLLISION_METEOR
-			beq $t7, $t9, RESET_COUNTER_COLLISION_METEOR
+			beq $t7, $t8, RESET_COUNTER_COLLISION
+			beq $t7, $t9, RESET_COUNTER_COLLISION
 			
-			sw $s0, 0($t6)			# $t4[0] = $t1 - grey
+			sw $t1, 0($t6)			# $t4[0] = $t1 - grey
 			
 			lw $t5, 12($t4)			# $t5 = asteroid[0]
-			addi $t5, $t5, -128		# $t5 = $t5 - 4
+			addi $t5, $t5, -4		# $t5 = $t5 - 4
 			sw $t5, 12($t4)			# $t4[0] = $t5
 			add $t6, $t5, $t0		# $t6 = addr(default + $t5)
 			
 			lw $t7, 0($t6)
-			beq $t7, $t8, RESET_COUNTER_COLLISION_METEOR
-			beq $t7, $t9, RESET_COUNTER_COLLISION_METEOR
+			beq $t7, $t8, RESET_COUNTER_COLLISION
+			beq $t7, $t9, RESET_COUNTER_COLLISION
 			
-			sw $s0, 0($t6)			# $t4[0] = $t1 - grey
+			sw $t1, 0($t6)			# $t4[0] = $t1 - grey
+			
+			lw $t5, 16($t4)			# $t5 = asteroid[0]
+			addi $t5, $t5, -4		# $t5 = $t5 - 4
+			sw $t5, 16($t4)			# $t4[0] = $t5
+			add $t6, $t5, $t0		# $t6 = addr(default + $t5)
+			
+			lw $t7, 0($t6)
+			beq $t7, $t8, RESET_COUNTER_COLLISION
+			beq $t7, $t9, RESET_COUNTER_COLLISION
+			
+			sw $t1, 0($t6)			# $t4[0] = $t1 - grey
+			
 
-			la $t3, meteor_counter	# $t3 = addr(counter)
-			lw $t4, 0($t3)			# $t4 = $t3[0]
-			addi $t4, $t4, 1		# $t4 = $t4 + 1
-			sw $t4, 0($t3)			# counter[0] = $t4
-			
-			
-			
+			addi $s3, $s3, 1		# $t4 = $t4 + 1
+
 			
 	
 			
@@ -529,108 +516,10 @@ WHILE_GAME:
 		j WHILE_GAME
 		
 		
-RESET_COUNTER_COLLISION_METEOR:
-	li $a0, 0
-	sw $a0, 0($t3)
-	
-	# erase meteor
-	lw $t5, 0($t4)		# $t5 = $t4[0]
-	add $t6, $t5, $t0	# $t6 = addr(default + $t5)
-	sw $t2, 0($t6)		# $t6[0] = $t2 - black
-			
-	lw $t5, 4($t4)		# $t5 = $t4[1]
-	add $t6, $t5, $t0	# $t6 = addr(default + $t5)
-	sw $t2, 0($t6)		# $t6[0] = $t2 - black
-			
-			
-	lw $t5, 8($t4)		# $t5 = $t4[2]
-	add $t6, $t5, $t0	# $t6 = addr(default + $t5)
-	sw $t2, 0($t6)		# $t6[0] = $t2 - black
-			
-	lw $t5, 12($t4)		# $t5 = $t4[2]
-	add $t6, $t5, $t0	# $t6 = addr(default + $t5)
-	sw $t2, 0($t6)		# $t6[0] = $t2 - black
-	
-	li $t6, 0xFF2D00	# red
-	la $t3, ship
-	lw $t4, 0($t3)
-	add $t5, $t0, $t4
-	sw $t6, 0($t5)
-	lw $t4, 4($t3)
-	add $t5, $t0, $t4
-	sw $t6, 0($t5)
-	lw $t4, 8($t3)
-	add $t5, $t0, $t4
-	sw $t6, 0($t5)
-	
-	
-	li $v0, 32
-	li $a0, 100
-	syscall
-	
-	
-	la $t3, ship
-	lw $t4, 0($t3)
-	add $t5, $t0, $t4
-	sw $t8, 0($t5)
-	lw $t4, 4($t3)
-	add $t5, $t0, $t4
-	sw $t9, 0($t5)
-	lw $t4, 8($t3)
-	add $t5, $t0, $t4
-	sw $t9, 0($t5)
-			
-	j WHILE_GAME
-	
-	
-		
-
-SET_METEOR:
-	# asteroid 1
-	li $v0, 42
-	li $a0, 0	# a0 contains the random number from 0 to 32
-	li $a1, 14
-	syscall
-	li $t3,  3744
-	li $t5, tomato
-
-	sll $a0, $a0, 2
-	add $a0, $a0, $t3
-	
-	la $t3, meteor		# $t3 = addr(asteroid_1)
-	sw $a0, 0($t3)
-	add $t4, $a0, $t0
-	sw $t5, 0($t4)
-	
-	add $a0, $a0, 4
-	sw $a0, 4($t3)
-	add $t4, $a0, $t0
-	sw $t5, 0($t4)
-	
-	add $a0, $a0, -128
-	sw $a0, 8($t3)
-	add $t4, $a0, $t0
-	sw $t5, 0($t4)
-	
-	add $a0, $a0, -4
-	sw $a0, 12($t3)
-	add $t4, $a0, $t0
-	sw $t5, 0($t4)
-	
-
-	la $t3, meteor_counter	# $t3 = addr(counter)
-	li $t4, 1			# $t4 = 1
-	sw $t4, 0($t3)			# $t3[0] = 1 
-	
-
-	
-
-	j WHILE_GAME	
 
 	
 RESET_COUNTER_COLLISION:
-	li $a0, 0
-	sw $a0, 0($t3)
+	li $s3, 0
 	
 	
 	# erase asteroid 1
@@ -690,8 +579,7 @@ RESET_COUNTER_COLLISION:
 
 	
 RESET_COUNTER:
-	li $t4, 0
-	sw $t4, 0($t3)
+	li $s3, 0
 	j WHILE_GAME
 	
 
@@ -736,9 +624,7 @@ SET_ASTEROID_1:
 
 	sw $t1, 0($t5)		# $t4[0] = $t1 - grey
 	
-	la $t3, asteroid_1_counter	# $t3 = addr(counter)
-	li $t4, 1			# $t4 = 1
-	sw $t4, 0($t3)			# $t3[0] = 1 
+	li $s3, 1
 	
 	la $t3, obstacles_thrown
 	lw $t4, 0($t3)
@@ -842,117 +728,6 @@ TEST_A_EDGE:
 	addi $t3, $t3, 4
 	j TEST_A_EDGE
 
-
-D_MOVEMENT_COLLISION_METEOR:
-	# first check asteroid_1
-	la $t3, meteor		# $t3 = addr(asteroid_1)
-	la $s0, ship
-	# first
-	lw $s1, 0($s0)
-	lw $t4, 0($t3)			# $t4 = $t3[0]
-	beq $s1, $t4, ERASE_METEOR	# if its equal
-	
-	lw $t4, 4($t3)			# $t4 = $t3[0]
-	beq $s1, $t4, ERASE_METEOR	# if its equal
-	
-	lw $t4, 8($t3)			# $t4 = $t3[0]
-	beq $s1, $t4, ERASE_METEOR	# if its equal
-	
-	lw $t4, 12($t3)			# $t4 = $t3[0]
-	beq $s1, $t4, ERASE_METEOR	# if its equal
-	
-
-	
-	# second
-	lw $s1, 4($s0)
-	lw $t4, 0($t3)			# $t4 = $t3[0]
-	beq $s1, $t4, ERASE_METEOR	# if its equal
-	
-	lw $t4, 4($t3)			# $t4 = $t3[0]
-	beq $s1, $t4, ERASE_METEOR	# if its equal
-	
-	lw $t4, 8($t3)			# $t4 = $t3[0]
-	beq $s1, $t4, ERASE_METEOR	# if its equal
-	
-	lw $t4, 12($t3)			# $t4 = $t3[0]
-	beq $s1, $t4, ERASE_METEOR	# if its equal
-
-	
-	# third
-	lw $s1, 8($s0)
-	lw $t4, 0($t3)			# $t4 = $t3[0]
-	beq $s1, $t4, ERASE_METEOR	# if its equal
-	
-	lw $t4, 4($t3)			# $t4 = $t3[0]
-	beq $s1, $t4, ERASE_METEOR	# if its equal
-	
-	lw $t4, 8($t3)			# $t4 = $t3[0]
-	beq $s1, $t4, ERASE_METEOR	# if its equal
-	
-	lw $t4, 12($t3)			# $t4 = $t3[0]
-	beq $s1, $t4, ERASE_METEOR	# if its equal
-	
-	
-ERASE_METEOR:
-	# delete meteor
-	lw $t4, 0($t3)		# $t4 = $t3[0]
-	add $t5, $t4, $t0	# $t5 = addr(base + t4)
-	sw $t2, 0($t5)		# - erase to black
-	
-	lw $t4, 4($t3)		# $t4 = $t3[0]
-	add $t5, $t4, $t0	# $t5 = addr(base + t4)
-	sw $t2, 0($t5)		# - erase to black
-	
-	lw $t4, 8($t3)		# $t4 = $t3[0]
-	add $t5, $t4, $t0	# $t5 = addr(base + t4)
-	sw $t2, 0($t5)		# - erase to black
-	
-	lw $t4, 12($t3)		# $t4 = $t3[0]
-	add $t5, $t4, $t0	# $t5 = addr(base + t4)
-	sw $t2, 0($t5)		# - erase to black
-	
-
-	
-	la $t4, meteor_counter
-	li $t5, 0
-	sw $t5, 0($t4)
-	
-	
-	# make ship go red
-	li $t6, 0xFF2D00	# red
-	la $t3, ship
-	lw $t4, 0($t3)
-	add $t5, $t0, $t4
-	sw $t6, 0($t5)
-	lw $t4, 4($t3)
-	add $t5, $t0, $t4
-	sw $t6, 0($t5)
-	lw $t4, 8($t3)
-	add $t5, $t0, $t4
-	sw $t6, 0($t5)
-	
-	
-	li $v0, 32
-	li $a0, 100
-	syscall
-	
-	
-	la $t3, ship
-	lw $t4, 0($t3)
-	add $t5, $t0, $t4
-	sw $t8, 0($t5)
-	lw $t4, 4($t3)
-	add $t5, $t0, $t4
-	sw $t9, 0($t5)
-	lw $t4, 8($t3)
-	add $t5, $t0, $t4
-	sw $t9, 0($t5)
-	
-	
-	
-	
-	j WHILE_GAME
-	
 		
 D_MOVEMENT_COLLISION:
 
@@ -1046,9 +821,7 @@ ERASE_ASTEROID_1:
 	add $t5, $t4, $t0	# $t5 = addr(base + t4)
 	sw $t2, 0($t5)		# - erase to black
 	
-	la $t4, asteroid_1_counter
-	li $t5, 0
-	sw $t5, 0($t4)
+	li $s3, 0
 	
 	
 	# make ship go red
@@ -1119,3 +892,15 @@ END:
 	
 
 
+
+	
+
+
+
+
+	
+
+
+	
+	
+	
