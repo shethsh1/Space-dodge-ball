@@ -46,7 +46,7 @@
 #
 
 .eqv BASE_ADDRESS 0x10008000
-.eqv obstacle_time 10
+.eqv obstacle_time 15
 .eqv gold 0xFFD700
 .eqv red 0xFF0000
 .eqv tomato 0xff6347
@@ -64,7 +64,7 @@
 	meteor_counter:		.word   0
 	ship:			.word	0:3
 	d_edge:			.word   116, 244, 372, 500, 628, 756, 884, 1012, 1140, 1268, 1396, 1524, 1652, 1780, 1908, 2036, 2164, 2292, 2420, 2548, 2676, 2804, 2932, 3060, 3188, 3316, 3444, 3572, 3700, 3828, 3956, 4084, -1
-	w_edge:			.word	0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 68, 72, 76, 80, 84, 88, 92, 96, 100, 104, 108, 112, 116, 120, 124, -1
+	w_edge:			.word	128, 132, 136, 140, 144, 148, 152, 156, 160, 164, 168, 172, 176, 180, 184, 188, 192, 196, 200, 204, 208, 212, 216, 220, 224, 228, 232, 236, 240, 244, 248, 252, -1
 	s_edge:			.word	3584, 3588, 3592, 3596, 3600, 3604, 3608, 3612, 3616, 3620, 3624, 3628, 3632, 3636, 3640, 3644, 3648, 3652, 3656, 3660, 3664, 3668, 3672, 3676, 3680, 3684, 3688, 3692, 3696, 3700, 3704, 3708, -1
 	a_edge:			.word	4, 132, 260, 388, 516, 644, 772, 900, 1028, 1156, 1284, 1412, 1540, 1668, 1796, 1924, 2052, 2180, 2308, 2436, 2564, 2692, 2820, 2948, 3076, 3204, 3332, 3460, 3588, 3716, 3844, 3972, -1
 	total_collisions:	.word	0
@@ -114,7 +114,8 @@
 	
 GAME_START:
 
-
+	li $s5, 0 # meteor counter
+	
 	la $t3, heart_item
 	sw $zero, 0($t3)
 	
@@ -827,6 +828,7 @@ WHILE_GAME:
 			
 					
 			# meteor
+			blt $s5, 10, DROPS		# s5 < 10
 			la $t3, meteor_counter
 			lw $t4, 0($t3)
 			beq $t4, 0 SET_METEOR
@@ -857,7 +859,7 @@ WHILE_GAME:
 			
 
 			lw $t7, 0($t3)			# $t7 = addr(counter)
-			beq $t7, 30, RESET_COUNTER	# if $t7 == 33, reset
+			beq $t7, 30, RESET_COUNTER_METEOR	# if $t7 == 33, reset
 			
 
 			lw $t5, 0($t4)			# $t5 = asteroid[0]
@@ -904,11 +906,12 @@ WHILE_GAME:
 			
 			sw $s0, 0($t6)			# $t4[0] = $t1 - grey
 
-			la $t3, meteor_counter	# $t3 = addr(counter)
+			la $t3, meteor_counter		# $t3 = addr(counter)
 			lw $t4, 0($t3)			# $t4 = $t3[0]
 			addi $t4, $t4, 1		# $t4 = $t4 + 1
 			sw $t4, 0($t3)			# counter[0] = $t4		
 			
+		DROPS:
 		la $t3, heart_item
 		lw $t4, 0($t3)
 		beq $t4, 0, COIN_RESPAWN
@@ -1004,6 +1007,9 @@ RESET_COUNTER_COLLISION_METEOR:
 	
 SET_METEOR:
 	# asteroid 1
+	
+	
+	
 	li $v0, 42
 	li $a0, 0	# a0 contains the random number from 0 to 32
 	li $a1, 14
@@ -1251,6 +1257,12 @@ RESET_COUNTER_COLLISION:
 	j WHILE_GAME
 
 	
+RESET_COUNTER_METEOR:
+	li $t4, 0
+	sw $t4, 0($t3)
+	li $s5, 0
+	j WHILE_GAME	
+	
 RESET_COUNTER:
 	li $t4, 0
 	sw $t4, 0($t3)
@@ -1293,6 +1305,9 @@ SPAWN_COIN:
 	
 
 SET_ASTEROID_1:
+
+	addi $s5, $s5, 1
+
 	# asteroid 1
 	li $v0, 42
 	li $a0, 0	# a0 contains the random number from 0 to 32
@@ -1404,6 +1419,9 @@ HEART_SPAWN:
 	j COIN_DROP_CHECK
 	
 SET_ASTEROID_2:
+
+	addi $s5, $s5, 1
+
 	# asteroid 2
 	li $v0, 42
 	li $a0, 0	# a0 contains the random number from 0 to 32
@@ -1463,6 +1481,9 @@ SET_ASTEROID_2:
 
 	
 SET_ASTEROID_3:
+
+	addi $s5, $s5, 1
+
 	# asteroid 3
 	li $v0, 42
 	li $a0, 0	# a0 contains the random number from 0 to 32
