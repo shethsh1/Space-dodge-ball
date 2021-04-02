@@ -99,6 +99,9 @@
     heart_spawn_counter:	.word	0
     heart_location:		.word	3136, 3000, 1228
     
+    intro_prompt:		.asciiz "To play the game use controls w, a, s, d to move and p to restart\n"
+    border:			.asciiz  "-------------------------------------------------------------------\n"
+    
 .text
 
     li $t0, BASE_ADDRESS 	# $t0 stores the base address for display
@@ -106,6 +109,18 @@
     li $t2, 0x000000 		# $t2 stores the black colour code
     li $t8, 0x0000FF		# $t8 stores the blue colour code
     li $t9, 0xFFFF00		# $t9 stores the yellow colour code
+    
+    li $v0, 4
+    la $a0, border	# prints border
+    syscall
+    
+    li $v0, 4
+    la $a0, intro_prompt	# prints intro message
+    syscall
+    
+    li $v0, 4
+    la $a0, border	# prints border
+    syscall
 
 GAME_START:
 
@@ -250,9 +265,9 @@ WHILE_GAME:
         beq $a1, $t1, D_MOVEMENT_COLLISION		# $a1 = grey, branch to obstacle collision
         beq $a2, $t1, D_MOVEMENT_COLLISION		# $a2 = grey, branch to obstacle collision
         li $t7, tomato					# t7 = tomato colour
-        beq $a0, $t1, D_MOVEMENT_COLLISION_ENEMY_SHIP	# $a0 = tomato, branch to enemy ship collision
-        beq $a1, $t1, D_MOVEMENT_COLLISION_ENEMY_SHIP   # $a1 = tomato, branch to enemy ship collision
-        beq $a2, $t1, D_MOVEMENT_COLLISION_ENEMY_SHIP   # $a2 = tomato, branch to enemy ship collision
+        beq $a0, $t7, D_MOVEMENT_COLLISION_ENEMY_SHIP	# $a0 = tomato, branch to enemy ship collision
+        beq $a1, $t7, D_MOVEMENT_COLLISION_ENEMY_SHIP   # $a1 = tomato, branch to enemy ship collision
+        beq $a2, $t7, D_MOVEMENT_COLLISION_ENEMY_SHIP   # $a2 = tomato, branch to enemy ship collision
         li $t7, gold					# t7 = gold colour
         beq $a0, $t7, PICK_UP_COIN			# $a0 = gold, branch to coin pick up
         beq $a1, $t7, PICK_UP_COIN			# $a1 = gold, branch to coin pick up
@@ -317,9 +332,9 @@ WHILE_GAME:
         beq $a1, $t1, D_MOVEMENT_COLLISION		# if a1 = black, jump to obstacle collision 
         beq $a2, $t1, D_MOVEMENT_COLLISION		# if a2 = black, jump to obstacle collision 
         li $t7, tomato					# t7 = tomato colour
-        beq $a0, $t1, D_MOVEMENT_COLLISION_ENEMY_SHIP	# if a0 = tomato, jump to enemy ship collision 
-        beq $a1, $t1, D_MOVEMENT_COLLISION_ENEMY_SHIP	# if a1 = tomato, jump to enemy ship collision 
-        beq $a2, $t1, D_MOVEMENT_COLLISION_ENEMY_SHIP	# if a2 = tomato, jump to enemy ship collision 
+        beq $a0, $t7, D_MOVEMENT_COLLISION_ENEMY_SHIP	# if a0 = tomato, jump to enemy ship collision 
+        beq $a1, $t7, D_MOVEMENT_COLLISION_ENEMY_SHIP	# if a1 = tomato, jump to enemy ship collision 
+        beq $a2, $t7, D_MOVEMENT_COLLISION_ENEMY_SHIP	# if a2 = tomato, jump to enemy ship collision 
         li $t7, gold					# t7 = gold colour
         beq $a0, $t7, PICK_UP_COIN			# if a0 = gold, jump to pick up coin
         beq $a1, $t7, PICK_UP_COIN			# if a1 = gold, jump to pick up coin
@@ -383,9 +398,9 @@ WHILE_GAME:
         beq $a1, $t1, D_MOVEMENT_COLLISION		# a1 = grey, jump to obstacle collision
         beq $a2, $t1, D_MOVEMENT_COLLISION		# a2 = grey, jump to obstacle collision
         li $t7, tomato					# t7 = tomato colour
-        beq $a0, $t1, D_MOVEMENT_COLLISION_ENEMY_SHIP	# a0 = tomato, jump to ship collision collision
-        beq $a1, $t1, D_MOVEMENT_COLLISION_ENEMY_SHIP	# a1 = tomato, jump to ship collision collision
-        beq $a2, $t1, D_MOVEMENT_COLLISION_ENEMY_SHIP	# a2 = tomato, jump to ship collision collision
+        beq $a0, $t7, D_MOVEMENT_COLLISION_ENEMY_SHIP	# a0 = tomato, jump to ship collision collision
+        beq $a1, $t7, D_MOVEMENT_COLLISION_ENEMY_SHIP	# a1 = tomato, jump to ship collision collision
+        beq $a2, $t7, D_MOVEMENT_COLLISION_ENEMY_SHIP	# a2 = tomato, jump to ship collision collision
         li $t7, gold					# t7 = gold
         beq $a0, $t7, PICK_UP_COIN			# a0 = gold, jump to pick up coin
         beq $a1, $t7, PICK_UP_COIN			# a1 = gold, jump to pick up coin
@@ -448,9 +463,9 @@ WHILE_GAME:
         beq $a1, $t1, D_MOVEMENT_COLLISION		# a1 = grey, jump to obstacle collision
         beq $a2, $t1, D_MOVEMENT_COLLISION		# a2 = grey, jump to obstacle collision
         li $t7, tomato					# t7 = tomato
-        beq $a0, $t1, D_MOVEMENT_COLLISION_ENEMY_SHIP	# a0 = tomato, jump to enemy ship collision
-        beq $a1, $t1, D_MOVEMENT_COLLISION_ENEMY_SHIP	# a2 = tomato, jump to enemy ship collision
-        beq $a2, $t1, D_MOVEMENT_COLLISION_ENEMY_SHIP	# a3 = tomato, jump to enemy ship collision
+        beq $a0, $t7, D_MOVEMENT_COLLISION_ENEMY_SHIP	# a0 = tomato, jump to enemy ship collision
+        beq $a1, $t7, D_MOVEMENT_COLLISION_ENEMY_SHIP	# a2 = tomato, jump to enemy ship collision
+        beq $a2, $t7, D_MOVEMENT_COLLISION_ENEMY_SHIP	# a3 = tomato, jump to enemy ship collision
         li $t7, gold					# t7 = gold
         beq $a0, $t7, PICK_UP_COIN			# a0 = gold, jump to pick up coin
         beq $a1, $t7, PICK_UP_COIN			# a1 = gold, jump to pick up coin
@@ -1861,18 +1876,18 @@ SET_SCORE_BOARD:
 SET_S:
     li $t6, 1				# t6 = 1
     sw $t6, 0($t7)			# t7[0] = t6
-    j SET_S2_NUMBER_ZERO
+    j SET_NUMBER_ZERO
 
-SET_S2_NUMBER_ZERO:
-    beq $t3, 1, SET_S2_NUMBER_ONE	# $t3 = 1, jump to set 1
-    beq $t3, 2, SET_S2_NUMBER_TWO	# $t3 = 2, jump to set 2
-    beq $t3, 3, SET_S2_NUMBER_THREE	# $t3 = 3, jump to set 3
-    beq $t3, 4, SET_S2_NUMBER_FOUR	# $t3 = 4, jump to set 4
-    beq $t3, 5, SET_S2_NUMBER_FIVE	# $t3 = 5, jump to set 5
-    beq $t3, 6, SET_S2_NUMBER_SIX	# $t3 = 6, jump to set 6
-    beq $t3, 7, SET_S2_NUMBER_SEVEN	# $t3 = 7, jump to set 7
-    beq $t3, 8, SET_S2_NUMBER_EIGHT	# $t3 = 8, jump to set 8
-    beq $t3, 9, SET_S2_NUMBER_NINE	# $t3 = 9, jump to set 9
+SET_NUMBER_ZERO:
+    beq $t3, 1, SET_NUMBER_ONE		# $t3 = 1, jump to set 1
+    beq $t3, 2, SET_NUMBER_TWO		# $t3 = 2, jump to set 2
+    beq $t3, 3, SET_NUMBER_THREE	# $t3 = 3, jump to set 3
+    beq $t3, 4, SET_NUMBER_FOUR		# $t3 = 4, jump to set 4
+    beq $t3, 5, SET_NUMBER_FIVE		# $t3 = 5, jump to set 5
+    beq $t3, 6, SET_NUMBER_SIX		# $t3 = 6, jump to set 6
+    beq $t3, 7, SET_NUMBER_SEVEN	# $t3 = 7, jump to set 7
+    beq $t3, 8, SET_NUMBER_EIGHT	# $t3 = 8, jump to set 8
+    beq $t3, 9, SET_NUMBER_NINE		# $t3 = 9, jump to set 9
     
     la $t4, number_zero			# t4 = addr(number_zero)
     lw $t5, 0($t4)			# t5 = t4[0]
@@ -1926,7 +1941,7 @@ SET_S2_NUMBER_ZERO:
 
     j SET_SCORE_BOARD			# jump to set score board
 
-SET_S2_NUMBER_ONE:
+SET_NUMBER_ONE:
 
     la $t4, number_one			# t4 = addr(number_one)
     lw $t5, 0($t4)			# t5 = t4[0]
@@ -1964,7 +1979,7 @@ SET_S2_NUMBER_ONE:
 
     j SET_SCORE_BOARD			# jump back to set scoreboard
 
-SET_S2_NUMBER_TWO:
+SET_NUMBER_TWO:
 
     la $t4, number_two			# t4 = addr(two)
     lw $t5, 0($t4)			# t5 = t4[0]
@@ -2015,7 +2030,7 @@ SET_S2_NUMBER_TWO:
     j SET_SCORE_BOARD			# jump back to set scoreboard
 
 
-SET_S2_NUMBER_THREE:
+SET_NUMBER_THREE:
 
     la $t4, number_three		# t4 = addr(3)
     lw $t5, 0($t4)			# t5 = t4[0]
@@ -2061,7 +2076,7 @@ SET_S2_NUMBER_THREE:
 
     j SET_SCORE_BOARD			# jump back to set scoreboard
 
-SET_S2_NUMBER_FOUR:
+SET_NUMBER_FOUR:
 
     la $t4, number_four			# t4 = addr(4) 		
     lw $t5, 0($t4)			# t5 = t4[0]
@@ -2103,7 +2118,7 @@ SET_S2_NUMBER_FOUR:
 
     j SET_SCORE_BOARD			# jump back to scoreboard
 
-SET_S2_NUMBER_FIVE:
+SET_NUMBER_FIVE:
 
     la $t4, number_five			# t4 = addr(five)
     lw $t5, 0($t4)			# t5 = t4[0]
@@ -2153,7 +2168,7 @@ SET_S2_NUMBER_FIVE:
 
     j SET_SCORE_BOARD			# jump back to set score board
 
-SET_S2_NUMBER_SIX:
+SET_NUMBER_SIX:
 
     la $t4, number_six			# t4 = addr(6)
     lw $t5, 0($t4)			# t5 = t4[0]
@@ -2207,7 +2222,7 @@ SET_S2_NUMBER_SIX:
 
     j SET_SCORE_BOARD			# jump to set score board
 
-SET_S2_NUMBER_SEVEN:
+SET_NUMBER_SEVEN:
 
     la $t4, number_seven 		# t4 = addr(seven)
     lw $t5, 0($t4)			# t5 = t4[0]
@@ -2241,7 +2256,7 @@ SET_S2_NUMBER_SEVEN:
 
     j SET_SCORE_BOARD			# jump back to set score board
 
-SET_S2_NUMBER_EIGHT:
+SET_NUMBER_EIGHT:
 
     la $t4, number_eight		# t4 = addr(eight)
     lw $t5, 0($t4)			# t5 = t4[0]
@@ -2299,7 +2314,7 @@ SET_S2_NUMBER_EIGHT:
 
     j SET_SCORE_BOARD			# jump back to set score board
 
-SET_S2_NUMBER_NINE:
+SET_NUMBER_NINE:
 
     la $t4, number_nine			# t4 = addr(nine)
     lw $t5, 0($t4)			# t5 = t4[0]
