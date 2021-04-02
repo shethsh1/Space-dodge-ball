@@ -6,4 +6,4 @@ A very minimalist space dodge ball game. Dodge asteroids get points per asteroid
 
 
     
-![alt-text](https://giphy.com/gifs/kmJSOSLUJwO2GeRqCB)
+![alt-text](https://media.giphy.com/media/kmJSOSLUJwO2GeRqCB/giphy.gif)
