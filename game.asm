@@ -507,2184 +507,1892 @@ WHILE_GAME:
             beq $t7, $t8, RESET_COUNTER_COLLISION	# t7 = blue, jump to reset obstacle
             beq $t7, $t9, RESET_COUNTER_COLLISION	# t7 = yellow, jump to reset obstacle
             sw $t1, 0($t6)				# $t4[0] = $t1 - grey
-            lw $t5, 4($t4)				# $t5 = asteroid[0]
+            lw $t5, 4($t4)				# $t5 = asteroid[4]
             addi $t5, $t5, -4				# $t5 = $t5 - 4
             sw $t5, 4($t4)				# $t4[0] = $t5
             add $t6, $t5, $t0				# $t6 = addr(default + $t5)
 
-            lw $t7, 0($t6)
-            beq $t7, $t8, RESET_COUNTER_COLLISION
-            beq $t7, $t9, RESET_COUNTER_COLLISION
-            sw $t1, 0($t6)			# $t4[0] = $t1 - grey
-            lw $t5, 8($t4)			# $t5 = asteroid[0]
-            addi $t5, $t5, -4		# $t5 = $t5 - 4
-            sw $t5, 8($t4)			# $t4[0] = $t5
-            add $t6, $t5, $t0		# $t6 = addr(default + $t5)
+            lw $t7, 0($t6)				# t7 = t6[0]
+            beq $t7, $t8, RESET_COUNTER_COLLISION	# if t7 = t8, jump to reset counter collision
+            beq $t7, $t9, RESET_COUNTER_COLLISION	# if t7 = t9, jump to reset counter collision
+            sw $t1, 0($t6)				# $t6[0] = $t1 - grey
+            lw $t5, 8($t4)				# $t5 = asteroid[8]
+            addi $t5, $t5, -4				# $t5 = $t5 - 4
+            sw $t5, 8($t4)				# $t4[0] = $t5
+            add $t6, $t5, $t0				# $t6 = addr(default + $t5)
 
-            lw $t7, 0($t6)
-            beq $t7, $t8, RESET_COUNTER_COLLISION
-            beq $t7, $t9, RESET_COUNTER_COLLISION
+            lw $t7, 0($t6)				# t7 = t6[0]
+            beq $t7, $t8, RESET_COUNTER_COLLISION	# if t7 = t8, jump to reset counter collision 
+            beq $t7, $t9, RESET_COUNTER_COLLISION	# if t7 = t9, jump to reset counter collision 
+            sw $t1, 0($t6)				# $t6[0] = $t1 - grey
+            lw $t5, 12($t4)				# $t5 = asteroid[12]
+            addi $t5, $t5, -4				# $t5 = $t5 - 4
+            sw $t5, 12($t4)				# $t4[0] = $t5
+            add $t6, $t5, $t0				# $t6 = addr(default + $t5)
 
-            sw $t1, 0($t6)			# $t4[0] = $t1 - grey
+            lw $t7, 0($t6)				# t7 = t6[0]
+            beq $t7, $t8, RESET_COUNTER_COLLISION	# if t7 = t8, jump to reset counter collision
+            beq $t7, $t9, RESET_COUNTER_COLLISION	# if t7 = t9, jump to reset counter collision
+            sw $t1, 0($t6)				# $t6[0] = $t1 - grey
+            lw $t5, 16($t4)				# $t5 = asteroid[16]
+            addi $t5, $t5, -4				# $t5 = $t5 - 4
+            sw $t5, 16($t4)				# $t4[0] = $t5
+            add $t6, $t5, $t0				# $t6 = addr(default + $t5)
 
-            lw $t5, 12($t4)			# $t5 = asteroid[0]
-            addi $t5, $t5, -4		# $t5 = $t5 - 4
-            sw $t5, 12($t4)			# $t4[0] = $t5
-            add $t6, $t5, $t0		# $t6 = addr(default + $t5)
-
-            lw $t7, 0($t6)
-            beq $t7, $t8, RESET_COUNTER_COLLISION
-            beq $t7, $t9, RESET_COUNTER_COLLISION
-
-            sw $t1, 0($t6)			# $t4[0] = $t1 - grey
-
-            lw $t5, 16($t4)			# $t5 = asteroid[0]
-            addi $t5, $t5, -4		# $t5 = $t5 - 4
-            sw $t5, 16($t4)			# $t4[0] = $t5
-            add $t6, $t5, $t0		# $t6 = addr(default + $t5)
-
-            lw $t7, 0($t6)
-            beq $t7, $t8, RESET_COUNTER_COLLISION
-            beq $t7, $t9, RESET_COUNTER_COLLISION
-
-            sw $t1, 0($t6)			# $t4[0] = $t1 - grey
-
-            la $t3, asteroid_1_counter	# $t3 = addr(counter)
-            lw $t4, 0($t3)			# $t4 = $t3[0]
-            addi $t4, $t4, 1		# $t4 = $t4 + 1
-            sw $t4, 0($t3)			# counter[0] = $t4
+            lw $t7, 0($t6)				# t7 = t6[0]
+            beq $t7, $t8, RESET_COUNTER_COLLISION	# if t7 = t8, jump to reset counter collision
+            beq $t7, $t9, RESET_COUNTER_COLLISION	# if t7 = t9, jump to reset counter collision
+            sw $t1, 0($t6)				# $t4[0] = $t1 - grey
+            
+            la $t3, asteroid_1_counter			# $t3 = addr(counter)
+            lw $t4, 0($t3)				# $t4 = $t3[0]
+            addi $t4, $t4, 1				# $t4 = $t4 + 1
+            sw $t4, 0($t3)				# counter[0] = $t4
 
             # asteroid 2
-            la $t3, asteroid_2_counter	# $t3 = addr(counter)
-            lw $t4, 0($t3)			# $t4 = $t3[0]
-            beq $t4, 0, SET_ASTEROID_2
+            la $t3, asteroid_2_counter			# $t3 = addr(counter)
+            lw $t4, 0($t3)				# $t4 = $t3[0]
+            beq $t4, 0, SET_ASTEROID_2			# if t4 == 0, jump to set asteroid 2
 
             # erase asteroid 2
-            li $v0, 32
+            li $v0, 32					# sleep for obstacle time
             li $a0, obstacle_time
             syscall
-            la $t4, asteroid_2	# $t4 = addr(asteroid_1)
-            lw $t5, 0($t4)		# $t5 = $t4[0]
-            add $t6, $t5, $t0	# $t6 = addr(default + $t5)
+            la $t4, asteroid_2				# $t4 = addr(asteroid_1)
+            lw $t5, 0($t4)				# $t5 = $t4[0]
+            add $t6, $t5, $t0				# $t6 = addr(default + $t5)
+            sw $t2, 0($t6)				# $t6[0] = $t2 - black
+            lw $t5, 4($t4)				# $t5 = $t4[1]
+            add $t6, $t5, $t0				# $t6 = addr(default + $t5)
+            sw $t2, 0($t6)				# $t6[0] = $t2 - black
+
+            lw $t5, 8($t4)				# $t5 = $t4[2]
+            add $t6, $t5, $t0				# $t6 = addr(default + $t5)
+            sw $t2, 0($t6)				# $t6[0] = $t2 - black
+
+            lw $t5, 12($t4)				# $t5 = $t4[2]
+            add $t6, $t5, $t0				# $t6 = addr(default + $t5)
+            sw $t2, 0($t6)				# $t6[0] = $t2 - black
+
+            lw $t5, 16($t4)				# $t5 = $t4[1]
+            add $t6, $t5, $t0				# $t6 = addr(default + $t5)
+            sw $t2, 0($t6)				# $t6[0] = $t2 - black
+
+            lw $t7, 0($t3)				# $t7 = addr(counter)
+            beq $t7, 30, RESET_COUNTER			# if $t7 == 33, reset
 
 
-            sw $t2, 0($t6)		# $t6[0] = $t2 - black
+            lw $t5, 0($t4)				# $t5 = asteroid[0]
+            addi $t5, $t5, -4				# $t5 = $t5 - 4
+            sw $t5, 0($t4)				# $t4[0] = $t5
+            add $t6, $t5, $t0				# $t6 = addr(default + $t5)
 
-            lw $t5, 4($t4)		# $t5 = $t4[1]
-            add $t6, $t5, $t0	# $t6 = addr(default + $t5)
-            sw $t2, 0($t6)		# $t6[0] = $t2 - black
+            lw $t7, 0($t6)				# t7 = t6[0]
+            beq $t7, $t8, RESET_COUNTER_COLLISION	# t7 = t8, jump to reset counter collision
+            beq $t7, $t9, RESET_COUNTER_COLLISION	# t7 = t9, jump to reset counter collision
+            sw $t1, 0($t6)				# $t4[0] = $t1 - grey
 
+            lw $t5, 4($t4)				# $t5 = asteroid[4]
+            addi $t5, $t5, -4				# $t5 = $t5 - 4
+            sw $t5, 4($t4)				# $t4[0] = $t5
+            add $t6, $t5, $t0				# $t6 = addr(default + $t5)
 
-            lw $t5, 8($t4)		# $t5 = $t4[2]
-            add $t6, $t5, $t0	# $t6 = addr(default + $t5)
-            sw $t2, 0($t6)		# $t6[0] = $t2 - black
+            lw $t7, 0($t6)				# t7 = t6[0]
+            beq $t7, $t8, RESET_COUNTER_COLLISION	# t7 = t8, jump to reset counter collision
+            beq $t7, $t9, RESET_COUNTER_COLLISION	# t7 = t9, jump to reset counter collision
+            sw $t1, 0($t6)				# $t6[0] = $t1 - grey
 
-            lw $t5, 12($t4)		# $t5 = $t4[2]
-            add $t6, $t5, $t0	# $t6 = addr(default + $t5)
-            sw $t2, 0($t6)		# $t6[0] = $t2 - black
+            lw $t5, 8($t4)				# $t5 = asteroid[8]
+            addi $t5, $t5, -4				# $t5 = $t5 - 4
+            sw $t5, 8($t4)				# $t4[0] = $t5
+            add $t6, $t5, $t0				# $t6 = addr(default + $t5)
 
-            lw $t5, 16($t4)		# $t5 = $t4[1]
-            add $t6, $t5, $t0	# $t6 = addr(default + $t5)
-            sw $t2, 0($t6)		# $t6[0] = $t2 - black
+            lw $t7, 0($t6)				# t7 = t6[0]
+            beq $t7, $t8, RESET_COUNTER_COLLISION	# t7 = t8, jump to reset counter collision
+            beq $t7, $t9, RESET_COUNTER_COLLISION	# t7 = t9, jump to reset counter collision
+            sw $t1, 0($t6)				# $t6[0] = $t1 - grey
 
-            lw $t7, 0($t3)			# $t7 = addr(counter)
-            beq $t7, 30, RESET_COUNTER	# if $t7 == 33, reset
+            lw $t5, 12($t4)				# $t5 = asteroid[12]
+            addi $t5, $t5, -4				# $t5 = $t5 - 4
+            sw $t5, 12($t4)				# $t4[0] = $t5
+            add $t6, $t5, $t0				# $t6 = addr(default + $t5)
 
+            lw $t7, 0($t6)				# t7 = t6[0]
+            beq $t7, $t8, RESET_COUNTER_COLLISION	# t7 = t8, jump to reset counter collision
+            beq $t7, $t9, RESET_COUNTER_COLLISION	# t7 = t9, jump to reset counter collision
+            sw $t1, 0($t6)				# $t6[0] = $t1 - grey
 
-            lw $t5, 0($t4)			# $t5 = asteroid[0]
-            addi $t5, $t5, -4		# $t5 = $t5 - 4
-            sw $t5, 0($t4)			# $t4[0] = $t5
-            add $t6, $t5, $t0		# $t6 = addr(default + $t5)
+            lw $t5, 16($t4)				# $t5 = asteroid[16]
+            addi $t5, $t5, -4				# $t5 = $t5 - 4
+            sw $t5, 16($t4)				# $t4[0] = $t5
+            add $t6, $t5, $t0				# $t6 = addr(default + $t5)
 
-            lw $t7, 0($t6)
-            beq $t7, $t8, RESET_COUNTER_COLLISION
-            beq $t7, $t9, RESET_COUNTER_COLLISION
+            lw $t7, 0($t6)				# t7 = t6[0]
+            beq $t7, $t8, RESET_COUNTER_COLLISION	# t7 = t8, jump to reset counter collision
+            beq $t7, $t9, RESET_COUNTER_COLLISION	# t7 = t9, jump to reset counter collision
+            sw $t1, 0($t6)				# $t6[0] = $t1 - grey
 
-            sw $t1, 0($t6)			# $t4[0] = $t1 - grey
-
-            lw $t5, 4($t4)			# $t5 = asteroid[0]
-            addi $t5, $t5, -4		# $t5 = $t5 - 4
-            sw $t5, 4($t4)			# $t4[0] = $t5
-            add $t6, $t5, $t0		# $t6 = addr(default + $t5)
-
-            lw $t7, 0($t6)
-            beq $t7, $t8, RESET_COUNTER_COLLISION
-            beq $t7, $t9, RESET_COUNTER_COLLISION
-
-            sw $t1, 0($t6)			# $t4[0] = $t1 - grey
-
-            lw $t5, 8($t4)			# $t5 = asteroid[0]
-            addi $t5, $t5, -4		# $t5 = $t5 - 4
-            sw $t5, 8($t4)			# $t4[0] = $t5
-            add $t6, $t5, $t0		# $t6 = addr(default + $t5)
-
-            lw $t7, 0($t6)
-            beq $t7, $t8, RESET_COUNTER_COLLISION
-            beq $t7, $t9, RESET_COUNTER_COLLISION
-
-            sw $t1, 0($t6)			# $t4[0] = $t1 - grey
-
-            lw $t5, 12($t4)			# $t5 = asteroid[0]
-            addi $t5, $t5, -4		# $t5 = $t5 - 4
-            sw $t5, 12($t4)			# $t4[0] = $t5
-            add $t6, $t5, $t0		# $t6 = addr(default + $t5)
-
-            lw $t7, 0($t6)
-            beq $t7, $t8, RESET_COUNTER_COLLISION
-            beq $t7, $t9, RESET_COUNTER_COLLISION
-
-            sw $t1, 0($t6)			# $t4[0] = $t1 - grey
-
-            lw $t5, 16($t4)			# $t5 = asteroid[0]
-            addi $t5, $t5, -4		# $t5 = $t5 - 4
-            sw $t5, 16($t4)			# $t4[0] = $t5
-            add $t6, $t5, $t0		# $t6 = addr(default + $t5)
-
-            lw $t7, 0($t6)
-            beq $t7, $t8, RESET_COUNTER_COLLISION
-            beq $t7, $t9, RESET_COUNTER_COLLISION
-
-            sw $t1, 0($t6)			# $t4[0] = $t1 - grey
-
-            la $t3, asteroid_2_counter	# $t3 = addr(counter)
-            lw $t4, 0($t3)			# $t4 = $t3[0]
-            addi $t4, $t4, 1		# $t4 = $t4 + 1
-            sw $t4, 0($t3)			# counter[0] = $t4
-
+            la $t3, asteroid_2_counter			# $t3 = addr(counter)
+            lw $t4, 0($t3)				# $t4 = $t3[0]
+            addi $t4, $t4, 1				# $t4 = $t4 + 1
+            sw $t4, 0($t3)				# counter[0] = $t4
 
             # asteroid 3
-            la $t3, asteroid_3_counter	# $t3 = addr(counter)
-            lw $t4, 0($t3)			# $t4 = $t3[0]
-            beq $t4, 0, SET_ASTEROID_3
+            la $t3, asteroid_3_counter			# $t3 = addr(counter)
+            lw $t4, 0($t3)				# $t4 = $t3[0]
+            beq $t4, 0, SET_ASTEROID_3			# if t4 == 0, jump to set asteroid 3
 
             # erase asteroid 3
-            li $v0, 32
+            li $v0, 32					# sleep for obstacle time
             li $a0, obstacle_time
             syscall
-            la $t4, asteroid_3	# $t4 = addr(asteroid_1)
-            lw $t5, 0($t4)		# $t5 = $t4[0]
-            add $t6, $t5, $t0	# $t6 = addr(default + $t5)
+            
+            la $t4, asteroid_3				# $t4 = addr(asteroid_1)
+            lw $t5, 0($t4)				# $t5 = $t4[0]
+            add $t6, $t5, $t0				# $t6 = addr(default + $t5)
 
+            sw $t2, 0($t6)				# $t6[0] = $t2 - black
+            lw $t5, 4($t4)				# $t5 = $t4[1]
+            add $t6, $t5, $t0				# $t6 = addr(default + $t5)
+            sw $t2, 0($t6)				# $t6[0] = $t2 - black
 
-            sw $t2, 0($t6)		# $t6[0] = $t2 - black
+            lw $t5, 8($t4)				# $t5 = $t4[2]
+            add $t6, $t5, $t0				# $t6 = addr(default + $t5)
+            sw $t2, 0($t6)				# $t6[0] = $t2 - black
 
-            lw $t5, 4($t4)		# $t5 = $t4[1]
-            add $t6, $t5, $t0	# $t6 = addr(default + $t5)
-            sw $t2, 0($t6)		# $t6[0] = $t2 - black
+            lw $t5, 12($t4)				# $t5 = $t4[3]
+            add $t6, $t5, $t0				# $t6 = addr(default + $t5)
+            sw $t2, 0($t6)				# $t6[0] = $t2 - black
 
+            lw $t5, 16($t4)				# $t5 = $t4[1]
+            add $t6, $t5, $t0				# $t6 = addr(default + $t5)
+            sw $t2, 0($t6)				# $t6[0] = $t2 - black
 
-            lw $t5, 8($t4)		# $t5 = $t4[2]
-            add $t6, $t5, $t0	# $t6 = addr(default + $t5)
-            sw $t2, 0($t6)		# $t6[0] = $t2 - black
+            lw $t7, 0($t3)				# $t7 = addr(counter)
+            beq $t7, 30, RESET_COUNTER			# if $t7 == 33, reset
 
-            lw $t5, 12($t4)		# $t5 = $t4[2]
-            add $t6, $t5, $t0	# $t6 = addr(default + $t5)
-            sw $t2, 0($t6)		# $t6[0] = $t2 - black
+            lw $t5, 0($t4)				# $t5 = asteroid[0]
+            addi $t5, $t5, -4				# $t5 = $t5 - 4
+            sw $t5, 0($t4)				# $t4[0] = $t5
+            add $t6, $t5, $t0				# $t6 = addr(default + $t5)
 
-            lw $t5, 16($t4)		# $t5 = $t4[1]
-            add $t6, $t5, $t0	# $t6 = addr(default + $t5)
-            sw $t2, 0($t6)		# $t6[0] = $t2 - black
+            lw $t7, 0($t6)				# t7 = t6[0]
+            beq $t7, $t8, RESET_COUNTER_COLLISION	# t7 = t8, jump to reset counter collision
+            beq $t7, $t9, RESET_COUNTER_COLLISION	# t7 = t9, jump to reset counter collision
+            sw $t1, 0($t6)				# $t6[0] = $t1 - grey
 
-            lw $t7, 0($t3)			# $t7 = addr(counter)
-            beq $t7, 30, RESET_COUNTER	# if $t7 == 33, reset
+            lw $t5, 4($t4)				# $t5 = asteroid[4]
+            addi $t5, $t5, -4				# $t5 = $t5 - 4
+            sw $t5, 4($t4)				# $t4[0] = $t5
+            add $t6, $t5, $t0				# $t6 = addr(default + $t5)
 
+            lw $t7, 0($t6)				# t7 = t6[0]
+            beq $t7, $t8, RESET_COUNTER_COLLISION	# t7 = t8, jump to reset counter collision
+            beq $t7, $t9, RESET_COUNTER_COLLISION	# t7 = t9, jump to reset counter collision
+            sw $t1, 0($t6)				# $t60] = $t1 - grey
 
-            lw $t5, 0($t4)			# $t5 = asteroid[0]
-            addi $t5, $t5, -4		# $t5 = $t5 - 4
-            sw $t5, 0($t4)			# $t4[0] = $t5
-            add $t6, $t5, $t0		# $t6 = addr(default + $t5)
+            lw $t5, 8($t4)				# $t5 = asteroid[8]
+            addi $t5, $t5, -4				# $t5 = $t5 - 4
+            sw $t5, 8($t4)				# $t4[0] = $t5
+            add $t6, $t5, $t0				# $t6 = addr(default + $t5)
 
-            lw $t7, 0($t6)
-            beq $t7, $t8, RESET_COUNTER_COLLISION
-            beq $t7, $t9, RESET_COUNTER_COLLISION
+            lw $t7, 0($t6)				# t7 = t6[0]
+            beq $t7, $t8, RESET_COUNTER_COLLISION	# t7 = t8, jump to reset counter collision
+            beq $t7, $t9, RESET_COUNTER_COLLISION	# t7 = t9, jump to reset counter collision
+            sw $t1, 0($t6)				# $t60] = $t1 - grey
 
-            sw $t1, 0($t6)			# $t4[0] = $t1 - grey
+            lw $t5, 12($t4)				# $t5 = asteroid[12]
+            addi $t5, $t5, -4				# $t5 = $t5 - 4
+            sw $t5, 12($t4)				# $t4[0] = $t5
+            add $t6, $t5, $t0				# $t6 = addr(default + $t5)
 
-            lw $t5, 4($t4)			# $t5 = asteroid[0]
-            addi $t5, $t5, -4		# $t5 = $t5 - 4
-            sw $t5, 4($t4)			# $t4[0] = $t5
-            add $t6, $t5, $t0		# $t6 = addr(default + $t5)
+            lw $t7, 0($t6)				# t7 = t6[0]
+            beq $t7, $t8, RESET_COUNTER_COLLISION	# t7 = t8, jump to reset counter collision
+            beq $t7, $t9, RESET_COUNTER_COLLISION	# t7 = t9, jump to reset counter collision
+            sw $t1, 0($t6)				# $t6[0] = $t1 - grey
 
-            lw $t7, 0($t6)
-            beq $t7, $t8, RESET_COUNTER_COLLISION
-            beq $t7, $t9, RESET_COUNTER_COLLISION
+            lw $t5, 16($t4)				# $t5 = asteroid[16]
+            addi $t5, $t5, -4				# $t5 = $t5 - 4
+            sw $t5, 16($t4)				# $t4[0] = $t5
+            add $t6, $t5, $t0				# $t6 = addr(default + $t5)
 
-            sw $t1, 0($t6)			# $t4[0] = $t1 - grey
+            lw $t7, 0($t6)				# t7 = t6[0]
+            beq $t7, $t8, RESET_COUNTER_COLLISION	# t7 = t8, jump to reset counter collision
+            beq $t7, $t9, RESET_COUNTER_COLLISION	# t7 = t8, jump to reset counter collision
+            sw $t1, 0($t6)				# $t6[0] = $t1 - grey
 
-            lw $t5, 8($t4)			# $t5 = asteroid[0]
-            addi $t5, $t5, -4		# $t5 = $t5 - 4
-            sw $t5, 8($t4)			# $t4[0] = $t5
-            add $t6, $t5, $t0		# $t6 = addr(default + $t5)
-
-            lw $t7, 0($t6)
-            beq $t7, $t8, RESET_COUNTER_COLLISION
-            beq $t7, $t9, RESET_COUNTER_COLLISION
-
-            sw $t1, 0($t6)			# $t4[0] = $t1 - grey
-
-            lw $t5, 12($t4)			# $t5 = asteroid[0]
-            addi $t5, $t5, -4		# $t5 = $t5 - 4
-            sw $t5, 12($t4)			# $t4[0] = $t5
-            add $t6, $t5, $t0		# $t6 = addr(default + $t5)
-
-            lw $t7, 0($t6)
-            beq $t7, $t8, RESET_COUNTER_COLLISION
-            beq $t7, $t9, RESET_COUNTER_COLLISION
-
-            sw $t1, 0($t6)			# $t4[0] = $t1 - grey
-
-            lw $t5, 16($t4)			# $t5 = asteroid[0]
-            addi $t5, $t5, -4		# $t5 = $t5 - 4
-            sw $t5, 16($t4)			# $t4[0] = $t5
-            add $t6, $t5, $t0		# $t6 = addr(default + $t5)
-
-            lw $t7, 0($t6)
-            beq $t7, $t8, RESET_COUNTER_COLLISION
-            beq $t7, $t9, RESET_COUNTER_COLLISION
-
-            sw $t1, 0($t6)			# $t4[0] = $t1 - grey
-
-            la $t3, asteroid_3_counter	# $t3 = addr(counter)
-            lw $t4, 0($t3)			# $t4 = $t3[0]
-            addi $t4, $t4, 1		# $t4 = $t4 + 1
-            sw $t4, 0($t3)			# counter[0] = $t4	
-
+            la $t3, asteroid_3_counter			# $t3 = addr(counter)
+            lw $t4, 0($t3)				# $t4 = $t3[0]
+            addi $t4, $t4, 1				# $t4 = $t4 + 1
+            sw $t4, 0($t3)				# counter[0] = $t4	
 
             # enemy_ship
-            blt $s5, 15, DROPS		# s5 < 15
-            la $t3, enemy_ship_counter
-            lw $t4, 0($t3)
-            beq $t4, 0 SET_ENEMY_SHIP
+            blt $s5, 15, DROPS				# if s5 < 15, jump to drops
+            la $t3, enemy_ship_counter			# t3 = addr(enemy_ship_counter)
+            lw $t4, 0($t3)				# t4 = t3[0]
+            beq $t4, 0 SET_ENEMY_SHIP			# if t4 == 0, set enemy ship 
 
-            li $v0, 32
+            li $v0, 32					# sleep for obstacle time
             li $a0, obstacle_time
             syscall	
 
             # erase
             li $s0, tomato
-            la $t4, enemy_ship	# $t4 = addr(asteroid_1)
-            lw $t5, 0($t4)		# $t5 = $t4[0]
-            add $t6, $t5, $t0	# $t6 = addr(default + $t5)
-            sw $t2, 0($t6)		# $t6[0] = $t2 - black
+            la $t4, enemy_ship					# $t4 = addr(enemyship)
+            lw $t5, 0($t4)					# $t5 = $t4[0]
+            add $t6, $t5, $t0					# $t6 = addr(default + $t5)
+            sw $t2, 0($t6)					# $t6[0] = $t2 - black
 
-            lw $t5, 4($t4)		# $t5 = $t4[1]
-            add $t6, $t5, $t0	# $t6 = addr(default + $t5)
-            sw $t2, 0($t6)		# $t6[0] = $t2 - black
+            lw $t5, 4($t4)					# $t5 = $t4[1]
+            add $t6, $t5, $t0					# $t6 = addr(default + $t5)
+            sw $t2, 0($t6)					# $t6[0] = $t2 - black
+            
+            lw $t5, 8($t4)					# $t5 = $t4[2]
+            add $t6, $t5, $t0					# $t6 = addr(default + $t5)
+            sw $t2, 0($t6)					# $t6[0] = $t2 - black
 
+            lw $t7, 0($t3)					# $t7 = addr(counter)
+            beq $t7, 30, RESET_COUNTER_ENEMY_SHIP		# if $t7 == 30, reset
 
-            lw $t5, 8($t4)		# $t5 = $t4[2]
-            add $t6, $t5, $t0	# $t6 = addr(default + $t5)
-            sw $t2, 0($t6)		# $t6[0] = $t2 - black
+            lw $t5, 0($t4)					# $t5 = asteroid[0]
+            addi $t5, $t5, -128					# $t5 = $t5 - 128
+            sw $t5, 0($t4)					# $t4[0] = $t5
+            add $t6, $t5, $t0					# $t6 = addr(default + $t5)
 
+            lw $t7, 0($t6)					# t7 = t6[0]
+            beq $t7, $t8, RESET_COUNTER_COLLISION_ENEMY_SHIP	# if t7 = t8, jump to reset collision counter
+            beq $t7, $t9, RESET_COUNTER_COLLISION_ENEMY_SHIP	# if t7 = t9, jump to reset collision counter
+            sw $s0, 0($t6)					# $t6[0] = $t1 - grey
 
+            lw $t5, 4($t4)					# $t5 = ship[4]
+            addi $t5, $t5, -128					# $t5 = $t5 - 128
+            sw $t5, 4($t4)					# $t4[0] = $t5
+            add $t6, $t5, $t0					# $t6 = addr(default + $t5)
 
+            lw $t7, 0($t6)					# t7 = t6[0]
+            beq $t7, $t8, RESET_COUNTER_COLLISION_ENEMY_SHIP	# if t7 = t8, jump to reset collision counter
+            beq $t7, $t9, RESET_COUNTER_COLLISION_ENEMY_SHIP	# if t7 = t9, jump to reset collision counter
+            sw $s0, 0($t6)					# $t6[0] = $t1 - grey
 
-            lw $t7, 0($t3)			# $t7 = addr(counter)
-            beq $t7, 30, RESET_COUNTER_ENEMY_SHIP	# if $t7 == 33, reset
+            lw $t5, 8($t4)					# $t5 = ship[8]
+            addi $t5, $t5, -128					# $t5 = $t5 - 128
+            sw $t5, 8($t4)					# $t4[0] = $t5
+            add $t6, $t5, $t0					# $t6 = addr(default + $t5)
 
+            lw $t7, 0($t6)					# t7 = t6[0]
+            beq $t7, $t8, RESET_COUNTER_COLLISION_ENEMY_SHIP	# if t7 = t8, jump to reset collision counter
+            beq $t7, $t9, RESET_COUNTER_COLLISION_ENEMY_SHIP	# if t7 = t9, jump to reset collision counter
+            sw $s0, 0($t6)					# $t6[0] = $t1 - grey
 
-            lw $t5, 0($t4)			# $t5 = asteroid[0]
-            addi $t5, $t5, -128		# $t5 = $t5 - 4
-            sw $t5, 0($t4)			# $t4[0] = $t5
-            add $t6, $t5, $t0		# $t6 = addr(default + $t5)
-
-            lw $t7, 0($t6)
-            beq $t7, $t8, RESET_COUNTER_COLLISION_ENEMY_SHIP
-            beq $t7, $t9, RESET_COUNTER_COLLISION_ENEMY_SHIP
-
-            sw $s0, 0($t6)			# $t4[0] = $t1 - grey
-
-            lw $t5, 4($t4)			# $t5 = asteroid[0]
-            addi $t5, $t5, -128		# $t5 = $t5 - 4
-            sw $t5, 4($t4)			# $t4[0] = $t5
-            add $t6, $t5, $t0		# $t6 = addr(default + $t5)
-
-            lw $t7, 0($t6)
-            beq $t7, $t8, RESET_COUNTER_COLLISION_ENEMY_SHIP
-            beq $t7, $t9, RESET_COUNTER_COLLISION_ENEMY_SHIP
-
-            sw $s0, 0($t6)			# $t4[0] = $t1 - grey
-
-            lw $t5, 8($t4)			# $t5 = asteroid[0]
-            addi $t5, $t5, -128		# $t5 = $t5 - 4
-            sw $t5, 8($t4)			# $t4[0] = $t5
-            add $t6, $t5, $t0		# $t6 = addr(default + $t5)
-
-            lw $t7, 0($t6)
-            beq $t7, $t8, RESET_COUNTER_COLLISION_ENEMY_SHIP
-            beq $t7, $t9, RESET_COUNTER_COLLISION_ENEMY_SHIP
-
-            sw $s0, 0($t6)			# $t4[0] = $t1 - grey
-
-
-
-            la $t3, enemy_ship_counter		# $t3 = addr(counter)
-            lw $t4, 0($t3)			# $t4 = $t3[0]
-            addi $t4, $t4, 1		# $t4 = $t4 + 1
-            sw $t4, 0($t3)			# counter[0] = $t4		
+            la $t3, enemy_ship_counter				# $t3 = addr(counter)
+            lw $t4, 0($t3)					# $t4 = $t3[0]
+            addi $t4, $t4, 1					# $t4 = $t4 + 1
+            sw $t4, 0($t3)					# counter[0] = $t4		
 
         DROPS:
-        la $t3, heart_item
-        lw $t4, 0($t3)
-        beq $t4, 0, COIN_RESPAWN
-        li $t7, red
-        add $t4, $t4, $t0
-        sw $t7, 0($t4)
+       		la $t3, heart_item		# t3 = addr(heart_item)
+       	 	lw $t4, 0($t3)			# t4 = t3[0]
+        	beq $t4, 0, COIN_RESPAWN	# if t4 = 0, respawn coin
+        	li $t7, red			# t7 = red
+        	add $t4, $t4, $t0		# t4 = t4 + t0
+        	sw $t7, 0($t4)			# t4[0] = t7
 
         COIN_RESPAWN:
+        	la $t3, coin_item		# t3 = addr(coin_item)
+       	 	lw $t4, 0($t3)			# t4 = t3[0]
+        	beq $t4, 0, WHILE_GAME		# if t4 = 0, jump to while_game
+        	li $t7, 0xFFD700		# t7 = gold
+        	add $t4, $t4, $t0		# t4 = t4 + t0
+       	 	sw $t7, 0($t4)			# t4[0] = t7
 
-        la $t3, coin_item
-        lw $t4, 0($t3)
-        beq $t4, 0, WHILE_GAME
-        li $t7, 0xFFD700
-        add $t4, $t4, $t0
-        sw $t7, 0($t4)
-
-
-        j WHILE_GAME
-
+        j WHILE_GAME				# start main loop again
 
 RESET_COUNTER_COLLISION_ENEMY_SHIP:
-    li $a0, 0
-    sw $a0, 0($t3)
+    li $a0, 0			# a0 = 0
+    sw $a0, 0($t3)		# t3[0] = a0
 
     # erase enemy_ship
     lw $t5, 0($t4)		# $t5 = $t4[0]
-    add $t6, $t5, $t0	# $t6 = addr(default + $t5)
+    add $t6, $t5, $t0		# $t6 = addr(default + $t5)
     sw $t2, 0($t6)		# $t6[0] = $t2 - black
-
     lw $t5, 4($t4)		# $t5 = $t4[1]
-    add $t6, $t5, $t0	# $t6 = addr(default + $t5)
+    add $t6, $t5, $t0		# $t6 = addr(default + $t5)
     sw $t2, 0($t6)		# $t6[0] = $t2 - black
-
-
     lw $t5, 8($t4)		# $t5 = $t4[2]
-    add $t6, $t5, $t0	# $t6 = addr(default + $t5)
+    add $t6, $t5, $t0		# $t6 = addr(default + $t5)
     sw $t2, 0($t6)		# $t6[0] = $t2 - black
-
     li $s5, 0			# resets enemy ship
 
-    li $t6, 0xFF2D00	# red
-    la $t3, ship
-    lw $t4, 0($t3)
-    add $t5, $t0, $t4
-    sw $t6, 0($t5)
-    lw $t4, 4($t3)
-    add $t5, $t0, $t4
-    sw $t6, 0($t5)
-    lw $t4, 8($t3)
-    add $t5, $t0, $t4
-    sw $t6, 0($t5)
+    li $t6, 0xFF2D00		# t6 = red
+    la $t3, ship		# t3 = addr(ship)
+    lw $t4, 0($t3)		# t4 = t3[0]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t6, 0($t5)		# t5[0] = t6
+    lw $t4, 4($t3)		# t4 = t3[4]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t6, 0($t5)		# t5[0] = t6
+    lw $t4, 8($t3)		# t4 = t3[8]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t6, 0($t5)		# t5[0] = t6
 
-
-    li $v0, 32
+    li $v0, 32			# sleep for 100 ms
     li $a0, 100
     syscall
 
+    la $t3, ship		# t3 = addr(ship)
+    lw $t4, 0($t3)		# t4 = t3[0]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t8, 0($t5)		# t5[0] = t8
+    lw $t4, 4($t3)		# t4 = t3[4]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t9, 0($t5)		# t5[0] = t9
+    lw $t4, 8($t3)		# t4 = t3[8]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t9, 0($t5)		# t9 = t5[0]
 
-    la $t3, ship
-    lw $t4, 0($t3)
-    add $t5, $t0, $t4
-    sw $t8, 0($t5)
-    lw $t4, 4($t3)
-    add $t5, $t0, $t4
-    sw $t9, 0($t5)
-    lw $t4, 8($t3)
-    add $t5, $t0, $t4
-    sw $t9, 0($t5)
-
-    la $t3, total_collisions
-    lw $t4, 0($t3)
-    addi $t4, $t4, 1
-    sw $t4, 0($t3)
-    beq $t4, 5, END
-
+    la $t3, total_collisions	# t3 = addr(total_collisions)
+    lw $t4, 0($t3)		# t4 = t3[0]
+    addi $t4, $t4, 1		# t4 = t4 + 1
+    sw $t4, 0($t3)		# t3[0] = t4
+    beq $t4, 5, END		# if t4 == 5, jump to end
 
     # check if 5 is reached  
+    la $t6, hearts		# t6 = addr(hearts)
+    addi $t4, $t4, -1		# t4 = t4 - 1
+    sll $t4, $t4, 2		# t4 = t4 x 4
+    add $t4, $t4, $t6		# t4 = t4 + t6
+    lw $t7, 0($t4)		# t7 = t4[0]
+    add $t7, $t0, $t7		# t7 = t0 + t7
+    sw $t2, 0($t7)		# t7[0] = t2
 
-    la $t6, hearts
-    addi $t4, $t4, -1
-    sll $t4, $t4, 2
-    add $t4, $t4, $t6
-    lw $t7, 0($t4)
-
-    add $t7, $t0, $t7
-
-    sw $t2, 0($t7)
-
-    j WHILE_GAME
-
+    j WHILE_GAME		# jump back to main loop
 
 SET_ENEMY_SHIP:
-    # asteroid 1
-
-
-
-    li $v0, 42
-    li $a0, 0	# a0 contains the random number from 0 to 32
+    li $v0, 42			# syscall for random number generation
+    li $a0, 0			# a0 contains the random number from 0 to 14
     li $a1, 14
     syscall
-    li $t3,  3744
-    li $t5, tomato
+    
+    li $t3,  3744		# t3 = 3744
+    li $t5, tomato		# t5 = tomato colour
+    sll $a0, $a0, 2		# a0 = a0 x 4
+    add $a0, $a0, $t3		# a0 = a0 + t3
 
-    sll $a0, $a0, 2
-    add $a0, $a0, $t3
+    la $t3, enemy_ship		# $t3 = addr(enemy_ship)
+    sw $a0, 0($t3)		# t3[0] = a0
+    add $t4, $a0, $t0		# t4 = a0 + t0
+    sw $t5, 0($t4)		# t4[0] = t5
 
-    la $t3, enemy_ship		# $t3 = addr(asteroid_1)
-    sw $a0, 0($t3)
-    add $t4, $a0, $t0
-    sw $t5, 0($t4)
+    add $a0, $a0, 8		# a0 = a0 + 8
+    sw $a0, 4($t3)		# t3[4] = a0 
+    add $t4, $a0, $t0		# t4 = a0 + t0
+    sw $t5, 0($t4)		# t4[0] = t5
 
-    add $a0, $a0, 8
-    sw $a0, 4($t3)
-    add $t4, $a0, $t0
-    sw $t5, 0($t4)
-
-    add $a0, $a0, -132
-    sw $a0, 8($t3)
-    add $t4, $a0, $t0
-    sw $t5, 0($t4)
-
+    add $a0, $a0, -132		# a0 = a0 - 132
+    sw $a0, 8($t3)		# t3[8] = a0
+    add $t4, $a0, $t0		# t4 = a0 + t0
+    sw $t5, 0($t4)		# t4[0] = t5
 
     la $t3, enemy_ship_counter	# $t3 = addr(counter)
     li $t4, 1			# $t4 = 1
-    sw $t4, 0($t3)			# $t3[0] = 1 
+    sw $t4, 0($t3)		# $t3[0] = 1 
 
-
-
-
-    j WHILE_GAME
+    j WHILE_GAME		# jump back to main loop
 
 D_MOVEMENT_COLLISION_ENEMY_SHIP:
     # first check asteroid_1
-    la $t3, enemy_ship		# $t3 = addr(asteroid_1)
-    la $s0, ship
+    la $t3, enemy_ship			# $t3 = addr(enemy_ship)
+    la $s0, ship			# s0 = addr(ship)
+    
     # first
     lw $s1, 0($s0)
     lw $t4, 0($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ENEMY_SHIP	# if its equal
 
-    lw $t4, 4($t3)			# $t4 = $t3[0]
+    lw $t4, 4($t3)			# $t4 = $t3[4]
     beq $s1, $t4, ERASE_ENEMY_SHIP	# if its equal
 
-    lw $t4, 8($t3)			# $t4 = $t3[0]
+    lw $t4, 8($t3)			# $t4 = $t3[8]
     beq $s1, $t4, ERASE_ENEMY_SHIP	# if its equal
-
-
-
-
-
+    
     # second
     lw $s1, 4($s0)
-    lw $t4, 0($t3)			# $t4 = $t3[0]
+    lw $t4, 0($t3)			# $t4 = $t3[4]
     beq $s1, $t4, ERASE_ENEMY_SHIP	# if its equal
 
-    lw $t4, 4($t3)			# $t4 = $t3[0]
+    lw $t4, 4($t3)			# $t4 = $t3[4]
     beq $s1, $t4, ERASE_ENEMY_SHIP	# if its equal
 
-    lw $t4, 8($t3)			# $t4 = $t3[0]
+    lw $t4, 8($t3)			# $t4 = $t3[8]
     beq $s1, $t4, ERASE_ENEMY_SHIP	# if its equal
-
-
-
 
     # third
     lw $s1, 8($s0)
     lw $t4, 0($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ENEMY_SHIP	# if its equal
 
-    lw $t4, 4($t3)			# $t4 = $t3[0]
+    lw $t4, 4($t3)			# $t4 = $t3[4]
     beq $s1, $t4, ERASE_ENEMY_SHIP	# if its equal
 
-    lw $t4, 8($t3)			# $t4 = $t3[0]
+    lw $t4, 8($t3)			# $t4 = $t3[8]
     beq $s1, $t4, ERASE_ENEMY_SHIP	# if its equal
-
-
 
 ERASE_ENEMY_SHIP:
-    # delete enemy_ship
     li $s5, 0			# resets enemy ship
     lw $t4, 0($t3)		# $t4 = $t3[0]
-    add $t5, $t4, $t0	# $t5 = addr(base + t4)
+    add $t5, $t4, $t0		# $t5 = addr(base + t4)
     sw $t2, 0($t5)		# - erase to black
 
     lw $t4, 4($t3)		# $t4 = $t3[0]
-    add $t5, $t4, $t0	# $t5 = addr(base + t4)
+    add $t5, $t4, $t0		# $t5 = addr(base + t4)
     sw $t2, 0($t5)		# - erase to black
 
     lw $t4, 8($t3)		# $t4 = $t3[0]
-    add $t5, $t4, $t0	# $t5 = addr(base + t4)
+    add $t5, $t4, $t0		# $t5 = addr(base + t4)
     sw $t2, 0($t5)		# - erase to black
 
-
-
-
-
-    la $t4, enemy_ship_counter
-    li $t5, 0
-    sw $t5, 0($t4)
-
+    la $t4, enemy_ship_counter	# t4 = addr(enemy_ship_counter)
+    li $t5, 0			# t5 = 0
+    sw $t5, 0($t4)		# t4[0] = t5
 
     # make ship go red
-    li $t6, 0xFF2D00	# red
-    la $t3, ship
-    lw $t4, 0($t3)
-    add $t5, $t0, $t4
-    sw $t6, 0($t5)
-    lw $t4, 4($t3)
-    add $t5, $t0, $t4
-    sw $t6, 0($t5)
-    lw $t4, 8($t3)
-    add $t5, $t0, $t4
-    sw $t6, 0($t5)
+    li $t6, 0xFF2D00		# t6 = red
+    la $t3, ship		# t3 = addr(ship)
+    lw $t4, 0($t3)		# t4 = t3[0]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t6, 0($t5)		# t5[0] = t6
+    lw $t4, 4($t3)		# t4 = t3[4]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t6, 0($t5)		# t5[0] = t6
+    lw $t4, 8($t3)		# t4 = t3[8]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t6, 0($t5)		# t5[0] = t6
 
-
-    li $v0, 32
+    li $v0, 32			# sleep for 100 ms
     li $a0, 100
     syscall
 
+    la $t3, ship		# t3 = addr(ship)
+    lw $t4, 0($t3)		# t4 = t3[0]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t8, 0($t5)		# t5[0] = t8
+    lw $t4, 4($t3)		# t4 = t3[4]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t9, 0($t5)		# t5[0] = t9
+    lw $t4, 8($t3)		# t4 = t3[8]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t9, 0($t5)		# t5[0] = t9
 
-    la $t3, ship
-    lw $t4, 0($t3)
-    add $t5, $t0, $t4
-    sw $t8, 0($t5)
-    lw $t4, 4($t3)
-    add $t5, $t0, $t4
-    sw $t9, 0($t5)
-    lw $t4, 8($t3)
-    add $t5, $t0, $t4
-    sw $t9, 0($t5)
-
-    la $t3, total_collisions
-    lw $t4, 0($t3)
-    addi $t4, $t4, 1
-    sw $t4, 0($t3)
-    beq $t4, 5, END
-
+    la $t3, total_collisions	# t3 = addr(total_collisions)
+    lw $t4, 0($t3)		# t4 = t3[0]
+    addi $t4, $t4, 1		# t4 = t4 + 1
+    sw $t4, 0($t3)		# t3[0] = t4
+    beq $t4, 5, END		# if t4 == 5, jump to END
 
     # check if 5 is reached  
+    la $t6, hearts		# t6 = addr(hearts)
+    addi $t4, $t4, -1		# t4 = t4 - 1
+    sll $t4, $t4, 2		# t4 = t4 x 4
+    add $t4, $t4, $t6		# t4 = t4 + t6
+    lw $t7, 0($t4)		# t7 = t4[0]
+    add $t7, $t0, $t7		# t7 = t0 + t7
+    sw $t2, 0($t7)		# t7[0] = t2
 
-    la $t6, hearts
-    addi $t4, $t4, -1
-    sll $t4, $t4, 2
-    add $t4, $t4, $t6
-    lw $t7, 0($t4)
-
-    add $t7, $t0, $t7
-
-    sw $t2, 0($t7)
-
-
-    j WHILE_GAME
+    j WHILE_GAME		# jump back to main loop
 
 RESET_COUNTER_COLLISION:
-    li $a0, 0
-    sw $a0, 0($t3)
-
+    li $a0, 0			# a0 = 0
+    sw $a0, 0($t3)		# t3[0] = a0
 
     # erase asteroid 1
     lw $t5, 0($t4)		# $t5 = $t4[0]
-    add $t6, $t5, $t0	# $t6 = addr(default + $t5)
-
-
+    add $t6, $t5, $t0		# $t6 = addr(default + $t5)
     sw $t2, 0($t6)		# $t6[0] = $t2 - black
 
     lw $t5, 4($t4)		# $t5 = $t4[1]
-    add $t6, $t5, $t0	# $t6 = addr(default + $t5)
+    add $t6, $t5, $t0		# $t6 = addr(default + $t5)
     sw $t2, 0($t6)		# $t6[0] = $t2 - black
 
-
     lw $t5, 8($t4)		# $t5 = $t4[2]
-    add $t6, $t5, $t0	# $t6 = addr(default + $t5)
+    add $t6, $t5, $t0		# $t6 = addr(default + $t5)
     sw $t2, 0($t6)		# $t6[0] = $t2 - black
 
     lw $t5, 12($t4)		# $t5 = $t4[2]
-    add $t6, $t5, $t0	# $t6 = addr(default + $t5)
+    add $t6, $t5, $t0		# $t6 = addr(default + $t5)
     sw $t2, 0($t6)		# $t6[0] = $t2 - black
 
     lw $t5, 16($t4)		# $t5 = $t4[1]
-    add $t6, $t5, $t0	# $t6 = addr(default + $t5)
+    add $t6, $t5, $t0		# $t6 = addr(default + $t5)
     sw $t2, 0($t6)		# $t6[0] = $t2 - black
 
-    li $t6, 0xFF2D00	# red
-    la $t3, ship
-    lw $t4, 0($t3)
-    add $t5, $t0, $t4
-    sw $t6, 0($t5)
-    lw $t4, 4($t3)
-    add $t5, $t0, $t4
-    sw $t6, 0($t5)
-    lw $t4, 8($t3)
-    add $t5, $t0, $t4
-    sw $t6, 0($t5)
+    li $t6, 0xFF2D00		# t6 = red
+    la $t3, ship		# t3 = addr(ship)
+    lw $t4, 0($t3)		# t4 = t3[0]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t6, 0($t5)		# t5[0] = t6
+    lw $t4, 4($t3)		# t4 = t3[4]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t6, 0($t5)		# t5[0] = t6
+    lw $t4, 8($t3)		# t4 = t3[8]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t6, 0($t5)		# t5[0] = t6
 
-
-    li $v0, 32
+    li $v0, 32			# sleep for 100 ms
     li $a0, 100
     syscall
 
+    la $t3, ship		# t3 = addr(ship)
+    lw $t4, 0($t3)		# t4 = t3[0]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t8, 0($t5)		# t5[0] = t8
+    lw $t4, 4($t3)		# t4 = t3[4]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t9, 0($t5)		# t5[0] = t9
+    lw $t4, 8($t3)		# t4 = t3[8]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t9, 0($t5)		# t5[0] = t9
 
-    la $t3, ship
-    lw $t4, 0($t3)
-    add $t5, $t0, $t4
-    sw $t8, 0($t5)
-    lw $t4, 4($t3)
-    add $t5, $t0, $t4
-    sw $t9, 0($t5)
-    lw $t4, 8($t3)
-    add $t5, $t0, $t4
-    sw $t9, 0($t5)
-
-
-    la $t3, total_collisions
-    lw $t4, 0($t3)
-    addi $t4, $t4, 1
-    sw $t4, 0($t3)
-    beq $t4, 5, END
-
+    la $t3, total_collisions	# t3 = addr(total_collisions)
+    lw $t4, 0($t3)		# t4 = t3[0]
+    addi $t4, $t4, 1		# t4 = t4 + 1
+    sw $t4, 0($t3)		# t3[0] = t4
+    beq $t4, 5, END		# if t4 == 5, jump to end
 
     # check if 5 is reached  
+    la $t6, hearts		# t6 = addr(hearts)
+    addi $t4, $t4, -1		# t4 = t4 - 1
+    sll $t4, $t4, 2		# t4 = t4 x 4
+    add $t4, $t4, $t6		# t4 = t4 + t6
+    lw $t7, 0($t4)		# t7 = t4[0]
+    add $t7, $t0, $t7		# t7 = t0 + t7
+    sw $t2, 0($t7) 		# t7[0] = t2
 
-    la $t6, hearts
-    addi $t4, $t4, -1
-    sll $t4, $t4, 2
-    add $t4, $t4, $t6
-    lw $t7, 0($t4)
-
-    add $t7, $t0, $t7
-
-    sw $t2, 0($t7) 
-
-    j WHILE_GAME
-
+    j WHILE_GAME		# rerun the main loop
 
 RESET_COUNTER_ENEMY_SHIP:
-    li $t4, 0
-    sw $t4, 0($t3)
-    li $s5, 0
-    j WHILE_GAME	
+    li $t4, 0				# t4 = 0
+    sw $t4, 0($t3)			# t3[0] = t4
+    li $s5, 0				# s5 = 0
+    j WHILE_GAME			# rerun the main loop
 
 RESET_COUNTER:
-    li $t4, 0
-    sw $t4, 0($t3)
-    j WHILE_GAME
-
-
+    li $t4, 0				# t4 = 0
+    sw $t4, 0($t3)			# t3[0] = t4
+    j WHILE_GAME			# rerun the main loop
 
 REMOVE_COIN:
-    sw $t2, 0($t5)
-    j SPAWN_COIN
+    sw $t2, 0($t5)			# t5[0] = t2
+    j SPAWN_COIN			# rerun the main loop
 
 SPAWN_COIN:
-    la $t3, coin_spawn_counter
-    sw $zero, 0($t3)
+    la $t3, coin_spawn_counter		# t3 = addr(coin_spawn_counter)
+    sw $zero, 0($t3)			# t3[0] = 0
+    la $t3, coin_item			# t3 = addr(coin_item)
+    lw $t4, 0($t3)			# t4 = t3[0]
+    add $t5, $t0, $t4			# t5 = t0 + t4
+    lw $t6, 0($t5)			# t6 = t5[0]
+    li $t7, 0xFFD700			# t7 = gold
+    beq $t7, $t6, REMOVE_COIN		# if t7 = t6, jump to remove coin
 
-    la $t3, coin_item
-    lw $t4, 0($t3)
-    add $t5, $t0, $t4
-    lw $t6, 0($t5)
-    li $t7, 0xFFD700
-    beq $t7, $t6, REMOVE_COIN
-
-
-    li $v0, 42
-    li $a0, 0	# a0 contains the random number from 0 to 32
+    li $v0, 42				# random number generator from 0 to 2
+    li $a0, 0				# a0 contains the random number from 0 to 32
     li $a1, 2
     syscall
 
-    sll $a0, $a0, 2
-    la $t4, coin_location
-    add $t5, $t4, $a0
-    lw $t4, 0($t5)
+    sll $a0, $a0, 2			# a0 = a0 x 4
+    la $t4, coin_location		# t4 = addr(coin_location)
+    add $t5, $t4, $a0			# t5 = t4 + a0
+    lw $t4, 0($t5)			# t4 = t5[0]
+    la $t3, coin_item			# t3 = addr(coin_item)
+    sw $t4, 0($t3)			# t3[0] = t4
 
-    la $t3, coin_item
-    sw $t4, 0($t3)
-
-
-
-    j WHILE_GAME
-
+    j WHILE_GAME			# rerun the main loop
 
 SET_ASTEROID_1:
-
-    addi $s5, $s5, 1
-
+    addi $s5, $s5, 1			# s5 = s5 + 1
     # asteroid 1
-    li $v0, 42
-    li $a0, 0	# a0 contains the random number from 0 to 32
+    li $v0, 42				# random number generator
+    li $a0, 0				# a0 contains the random number from 0 to 13
     li $a1, 13
     syscall
-    addi $a0, $a0, 1
-    li $t3, 2
-    mult $a0, $t3	# a0 = a0 x 2
-    mflo $a0
+    addi $a0, $a0, 1			# a0 = a0 + 1
+    li $t3, 2				# t3 = 2
+    mult $a0, $t3			# a0 = a0 x 2
+    mflo $a0				
     li $t3, 128
-    mult $a0, $t3	# $a0 x 128 + 124
+    mult $a0, $t3			# a0 = $a0 x 128
     mflo $a0
-    addi $a0, $a0, 124
+    addi $a0, $a0, 124			# a0 = a0 + 124
 
-    la $t3, asteroid_1	# $t3 = addr(asteroid_1)
-    sw $a0, 0($t3)		# $t3[0] = $a0
-    add $t4, $t0, $a0 	# $t4 = addr($t0+$a0) - right wing
-    addi $t7, $a0, -4
-    sw $t7, 4($t3)
-    addi $t7, $a0, -132
-    sw $t7, 8($t3)
-    addi $t7, $a0, 124
-    sw $t7, 12($t3)
-    addi $t7, $a0, -8
-    sw $t7, 16($t3)
-    sw $t1, 0($t4)		# $t4[0] = $t1 - grey
+    la $t3, asteroid_1			# $t3 = addr(asteroid_1)
+    sw $a0, 0($t3)			# $t3[0] = $a0
+    add $t4, $t0, $a0 			# $t4 = addr($t0+$a0) - right wing
+    addi $t7, $a0, -4			# t7 = a0 - 4
+    sw $t7, 4($t3)			# t3[4] = t7
+    addi $t7, $a0, -132			# t7 = a0 - 132
+    sw $t7, 8($t3)			# t3[8] = t7
+    addi $t7, $a0, 124			# t7 = a0 + 124
+    sw $t7, 12($t3)			# t3[12] = t7
+    addi $t7, $a0, -8			# t7 = a0 - 8
+    
+    sw $t7, 16($t3)			# t3[16] = t7
+    sw $t1, 0($t4)			# $t4[0] = $t1 - grey
+    addi $t5, $t4, -4			# $t5 = addr($t4-4) - center
 
-    addi $t5, $t4, -4	# $t5 = addr($t4-4) - center
+    sw $t1, 0($t5)			# $t5[0] = $t1 - grey
+    addi $t5, $t4, -132			# $t4 = addr($t0-4) - top
 
-    sw $t1, 0($t5)		# $t5[0] = $t1 - grey
-    addi $t5, $t4, -132	# $t4 = addr($t0-4) - top
+    sw $t1, 0($t5)			# $t4[0] = $t1 - grey
+    addi $t5, $t4, 124			# $t4 = addr($t0-4) - bottom
 
-    sw $t1, 0($t5)		# $t4[0] = $t1 - grey
-    addi $t5, $t4, 124	# $t4 = addr($t0-4) - bottom
+    sw $t1, 0($t5)			# $t4[0] = $t1 - grey
+    addi $t5, $t4, -8			# $t4 = addr($t0-4) - left
 
-    sw $t1, 0($t5)		# $t4[0] = $t1 - grey
-    addi $t5, $t4, -8	# $t4 = addr($t0-4) - left
+    sw $t1, 0($t5)			# $t4[0] = $t1 - grey
 
-    sw $t1, 0($t5)		# $t4[0] = $t1 - grey
-
-    la $t3, asteroid_1_counter	# $t3 = addr(counter)
-    li $t4, 1			# $t4 = 1
+    la $t3, asteroid_1_counter		# $t3 = addr(counter)
+    li $t4, 1				# $t4 = 1
     sw $t4, 0($t3)			# $t3[0] = 1 
 
+    la $t3, obstacles_thrown		# t3 = addr(obstacles_thrown)
+    lw $t4, 0($t3)			# t4 = t3[0]
+    beq $t4, 999, WHILE_GAME 		# if $t4 = 999 jump back to main loop
+    addi $t4, $t4, 1			# t4 = t4 + 1
+    sw $t4, 0($t3)			# t3[0] = t4
 
-    la $t3, obstacles_thrown
-    lw $t4, 0($t3)
-    beq $t4, 999, WHILE_GAME # $t4 = 999
-    addi $t4, $t4, 1
-    sw $t4, 0($t3)
+    la $t3, total_collisions		# t3 = addr(total_collisions)
+    lw $t4, 0($t3)			# t4 = t3[0]
 
-    la $t3, total_collisions
-    lw $t4, 0($t3)
-
-    bne $t4, 0, HEART_DROP_CHECK	# $t4 != 0
-
+    bne $t4, 0, HEART_DROP_CHECK	# if $t4 != 0, jump to heart_drop_check
 
     COIN_DROP_CHECK:
 
-        la $t3, coin_spawn_counter
-        lw $t4, 0($t3)
-        beq $t4, 20, SPAWN_COIN
-        addi $t4, $t4, 1
-        sw $t4, 0($t3)
+        la $t3, coin_spawn_counter	# t3 = addr(coin_spawn_counter)
+        lw $t4, 0($t3)			# t4 = t3[0]
+        beq $t4, 20, SPAWN_COIN		# if t4 == 20, jump to spawn coin
+        addi $t4, $t4, 1		# t4 = t4 + 1
+        sw $t4, 0($t3)			# t3[0] = t4
 
-
-        j WHILE_GAME
-
+        j WHILE_GAME			# jump back to main loop
 
 HEART_DROP_CHECK:
-    la $t3, heart_spawn_counter	# $t3 = addr(counter)
+    la $t3, heart_spawn_counter		# $t3 = addr(counter)
     lw $t4, 0($t3)			# $t4 = counter[0]
     beq $t4, 20, HEART_SPAWN		# if $t4 == 5, jump to spawn heart
-    addi $t4, $t4, 1		# else, increment t4 by 1
+    addi $t4, $t4, 1			# else, increment t4 by 1
     sw $t4, 0($t3)			# $t3[0] = $t4
 
-    j COIN_DROP_CHECK
+    j COIN_DROP_CHECK			# jump to coin drop check
 
 REMOVE_HEART:
-    sw $t2, 0($t5)
-    j HEART_SPAWN
+    sw $t2, 0($t5)			# t5[0] = t2
+    j HEART_SPAWN			# jump to heart spawn
+    
 HEART_SPAWN:
-    la $t3, heart_spawn_counter
-    sw $zero, 0($t3)
-
-    la $t3, heart_item		# $t3 = addr(heart_item)
+    la $t3, heart_spawn_counter		# t3 = addr(heart_spawn_counter)
+    sw $zero, 0($t3)			# t3[0] = zero
+    la $t3, heart_item			# $t3 = addr(heart_item)
     lw $t4, 0($t3)			# $t4 = $t3[0]
-    add $t5, $t0, $t4		# $t5 = $t0 + $t4
+    add $t5, $t0, $t4			# $t5 = $t0 + $t4
     lw $t6, 0($t5)			# $t6 = $t0[i]
-    li $t7, red
-    beq $t7, $t6, REMOVE_HEART
+    li $t7, red				# t7 = red
+    beq $t7, $t6, REMOVE_HEART		# if t7 == t6, jump to remove heart
 
-
-    li $v0, 42
-    li $a0, 0	# a0 contains the random number from 0 to 32
+    li $v0, 42				# random number syscall
+    li $a0, 0				# a0 contains the random number from 0 to 32
     li $a1, 3
     syscall
 
-    sll $a0, $a0, 2
-    la $t4, heart_location
-    add $t5, $t4, $a0
-    lw $t4, 0($t5)
+    sll $a0, $a0, 2			# a0 = a0 x 4
+    la $t4, heart_location		# t4 = addr(heart_location)
+    add $t5, $t4, $a0			# t5 = t4 + a0
+    lw $t4, 0($t5)			# t4 = t5[0]
 
-    la $t3, heart_item
-    sw $t4, 0($t3)
+    la $t3, heart_item			# t3 = addr(heart_item)
+    sw $t4, 0($t3)			# t3[0] = t4
 
-
-
-    j COIN_DROP_CHECK
+    j COIN_DROP_CHECK			# jump to coin drop check
 
 SET_ASTEROID_2:
 
-    addi $s5, $s5, 1
-
+    addi $s5, $s5, 1			# s5 = s5 + 1
     # asteroid 2
-    li $v0, 42
-    li $a0, 0	# a0 contains the random number from 0 to 32
+    li $v0, 42				# random number generator syscall
+    li $a0, 0				# a0 contains the random number from 0 to 32
     li $a1, 13
     syscall
-    addi $a0, $a0, 1
-    li $t3, 2
-    mult $a0, $t3	# a0 = a0 x 2
+    
+    addi $a0, $a0, 1			# a0 = a0 + 1
+    li $t3, 2				# t3 = 2
+    mult $a0, $t3			# a0 = a0 x 2
+    mflo $a0				
+    li $t3, 128				# t3 = 128
+    mult $a0, $t3			# a0 = $a0 x 128
     mflo $a0
-    li $t3, 128
-    mult $a0, $t3	# $a0 x 128 + 124
-    mflo $a0
-    addi $a0, $a0, 124
+    addi $a0, $a0, 124			# a0 = a0 + 124
 
-    la $t3, asteroid_2	# $t3 = addr(asteroid_1)
-    sw $a0, 0($t3)		# $t3[0] = $a0
-    add $t4, $t0, $a0 	# $t4 = addr($t0+$a0) - right wing
-    addi $t7, $a0, -4
-    sw $t7, 4($t3)
-    addi $t7, $a0, -132
-    sw $t7, 8($t3)
-    addi $t7, $a0, 124
-    sw $t7, 12($t3)
-    addi $t7, $a0, -8
-    sw $t7, 16($t3)
-    sw $t1, 0($t4)		# $t4[0] = $t1 - grey
+    la $t3, asteroid_2			# $t3 = addr(asteroid_1)
+    sw $a0, 0($t3)			# $t3[0] = $a0
+    add $t4, $t0, $a0 			# $t4 = addr($t0+$a0) - right wing
+    addi $t7, $a0, -4			# t7 = a0 - 4
+    sw $t7, 4($t3)			# t3[4] = t7
+    addi $t7, $a0, -132			# t7 = a0 - 132
+    sw $t7, 8($t3)			# t3[8] = t7
+    addi $t7, $a0, 124			# t7 = a0 + 124
+    sw $t7, 12($t3)			# t3[12] = t7
+    addi $t7, $a0, -8			# t7 = a0 - 8
+    sw $t7, 16($t3)			# t3[16] = t7
+    sw $t1, 0($t4)			# $t4[0] = $t1 - grey
 
-    addi $t5, $t4, -4	# $t5 = addr($t4-4) - center
+    addi $t5, $t4, -4			# $t5 = addr($t4-4) - center
+    sw $t1, 0($t5)			# $t5[0] = $t1 - grey
+    addi $t5, $t4, -132			# $t4 = addr($t0-4) - top
 
-    sw $t1, 0($t5)		# $t5[0] = $t1 - grey
-    addi $t5, $t4, -132	# $t4 = addr($t0-4) - top
+    sw $t1, 0($t5)			# $t4[0] = $t1 - grey
+    addi $t5, $t4, 124			# $t4 = addr($t0-4) - bottom
 
-    sw $t1, 0($t5)		# $t4[0] = $t1 - grey
-    addi $t5, $t4, 124	# $t4 = addr($t0-4) - bottom
+    sw $t1, 0($t5)			# $t4[0] = $t1 - grey
+    addi $t5, $t4, -8			# $t4 = addr($t0-4) - left
+    sw $t1, 0($t5)			# $t4[0] = $t1 - grey
 
-    sw $t1, 0($t5)		# $t4[0] = $t1 - grey
-    addi $t5, $t4, -8	# $t4 = addr($t0-4) - left
-
-    sw $t1, 0($t5)		# $t4[0] = $t1 - grey
-
-    la $t3, asteroid_2_counter	# $t3 = addr(counter)
-    li $t4, 1			# $t4 = 1
+    la $t3, asteroid_2_counter		# $t3 = addr(counter)
+    li $t4, 1				# $t4 = 1
     sw $t4, 0($t3)			# $t3[0] = 1 
 
-    la $t3, obstacles_thrown
-    lw $t4, 0($t3)
-    beq $t4, 999, WHILE_GAME # $t4 = 999
-    addi $t4, $t4, 1
-    sw $t4, 0($t3)
+    la $t3, obstacles_thrown		# t3 = addr(obstacles_thrown)
+    lw $t4, 0($t3)			# t4 = t3[0]
+    beq $t4, 999, WHILE_GAME 		# if $t4 = 999, jump to main loop
+    addi $t4, $t4, 1			# t4 = t4 + 1
+    sw $t4, 0($t3)			# t3[0] = t4
 
-    la $t3, total_collisions
-    lw $t4, 0($t3)
+    la $t3, total_collisions		# t3 = addr(total_collisions)
+    lw $t4, 0($t3)			# t4 = t3[0]
 
     bne $t4, 0, HEART_DROP_CHECK	# $t4 != 0
-    j COIN_DROP_CHECK
-
-
+    j COIN_DROP_CHECK			# jump to coin drop check
 
 SET_ASTEROID_3:
-
-    addi $s5, $s5, 1
+    addi $s5, $s5, 1			# s5 = s5 + 1
 
     # asteroid 3
-    li $v0, 42
-    li $a0, 0	# a0 contains the random number from 0 to 32
+    li $v0, 42				# random number generator syscall
+    li $a0, 0				# a0 contains the random number from 0 to 32
     li $a1, 13
     syscall
-    addi $a0, $a0, 1
-    li $t3, 2
-    mult $a0, $t3	# a0 = a0 x 2
+    addi $a0, $a0, 1			# a0 = a0 + 1
+    li $t3, 2				# t3 = 2
+    mult $a0, $t3			# a0 = a0 x 2
     mflo $a0
-    li $t3, 128
-    mult $a0, $t3	# $a0 x 128 + 124
+    li $t3, 128				# t3 = 128
+    mult $a0, $t3			# $a0 x 128 + 124
     mflo $a0
-    addi $a0, $a0, 124
+    addi $a0, $a0, 124			# a0 = a0 + 124	
 
-    la $t3, asteroid_3	# $t3 = addr(asteroid_1)
-    sw $a0, 0($t3)		# $t3[0] = $a0
-    add $t4, $t0, $a0 	# $t4 = addr($t0+$a0) - right wing
-    addi $t7, $a0, -4
-    sw $t7, 4($t3)
-    addi $t7, $a0, -132
-    sw $t7, 8($t3)
-    addi $t7, $a0, 124
-    sw $t7, 12($t3)
-    addi $t7, $a0, -8
-    sw $t7, 16($t3)
-    sw $t1, 0($t4)		# $t4[0] = $t1 - grey
-
-    addi $t5, $t4, -4	# $t5 = addr($t4-4) - center
-
-    sw $t1, 0($t5)		# $t5[0] = $t1 - grey
-    addi $t5, $t4, -132	# $t4 = addr($t0-4) - top
-
-    sw $t1, 0($t5)		# $t4[0] = $t1 - grey
-    addi $t5, $t4, 124	# $t4 = addr($t0-4) - bottom
-
-    sw $t1, 0($t5)		# $t4[0] = $t1 - grey
-    addi $t5, $t4, -8	# $t4 = addr($t0-4) - left
-
-    sw $t1, 0($t5)		# $t4[0] = $t1 - grey
-
-    la $t3, asteroid_3_counter	# $t3 = addr(counter)
-    li $t4, 1			# $t4 = 1
+    la $t3, asteroid_3			# $t3 = addr(asteroid_1)
+    sw $a0, 0($t3)			# $t3[0] = $a0
+    add $t4, $t0, $a0 			# $t4 = addr($t0+$a0) - right wing
+    addi $t7, $a0, -4			# t7 = a0 - 4
+    sw $t7, 4($t3)			# t3[4] = t7
+    addi $t7, $a0, -132			# t7 = a0 - 132
+    sw $t7, 8($t3)			# t3[8] = t7
+    addi $t7, $a0, 124			# t7 = a0 + 124
+    sw $t7, 12($t3)			# t3[12] = t7
+    addi $t7, $a0, -8			# t7 = a0 - 8
+    sw $t7, 16($t3)			# t3[16] = t7
+    sw $t1, 0($t4)			# $t4[0] = $t1 - grey
+    addi $t5, $t4, -4			# $t5 = addr($t4-4) - center
+    sw $t1, 0($t5)			# $t5[0] = $t1 - grey
+    addi $t5, $t4, -132			# $t4 = addr($t0-4) - top
+    sw $t1, 0($t5)			# $t4[0] = $t1 - grey
+    addi $t5, $t4, 124			# $t4 = addr($t0-4) - bottom
+    sw $t1, 0($t5)			# $t4[0] = $t1 - grey
+    addi $t5, $t4, -8			# $t4 = addr($t0-4) - left
+    sw $t1, 0($t5)			# $t4[0] = $t1 - grey
+    
+    la $t3, asteroid_3_counter		# $t3 = addr(counter)
+    li $t4, 1				# $t4 = 1
     sw $t4, 0($t3)			# $t3[0] = 1 
 
-    la $t3, obstacles_thrown
-    lw $t4, 0($t3)
-    beq $t4, 999, WHILE_GAME # $t4 = 999
-    addi $t4, $t4, 1
-    sw $t4, 0($t3)
+    la $t3, obstacles_thrown		# t3 = addr(obstacles_thrown)
+    lw $t4, 0($t3)			# t3[0] = t4
+    beq $t4, 999, WHILE_GAME 		# $t4 = 999
+    addi $t4, $t4, 1			# t4 = t4 + 1
+    sw $t4, 0($t3)			# t3[0] = t4
 
-    la $t3, total_collisions
-    lw $t4, 0($t3)
+    la $t3, total_collisions		# t3 = addr(total_collision)
+    lw $t4, 0($t3)			# t4 = t3[0] 
 
-    bne $t4, 0, HEART_DROP_CHECK	# $t4 != 0
-
-    j COIN_DROP_CHECK
-
-
+    bne $t4, 0, HEART_DROP_CHECK	# if $t4 != 0 jump to heart drop check
+    j COIN_DROP_CHECK			# jump to coin drop check
 
 TEST_D_EDGE:
-
     lw $t6, 0($t3)			# $t6 = $t3[0]
-
-    beq $t5, $t6, keypress_finished
-    blt $t5, $t6, not_d_edge  
-    beq $t6, -1, not_d_edge
-    addi $t3, $t3, 4
-    j TEST_D_EDGE
-
+    beq $t5, $t6, keypress_finished	# if t5 = t6, jump to keypress finished
+    blt $t5, $t6, not_d_edge  		# if t5 < t6, jump to not d edge
+    beq $t6, -1, not_d_edge		# if t5 = -1, jump to not d edge
+    addi $t3, $t3, 4			# t3 = t3 + 4
+    j TEST_D_EDGE			# jump to test d edge
 
 TEST_W_EDGE:
-
     lw $t6, 0($t3)			# $t6 = $t3[0]
-
-    beq $t5, $t6, keypress_finished
-    blt $t5, $t6, not_w_edge  
-    beq $t6, -1, not_w_edge
-    addi $t3, $t3, 4
-    j TEST_W_EDGE
-
+    beq $t5, $t6, keypress_finished	# if t5 = t6, jump to keypress finished
+    blt $t5, $t6, not_w_edge  		# if t5 < t6, jump to not w edge
+    beq $t6, -1, not_w_edge		# if t5 = -1, jump to not w edge
+    addi $t3, $t3, 4			# t3 = t3 + 4
+    j TEST_W_EDGE			# jump to test W edge
 
 TEST_S_EDGE:
-
     lw $t6, 0($t3)			# $t6 = $t3[0]
-
-    beq $t5, $t6, keypress_finished
-    blt $t5, $t6, not_s_edge  
-    beq $t6, -1, not_s_edge
-    addi $t3, $t3, 4
-    j TEST_S_EDGE
+    beq $t5, $t6, keypress_finished	# if t5 = t6, jump to keypress finished
+    blt $t5, $t6, not_s_edge  		# if t5 < t6, jump to not s edge
+    beq $t6, -1, not_s_edge		# if t5 = -1, jump to not s edge
+    addi $t3, $t3, 4			# t3 = t3 + 4
+    j TEST_S_EDGE			# jump to test W edge
 
 TEST_A_EDGE:
-
     lw $t6, 0($t3)			# $t6 = $t3[0]
-
-    beq $t5, $t6, keypress_finished
-    blt $t5, $t6, not_a_edge  
-    beq $t6, -1, not_a_edge
-    addi $t3, $t3, 4
-    j TEST_A_EDGE
-
+    beq $t5, $t6, keypress_finished	# if t5 = t6, jump to keypress finished
+    blt $t5, $t6, not_a_edge  		# if t5 < t6, jump to not a edge
+    beq $t6, -1, not_a_edge		# if t5 = -1, jump to not a edge
+    addi $t3, $t3, 4			# t3 = t3 + 4
+    j TEST_A_EDGE			# jump to test A edge
 
 D_MOVEMENT_COLLISION:
-
-
     # first check asteroid_1
-    la $t3, asteroid_1		# $t3 = addr(asteroid_1)
-    la $s0, ship
+    la $t3, asteroid_1			# $t3 = addr(asteroid_1)
+    la $s0, ship			# s0 = addr(ship)
     # first
     lw $s1, 0($s0)
     lw $t4, 0($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
-
     lw $t4, 4($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
-
     lw $t4, 8($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
-
     lw $t4, 12($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
-
     lw $t4, 16($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
-
     # second
     lw $s1, 4($s0)
     lw $t4, 0($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
-
     lw $t4, 4($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
-
     lw $t4, 8($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
-
     lw $t4, 12($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
-
     lw $t4, 16($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
-
     # third
     lw $s1, 8($s0)
     lw $t4, 0($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
-
     lw $t4, 4($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
-
     lw $t4, 8($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
-
     lw $t4, 12($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
-
     lw $t4, 16($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_1	# if its equal
 
-
-
-    # first check asteroid_2
-    la $t3, asteroid_2		# $t3 = addr(asteroid_1)
+    # check asteroid_2
+    la $t3, asteroid_2			# $t3 = addr(asteroid_2)
     la $s0, ship
     # first
     lw $s1, 0($s0)
     lw $t4, 0($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
-
     lw $t4, 4($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
-
     lw $t4, 8($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
-
     lw $t4, 12($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
-
     lw $t4, 16($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
-
     # second
     lw $s1, 4($s0)
     lw $t4, 0($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
-
     lw $t4, 4($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
-
     lw $t4, 8($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
-
     lw $t4, 12($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
-
     lw $t4, 16($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
-
     # third
     lw $s1, 8($s0)
     lw $t4, 0($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
-
     lw $t4, 4($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
-
     lw $t4, 8($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
-
     lw $t4, 12($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
-
     lw $t4, 16($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_2	# if its equal
 
-
-    # first check asteroid_3
-    la $t3, asteroid_3		# $t3 = addr(asteroid_1)
+    # check asteroid_3
+    la $t3, asteroid_3		# $t3 = addr(asteroid_3)
     la $s0, ship
     # first
     lw $s1, 0($s0)
     lw $t4, 0($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
-
     lw $t4, 4($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
-
     lw $t4, 8($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
-
     lw $t4, 12($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
-
     lw $t4, 16($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
-
     # second
     lw $s1, 4($s0)
     lw $t4, 0($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
-
     lw $t4, 4($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
-
     lw $t4, 8($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
-
     lw $t4, 12($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
-
     lw $t4, 16($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
-
     # third
     lw $s1, 8($s0)
     lw $t4, 0($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
-
     lw $t4, 4($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
-
     lw $t4, 8($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
-
     lw $t4, 12($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
-
     lw $t4, 16($t3)			# $t4 = $t3[0]
     beq $s1, $t4, ERASE_ASTEROID_3	# if its equal
-
-
-
-
-
-
-
-
 
 ERASE_ASTEROID_1:
 
     # delete asteroid
     lw $t4, 0($t3)		# $t4 = $t3[0]
-    add $t5, $t4, $t0	# $t5 = addr(base + t4)
+    add $t5, $t4, $t0		# $t5 = addr(base + t4)
     sw $t2, 0($t5)		# - erase to black
 
     lw $t4, 4($t3)		# $t4 = $t3[0]
-    add $t5, $t4, $t0	# $t5 = addr(base + t4)
+    add $t5, $t4, $t0		# $t5 = addr(base + t4)
     sw $t2, 0($t5)		# - erase to black
 
     lw $t4, 8($t3)		# $t4 = $t3[0]
-    add $t5, $t4, $t0	# $t5 = addr(base + t4)
+    add $t5, $t4, $t0		# $t5 = addr(base + t4)
     sw $t2, 0($t5)		# - erase to black
 
     lw $t4, 12($t3)		# $t4 = $t3[0]
-    add $t5, $t4, $t0	# $t5 = addr(base + t4)
+    add $t5, $t4, $t0		# $t5 = addr(base + t4)
     sw $t2, 0($t5)		# - erase to black
 
     lw $t4, 16($t3)		# $t4 = $t3[0]
-    add $t5, $t4, $t0	# $t5 = addr(base + t4)
+    add $t5, $t4, $t0		# $t5 = addr(base + t4)
     sw $t2, 0($t5)		# - erase to black
 
-    la $t4, asteroid_1_counter
-    li $t5, 0
-    sw $t5, 0($t4)
-
+    la $t4, asteroid_1_counter	# t4 = addr(counter)
+    li $t5, 0			# t5 = 0
+    sw $t5, 0($t4)		# t4[0] = t5
 
     # make ship go red
-    li $t6, 0xFF2D00	# red
-    la $t3, ship
-    lw $t4, 0($t3)
-    add $t5, $t0, $t4
-    sw $t6, 0($t5)
-    lw $t4, 4($t3)
-    add $t5, $t0, $t4
-    sw $t6, 0($t5)
-    lw $t4, 8($t3)
-    add $t5, $t0, $t4
-    sw $t6, 0($t5)
+    li $t6, 0xFF2D00		# t6 = red
+    la $t3, ship		# t3 = addr(ship)
+    lw $t4, 0($t3)		# t4 = t3[0]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t6, 0($t5)		# t5[0] = t6
+    lw $t4, 4($t3)		# t4 = t3[4]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t6, 0($t5)		# t5[0] = t6
+    lw $t4, 8($t3)		# t4 = t3[8]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t6, 0($t5)		# t5[0] = t6
 
-
-    li $v0, 32
+    li $v0, 32			# sleep for 100 ms
     li $a0, 100
     syscall
 
+    la $t3, ship		# t3 = addr(ship)
+    lw $t4, 0($t3)		# t4 = t3[0]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t8, 0($t5)		# t5[0] = t8
+    lw $t4, 4($t3)		# t4 = t3[4]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t9, 0($t5)		# t5[0] = t9
+    lw $t4, 8($t3)		# t4 = t3[8]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t9, 0($t5)		# t5[0] = t9
 
-    la $t3, ship
-    lw $t4, 0($t3)
-    add $t5, $t0, $t4
-    sw $t8, 0($t5)
-    lw $t4, 4($t3)
-    add $t5, $t0, $t4
-    sw $t9, 0($t5)
-    lw $t4, 8($t3)
-    add $t5, $t0, $t4
-    sw $t9, 0($t5)
-
-    la $t3, total_collisions
-    lw $t4, 0($t3)
-    addi $t4, $t4, 1
-    sw $t4, 0($t3)
-
-    beq $t4, 5, END
+    la $t3, total_collisions	# t3 = addr(total_collisions)
+    lw $t4, 0($t3)		# t4 = t3[0]
+    addi $t4, $t4, 1		# t4 = t4 + 1
+    sw $t4, 0($t3)		# t3[0] = t4
+    beq $t4, 5, END		# if t4 == 5, jump to end
 
     # check if 5 is reached 
-    la $t6, hearts
-    addi $t4, $t4, -1
-    sll $t4, $t4, 2
-    add $t4, $t4, $t6
-    lw $t7, 0($t4)
+    la $t6, hearts		# t6 = addr(hearts)
+    addi $t4, $t4, -1		# t4 = t4 - 1
+    sll $t4, $t4, 2		# t4 = t4 x 4
+    add $t4, $t4, $t6		# t4 = t4 + 6
+    lw $t7, 0($t4)		# t7 = t4[0]
+    add $t7, $t0, $t7		# t7 = t0 + t7
+    sw $t2, 0($t7) 		# t7[0] = t2
 
-    add $t7, $t0, $t7
-
-    sw $t2, 0($t7) 
-
-
-
-
-    j WHILE_GAME
-
+    j WHILE_GAME		# jump back to main loop
 
 ERASE_ASTEROID_2:
-
     # delete asteroid
     lw $t4, 0($t3)		# $t4 = $t3[0]
-    add $t5, $t4, $t0	# $t5 = addr(base + t4)
+    add $t5, $t4, $t0		# $t5 = addr(base + t4)
     sw $t2, 0($t5)		# - erase to black
 
     lw $t4, 4($t3)		# $t4 = $t3[0]
-    add $t5, $t4, $t0	# $t5 = addr(base + t4)
+    add $t5, $t4, $t0		# $t5 = addr(base + t4)
     sw $t2, 0($t5)		# - erase to black
 
     lw $t4, 8($t3)		# $t4 = $t3[0]
-    add $t5, $t4, $t0	# $t5 = addr(base + t4)
+    add $t5, $t4, $t0		# $t5 = addr(base + t4)
     sw $t2, 0($t5)		# - erase to black
 
     lw $t4, 12($t3)		# $t4 = $t3[0]
-    add $t5, $t4, $t0	# $t5 = addr(base + t4)
+    add $t5, $t4, $t0		# $t5 = addr(base + t4)
     sw $t2, 0($t5)		# - erase to black
 
     lw $t4, 16($t3)		# $t4 = $t3[0]
-    add $t5, $t4, $t0	# $t5 = addr(base + t4)
+    add $t5, $t4, $t0		# $t5 = addr(base + t4)
     sw $t2, 0($t5)		# - erase to black
 
-    la $t4, asteroid_2_counter
-    li $t5, 0
-    sw $t5, 0($t4)
-
-
+    la $t4, asteroid_2_counter	# t4 = addr(counter)
+    li $t5, 0			# t5 = 0
+    sw $t5, 0($t4)		# t4[0] = t5
+    
     # make ship go red
-    li $t6, 0xFF2D00	# red
-    la $t3, ship
-    lw $t4, 0($t3)
-    add $t5, $t0, $t4
-    sw $t6, 0($t5)
-    lw $t4, 4($t3)
-    add $t5, $t0, $t4
-    sw $t6, 0($t5)
-    lw $t4, 8($t3)
-    add $t5, $t0, $t4
-    sw $t6, 0($t5)
+    li $t6, 0xFF2D00		# t6 = red
+    la $t3, ship		# t3 = addr(ship)
+    lw $t4, 0($t3)		# t4 = t3[0]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t6, 0($t5)		# t5[0] = t6
+    lw $t4, 4($t3)		# t4 = t3[4]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t6, 0($t5)		# t5[0] = t6
+    lw $t4, 8($t3)		# t3[8] = t4
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t6, 0($t5)		# t5[0] = t6
 
-
-    li $v0, 32
+    li $v0, 32			# sleep for 100 ms
     li $a0, 100
     syscall
 
+    la $t3, ship		# t3 = addr(ship)
+    lw $t4, 0($t3)		# t4 = t3[0]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t8, 0($t5)		# t5[0] = t8
+    lw $t4, 4($t3)		# t4 = t3[4]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t9, 0($t5)		# t5[0] = t9
+    lw $t4, 8($t3)		# t4 = t3[8] 
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t9, 0($t5)		# t5[0] = t9
 
-    la $t3, ship
-    lw $t4, 0($t3)
-    add $t5, $t0, $t4
-    sw $t8, 0($t5)
-    lw $t4, 4($t3)
-    add $t5, $t0, $t4
-    sw $t9, 0($t5)
-    lw $t4, 8($t3)
-    add $t5, $t0, $t4
-    sw $t9, 0($t5)
+    la $t3, total_collisions	# t3 = addr(total_collisions)
+    lw $t4, 0($t3)		# t4 = t3[0]
+    addi $t4, $t4, 1		# t4 = t4 + 1
+    sw $t4, 0($t3)		# t3[0] = t4
+    beq $t4, 5, END		# t4 == 5, jump to end
 
-    la $t3, total_collisions
-    lw $t4, 0($t3)
-    addi $t4, $t4, 1
-    sw $t4, 0($t3)
+    la $t6, hearts		# t6 = addr(hearts)
+    addi $t4, $t4, -1		# t4 = t4 - 1
+    sll $t4, $t4, 2		# t4 = t4 x 4
+    add $t4, $t4, $t6		# t4 = t4 + t6
+    lw $t7, 0($t4)		# t7 = t4[0]
+    add $t7, $t0, $t7		# t7 = t0 + t7
+    sw $t2, 0($t7) 		# t7[0] = t2
 
-    beq $t4, 5, END
-
-    la $t6, hearts
-    addi $t4, $t4, -1
-    sll $t4, $t4, 2
-    add $t4, $t4, $t6
-    lw $t7, 0($t4)
-
-    add $t7, $t0, $t7
-
-    sw $t2, 0($t7) 
-
-
-    j WHILE_GAME
-
+    j WHILE_GAME		# jump to main loop
 
 ERASE_ASTEROID_3:
-
     # delete asteroid
     lw $t4, 0($t3)		# $t4 = $t3[0]
-    add $t5, $t4, $t0	# $t5 = addr(base + t4)
+    add $t5, $t4, $t0		# $t5 = addr(base + t4)
     sw $t2, 0($t5)		# - erase to black
 
     lw $t4, 4($t3)		# $t4 = $t3[0]
-    add $t5, $t4, $t0	# $t5 = addr(base + t4)
+    add $t5, $t4, $t0		# $t5 = addr(base + t4)
     sw $t2, 0($t5)		# - erase to black
 
     lw $t4, 8($t3)		# $t4 = $t3[0]
-    add $t5, $t4, $t0	# $t5 = addr(base + t4)
+    add $t5, $t4, $t0		# $t5 = addr(base + t4)
     sw $t2, 0($t5)		# - erase to black
 
     lw $t4, 12($t3)		# $t4 = $t3[0]
-    add $t5, $t4, $t0	# $t5 = addr(base + t4)
+    add $t5, $t4, $t0		# $t5 = addr(base + t4)
     sw $t2, 0($t5)		# - erase to black
 
     lw $t4, 16($t3)		# $t4 = $t3[0]
-    add $t5, $t4, $t0	# $t5 = addr(base + t4)
+    add $t5, $t4, $t0		# $t5 = addr(base + t4)
     sw $t2, 0($t5)		# - erase to black
 
-    la $t4, asteroid_3_counter
-    li $t5, 0
-    sw $t5, 0($t4)
-
+    la $t4, asteroid_3_counter	# t4 = addr(counter)
+    li $t5, 0			# t5 = 0
+    sw $t5, 0($t4)		# t4[0] = t5
 
     # make ship go red
-    li $t6, 0xFF2D00	# red
-    la $t3, ship
-    lw $t4, 0($t3)
-    add $t5, $t0, $t4
-    sw $t6, 0($t5)
-    lw $t4, 4($t3)
-    add $t5, $t0, $t4
-    sw $t6, 0($t5)
-    lw $t4, 8($t3)
-    add $t5, $t0, $t4
-    sw $t6, 0($t5)
+    li $t6, 0xFF2D00		# t6 = red
+    la $t3, ship		# t3 = addr(ship)
+    lw $t4, 0($t3)		# t4 = t3[0]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t6, 0($t5)		# t5[0] = t6
+    lw $t4, 4($t3)		# t4 = t3[4]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t6, 0($t5)		# t5[0] = t6
+    lw $t4, 8($t3)		# t4 = t3[8]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t6, 0($t5)		# t5[0] = t6
 
-
-    li $v0, 32
+    li $v0, 32			# sleep for 100 ms
     li $a0, 50
     syscall
 
+    la $t3, ship		# t3 = addr(ship)
+    lw $t4, 0($t3)		# t4 = t3[0]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t8, 0($t5)		# t5[0] = t8
+    lw $t4, 4($t3)		# t4 = t3[4]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t9, 0($t5)		# t5[0] = t9
+    lw $t4, 8($t3)		# t4 = t3[8]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $t9, 0($t5)		# t5[0] = t9
+		
+    la $t3, total_collisions	# t3 = addr(total_collisions)
+    lw $t4, 0($t3)		# t4 = t3[0]
+    addi $t4, $t4, 1		# t4 = t4 + 1
+    sw $t4, 0($t3)		# t3[0] = t4
+    beq $t4, 5, END		# t4 == 5, jump to end
 
-    la $t3, ship
-    lw $t4, 0($t3)
-    add $t5, $t0, $t4
-    sw $t8, 0($t5)
-    lw $t4, 4($t3)
-    add $t5, $t0, $t4
-    sw $t9, 0($t5)
-    lw $t4, 8($t3)
-    add $t5, $t0, $t4
-    sw $t9, 0($t5)
-
-    la $t3, total_collisions
-    lw $t4, 0($t3)
-    addi $t4, $t4, 1
-    sw $t4, 0($t3)
-
-    beq $t4, 5, END
-
-    la $t6, hearts			# $t6 = addr(hearts)
+    la $t6, hearts		# $t6 = addr(hearts)
     addi $t4, $t4, -1		# $t4 = $t4 - 1
-    sll $t4, $t4, 2			# $t4 = $t4 x 4
+    sll $t4, $t4, 2		# $t4 = $t4 x 4
     add $t4, $t4, $t6		# $t4 = $t6(0) + 4 
-    lw $t7, 0($t4)
+    lw $t7, 0($t4)		# t7 = t4[0]
+    add $t7, $t0, $t7		# t7 = t0 + t7
+    sw $t2, 0($t7) 		# t7[0] = t2
 
-    add $t7, $t0, $t7
-
-    sw $t2, 0($t7) 
-
-
-
-
-
-
-
-    j WHILE_GAME
-
-
+    j WHILE_GAME		# jump back to main loop
 
 END:
-
     # set background to black
-    li $t3, 0
+    li $t3, 0	# t3 = 0
     WHILE_GAME_OVER:
-
-
-        add $t5, $t0, $t3
-        sw $t9, 0($t5)
-        add $t3, $t3, 4
-        beq $t3, 4100, DRAW_LETTERS
-        j WHILE_GAME_OVER
+        add $t5, $t0, $t3		# t5 = t0  + t3
+        sw $t9, 0($t5)			# t5[0] = t9
+        add $t3, $t3, 4			# t3 = t3 + 4
+        beq $t3, 4100, DRAW_LETTERS	# t3 != 4100, draw letters
+        j WHILE_GAME_OVER		# jump to while game over
 
 DRAW_LETTERS:
-    la $t4, Alphabet_G
-    li $a0, 0
+    la $t4, Alphabet_G			# t4 = addr(alphabet_G)
+    li $a0, 0				# a0 = 0
     create_G:
-        sll $a1, $a0, 2
-        add $a1, $a1, $t4
-        lw $t5, 0($a1)
-        add $t6, $t5, $t0
-        li $t7, 0xFF0000	# red
-        sw $t7, 0($t6)
-        addi $a0, $a0, 1
-        bne $t5, 400, create_G
-        li $a0, 0
-        la $t4, Alphabet_A
-        j create_A
-
+        sll $a1, $a0, 2			# a1 = a0 x 4
+        add $a1, $a1, $t4		# a1 = a1 + t4
+        lw $t5, 0($a1)			# t5 = a1[0]
+        add $t6, $t5, $t0		# t6 = t5 + t0
+        li $t7, 0xFF0000		# t7 = red
+        sw $t7, 0($t6)			# t6[0] = t7
+        addi $a0, $a0, 1		# a0 = a0 + 1
+        bne $t5, 400, create_G		# t5 != 400, jump to create g
+        li $a0, 0			# a0 = 0
+        la $t4, Alphabet_A		# t4 = addr(A)
+        j create_A			# jump to create A
 
     create_A:
-        sll $a1, $a0, 2
-        add $a1, $a1, $t4
-        lw $t5, 0($a1)
-        add $t6, $t5, $t0
-        li $t7, 0xFF0000	# red
-        sw $t7, 0($t6)
-        addi $a0, $a0, 1
-        bne $t5, 820, create_A
-        li $a0, 0
-        la $t4, Alphabet_M
-        j create_M
+        sll $a1, $a0, 2			# a1 = a0 x 4
+        add $a1, $a1, $t4		# a1 = a1 + t4
+        lw $t5, 0($a1)			# t5 = a1[0]
+        add $t6, $t5, $t0		# t6 = t5 + t0
+        li $t7, 0xFF0000		# t7 = red
+        sw $t7, 0($t6)			# t6[0] = t7
+        addi $a0, $a0, 1		# a0 = a0 + 1
+        bne $t5, 820, create_A		# t5 != 820, jump to A
+        li $a0, 0			# a0 = 0
+        la $t4, Alphabet_M		# t4 = addr(M)
+        j create_M			# jump to create M
 
     create_M:
-        sll $a1, $a0, 2
-        add $a1, $a1, $t4
-        lw $t5, 0($a1)
-        add $t6, $t5, $t0
-        li $t7, 0xFF0000	# red
-        sw $t7, 0($t6)
-        addi $a0, $a0, 1
-        bne $t5, 980, create_M
-        li $a0, 0
-        la $t4, Alphabet_E_1
-        j create_E_1
+        sll $a1, $a0, 2			# a1 = a0 x 4
+        add $a1, $a1, $t4		# a1 = a1 + 4
+        lw $t5, 0($a1)			# t5 = a1[0]
+        add $t6, $t5, $t0		# t6 = t5 + t0
+        li $t7, 0xFF0000		# t7 = red
+        sw $t7, 0($t6)			# t6[0] = t7
+        addi $a0, $a0, 1		# a0 = a0 + 1
+        bne $t5, 980, create_M		# t5 != 980, jump to M
+        li $a0, 0			# a0 = 0
+        la $t4, Alphabet_E_1		# t4 = addr(E)
+        j create_E_1			# jump to create E 1
 
     create_E_1:
-        sll $a1, $a0, 2
-        add $a1, $a1, $t4
-        lw $t5, 0($a1)
-        add $t6, $t5, $t0
-        li $t7, 0xFF0000	# red
-        sw $t7, 0($t6)
-        addi $a0, $a0, 1
-        bne $t5, 496, create_E_1
-        li $a0, 0
-        la $t4, Alphabet_O
-        j create_O
+        sll $a1, $a0, 2			# a1 = a0 x 4
+        add $a1, $a1, $t4		# a1 = a1 + t4
+        lw $t5, 0($a1)			# t5 = a1[0]
+        add $t6, $t5, $t0		# t6 = t5 + t0
+        li $t7, 0xFF0000		# t7 = red
+        sw $t7, 0($t6)			# t6[0] = t7
+        addi $a0, $a0, 1		# a0 = a0 + 1
+        bne $t5, 496, create_E_1	# t5 != 496, jump to create_E1
+        li $a0, 0			# a0 = 0
+        la $t4, Alphabet_O		# t4 = addr(O)
+        j create_O			# jump to create O
 
     create_O:
-        sll $a1, $a0, 2
-        add $a1, $a1, $t4
-        lw $t5, 0($a1)
-        add $t6, $t5, $t0
-        li $t7, 0xFF0000	# red
-        sw $t7, 0($t6)
-        addi $a0, $a0, 1
-        bne $t5, 1296, create_O	# change, + number
-        li $a0, 0
-        la $t4, Alphabet_V	# change
-        j create_V		# change
+        sll $a1, $a0, 2			# a0 = a0 x 4
+        add $a1, $a1, $t4		# a1 = a1 + t4
+        lw $t5, 0($a1)			# t5 = a1[0]
+        add $t6, $t5, $t0		# t6 = t5 + t0
+        li $t7, 0xFF0000		# t7 = red
+        sw $t7, 0($t6)			# t6[0] = t7
+        addi $a0, $a0, 1		# a0 = a0 + 1
+        bne $t5, 1296, create_O		# t5 != 1296, jump to O
+        li $a0, 0			# a0 = 0
+        la $t4, Alphabet_V		# t4 = addr(V)
+        j create_V			# jump to V
 
     create_V:
-        sll $a1, $a0, 2
-        add $a1, $a1, $t4
-        lw $t5, 0($a1)
-        add $t6, $t5, $t0
-        li $t7, 0xFF0000	# red
-        sw $t7, 0($t6)
-        addi $a0, $a0, 1
-        bne $t5, 1336, create_V	# change, + number
-        li $a0, 0
-        la $t4, Alphabet_E_2		# change
-        j create_E_2			# change
+        sll $a1, $a0, 2			# a0 = a0 x 4
+        add $a1, $a1, $t4		# a1 = a1 + t4
+        lw $t5, 0($a1)			# t5 = a1[0]
+        add $t6, $t5, $t0		# t6 = t5 + t0
+        li $t7, 0xFF0000		# t7 = red
+        sw $t7, 0($t6)			# t6[0] = t7
+        addi $a0, $a0, 1		# a0 = a0 + 1
+        bne $t5, 1336, create_V		# t5 != 1336, jump to V
+        li $a0, 0			# a0 = 0
+        la $t4, Alphabet_E_2		# t4 = addr(E 2)
+        j create_E_2			# jump to create E 2
 
     create_E_2:
-
-        sll $a1, $a0, 2
-        add $a1, $a1, $t4
-        lw $t5, 0($a1)
-        add $t6, $t5, $t0
-        li $t7, 0xFF0000	# red
-        sw $t7, 0($t6)
-        addi $a0, $a0, 1
-        bne $t5, 1876, create_E_2		# change, + number
-        li $a0, 0
-        la $t4, Alphabet_R		# change
-        j create_R			# change
+        sll $a1, $a0, 2			# a1 = a0 x 4
+        add $a1, $a1, $t4		# a1 = a1 + t4
+        lw $t5, 0($a1)			# t5 = a1[0]
+        add $t6, $t5, $t0		# t6 = t5 + t0
+        li $t7, 0xFF0000		# t7 = red
+        sw $t7, 0($t6)			# t6[0] = t7
+        addi $a0, $a0, 1		# a0 = a0 + 1
+        bne $t5, 1876, create_E_2	# t5 != 1876, jump to E 2
+        li $a0, 0			# a0 = 0
+        la $t4, Alphabet_R		# t4 = addr(R)
+        j create_R			# jump to R
 
     create_R:
-        sll $a1, $a0, 2
-        add $a1, $a1, $t4
-        lw $t5, 0($a1)
-        add $t6, $t5, $t0
-        li $t7, 0xFF0000	# red
-        sw $t7, 0($t6)
-        addi $a0, $a0, 1
-        bne $t5, 1636, create_R		# change, + number
-
-        j SET_SCORE_BOARD		# change
+        sll $a1, $a0, 2			# a1 = a0 x 4
+        add $a1, $a1, $t4		# a1 = a1 + t4
+        lw $t5, 0($a1)			# t5 = a1[0]
+        add $t6, $t5, $t0		# t6 = t5 + 0
+        li $t7, 0xFF0000		# t7 = red
+        sw $t7, 0($t6)			# t6[0] = t7
+        addi $a0, $a0, 1		# a0 = a0 + 1
+        bne $t5, 1636, create_R		# t5 != 1636, jump to R
+        j SET_SCORE_BOARD		# jump to set scoreboard
 
 SET_SCORE_BOARD:
 
-
-
-    la $t3, obstacles_thrown
-    lw $t3, 0($t3)
-    li $a0, 0
-
+    la $t3, obstacles_thrown		# t3 = addr(obstacles_thrown)
+    lw $t3, 0($t3)			# t3 = t3[0]
+    li $a0, 0				# a0 = 0
+    
     # 3rd least significant bit
-    li $t4, 1000
-    div $t3, $t4
-    mfhi $t3
-    li $t4, 100
-    div $t3, $t4
+    li $t4, 1000			# t4 = 1000
+    div $t3, $t4			# t3 = t3 % t4
+    mfhi $t3				
+    li $t4, 100				# t4 = 100
+    div $t3, $t4			# t3 = t3 / t4
     mflo $t3
 
     # function time
-
-    la $t7, s2
-    lw $t6, 0($t7)
-
-    beq $t6, 0, SET_S	# t6 = 0
+    la $t7, s2				# t7 = addr(s2)
+    lw $t6, 0($t7)			# t6 = t7[0]
+    beq $t6, 0, SET_S			# t6 = 0, jump to set S
     # $t6 is 1
-    li $a0, 24
-    la $t3, obstacles_thrown
-    lw $t3, 0($t3)
-
+    li $a0, 24				# a0 = 24
+    la $t3, obstacles_thrown		# t3 = addr(obstacles_thrown)
+    lw $t3, 0($t3)			# t3 = t3[0]
 
     # 2nd least significant bit
-    li $t4, 100
-    div $t3, $t4
-    mfhi $t3
-    li $t4, 10
-    div $t3, $t4
-    mflo $t3
+    li $t4, 100				# t4 = 100
+    div $t3, $t4			# t3 = t3 mod t4
+    mfhi $t3			
+    li $t4, 10				# t4 = 10
+    div $t3, $t4			# t3 = t3 / t4
+    mflo $t3			
+    
+    la $t7, s1				# t7 = addr(s1)
+    lw $t6, 0($t7)			# t6 = t7[0]
+    beq $t6, 0, SET_S			# t6 = 0, set S
 
-    la $t7, s1
-    lw $t6, 0($t7)
-
-    beq $t6, 0, SET_S	# t6 = 0
-
-    li $a0, 48
-    la $t3, obstacles_thrown
-    lw $t3, 0($t3)
+    li $a0, 48				# a0 = 48
+    la $t3, obstacles_thrown		# t3 = obstacles_thrown
+    lw $t3, 0($t3)			# t3 = t3[0]
 
     # least significant bit
-    li $t4, 10
-    div $t3, $t4
+    li $t4, 10				# t4 = 10
+    div $t3, $t4			# t3 = t3 % t4
     mfhi $t3
-    li $t4, 1
-    div $t3, $t4
+    li $t4, 1				# t4 = 1
+    div $t3, $t4			# t3 = t3 / t4
     mflo $t3
 
-    la $t7, s0
-    lw $t6, 0($t7)
+    la $t7, s0				# t7 = addr(s0)
+    lw $t6, 0($t7)			# t6 = t7[0]
+    beq $t6, 0, SET_S			# t6 = 0, jump to set S
 
-
-
-    beq $t6, 0, SET_S	# t6 = 0
-
-
-
-    j DRAWING_DONE
+    j DRAWING_DONE			# jump to drawing done
 
 SET_S:
-    li $t6, 1
-    sw $t6, 0($t7)
+    li $t6, 1				# t6 = 1
+    sw $t6, 0($t7)			# t7[0] = t6
     j SET_S2_NUMBER_ZERO
 
-
 SET_S2_NUMBER_ZERO:
-    #li $t3, 9 # like says it 100, the s2 is 1
-    beq $t3, 1, SET_S2_NUMBER_ONE	# $t3 = 1 set 1
-    beq $t3, 2, SET_S2_NUMBER_TWO	# $t3 = 2 set 2
-    beq $t3, 3, SET_S2_NUMBER_THREE	# $t3 = 2 set 2
-    beq $t3, 4, SET_S2_NUMBER_FOUR	# $t3 = 1 set 1
-    beq $t3, 5, SET_S2_NUMBER_FIVE	# $t3 = 2 set 2
-    beq $t3, 6, SET_S2_NUMBER_SIX	# $t3 = 2 set 2
-    beq $t3, 7, SET_S2_NUMBER_SEVEN	# $t3 = 1 set 1
-    beq $t3, 8, SET_S2_NUMBER_EIGHT	# $t3 = 2 set 2
-    beq $t3, 9, SET_S2_NUMBER_NINE	# $t3 = 2 set 2
-    la $t4, number_zero
-    lw $t5, 0($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 4($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 8($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 12($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 16($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 20($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 24($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 28($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 32($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 36($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 40($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 44($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
+    beq $t3, 1, SET_S2_NUMBER_ONE	# $t3 = 1, jump to set 1
+    beq $t3, 2, SET_S2_NUMBER_TWO	# $t3 = 2, jump to set 2
+    beq $t3, 3, SET_S2_NUMBER_THREE	# $t3 = 3, jump to set 3
+    beq $t3, 4, SET_S2_NUMBER_FOUR	# $t3 = 4, jump to set 4
+    beq $t3, 5, SET_S2_NUMBER_FIVE	# $t3 = 5, jump to set 5
+    beq $t3, 6, SET_S2_NUMBER_SIX	# $t3 = 6, jump to set 6
+    beq $t3, 7, SET_S2_NUMBER_SEVEN	# $t3 = 7, jump to set 7
+    beq $t3, 8, SET_S2_NUMBER_EIGHT	# $t3 = 8, jump to set 8
+    beq $t3, 9, SET_S2_NUMBER_NINE	# $t3 = 9, jump to set 9
+    
+    la $t4, number_zero			# t4 = addr(number_zero)
+    lw $t5, 0($t4)			# t5 = t4[0]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 4($t4)			# t5 = t4[4]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 8($t4)			# t5 = t4[8]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 12($t4)			# t5 = t4[12]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 16($t4)			# t5 = t4[16]
+    add $t5, $t5, $a0 			# ct5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 20($t4)			# t5 = t4[20]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 24($t4)			# t5 = t4[24]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 28($t4)			# t5 = t4[28]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 32($t4)			# t5 = t4[32]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 36($t4)			# t5 = t4[36]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 40($t4)			# t5 = t4[40]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 44($t4)			# t5 = t4[44]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
 
-
-
-
-    j SET_SCORE_BOARD
-
-
-
+    j SET_SCORE_BOARD			# jump to set score board
 
 SET_S2_NUMBER_ONE:
 
-    la $t4, number_one
-    lw $t5, 0($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 4($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 8($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 12($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 16($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 20($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 24($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 28($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
+    la $t4, number_one			# t4 = addr(number_one)
+    lw $t5, 0($t4)			# t5 = t4[0]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 4($t4)			# t5 = t4[4]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 8($t4)			# t5 = t4[8]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 12($t4)			# t5 = t4[12]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 16($t4)			# t5 = t4[16]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 20($t4)			# t5 = t4[20]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 24($t4)			# t5 = t4[24]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 28($t4)			# t5 = t4[28]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
 
-
-    j SET_SCORE_BOARD
-
+    j SET_SCORE_BOARD			# jump back to set scoreboard
 
 SET_S2_NUMBER_TWO:
 
-    la $t4, number_two
-    lw $t5, 0($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 4($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 8($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 12($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 16($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 20($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 24($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 28($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 32($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 36($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 40($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
+    la $t4, number_two			# t4 = addr(two)
+    lw $t5, 0($t4)			# t5 = t4[0]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 4($t4)			# t5 = t4[4]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 8($t4)			# t5 = t4[8]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 12($t4)			# t5 = t4[12]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 16($t4)			# t5 = t4[16]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 20($t4)			# t5 = t4[20]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 24($t4)			# t5 = t4[24]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 28($t4)			# t5 = t4[28]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 32($t4)			# t5 = t4[32]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 36($t4)			# t5 = t4[36]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 40($t4)			# t5 = t4[40]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
 
-
-
-    j SET_SCORE_BOARD
+    j SET_SCORE_BOARD			# jump back to set scoreboard
 
 
 SET_S2_NUMBER_THREE:
 
-    la $t4, number_three
-    lw $t5, 0($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 4($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 8($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 12($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 16($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 20($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 24($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 28($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 32($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 36($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
+    la $t4, number_three		# t4 = addr(3)
+    lw $t5, 0($t4)			# t5 = t4[0]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = 8
+    lw $t5, 4($t4)			# t5 = t4[4]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 8($t4)			# t5 = t4[8]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 12($t4)			# t5 = t4[12]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 16($t4)			# t5 = t4[16]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + a0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 20($t4)			# t5 = t4[20]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 24($t4)			# t5 = t4[24]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 28($t4)			# t5 = t4[28]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 32($t4)			# t5 = t4[32]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 36($t4)			# t5 = t4[36]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
 
-
-
-    j SET_SCORE_BOARD
+    j SET_SCORE_BOARD			# jump back to set scoreboard
 
 SET_S2_NUMBER_FOUR:
 
-    la $t4, number_four	# - t change
-    lw $t5, 0($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 4($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 8($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 12($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 16($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 20($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 24($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 28($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 32($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
+    la $t4, number_four			# t4 = addr(4) 		
+    lw $t5, 0($t4)			# t5 = t4[0]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 4($t4)			# t5 = t4[4]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 8($t4)			# t5 = t4[8]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 12($t4)			# t5 = t4[12]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 16($t4)			# t5 = t4[16]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + a0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 20($t4)			# t5 = t4[20]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 24($t4)			# t5 = t4[24]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 28($t4)			# t5 = t4[28]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 32($t4)			# t5 = t4[32]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
 
-
-
-
-    j SET_SCORE_BOARD
+    j SET_SCORE_BOARD			# jump back to scoreboard
 
 SET_S2_NUMBER_FIVE:
 
-    la $t4, number_five	# - t change
-    lw $t5, 0($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 4($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 8($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 12($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 16($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 20($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 24($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 28($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 32($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 36($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 40($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
+    la $t4, number_five			# t4 = addr(five)
+    lw $t5, 0($t4)			# t5 = t4[0]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 4($t4)			# t5 = t4[4]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 8($t4)			# t5 = t4[8]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 12($t4)			# t5 = t4[12]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 16($t4)			# t5 = t4[16]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 20($t4)			# t5 = t4[20]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 24($t4)			# t5 = t4[24]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 28($t4)			# t5 = t4[28]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 32($t4)			# t5 = t4[32]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 36($t4)			# t5 = t4[36]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 40($t4)			# t5 = t4[40]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
 
-
-
-
-
-    j SET_SCORE_BOARD
+    j SET_SCORE_BOARD			# jump back to set score board
 
 SET_S2_NUMBER_SIX:
 
-    la $t4, number_six	# - t change
-    lw $t5, 0($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 4($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 8($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 12($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 16($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 20($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 24($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 28($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 32($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 36($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 40($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 44($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
+    la $t4, number_six			# t4 = addr(6)
+    lw $t5, 0($t4)			# t5 = t4[0]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 4($t4)			# t5 = t4[4]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 8($t4)			# t5 = t4[8]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 12($t4)			# t5 = t4[12]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 16($t4)			# t5 = t4[16]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 20($t4)			# t5 = t4[20]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 24($t4)			# t5 = t4[24]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 28($t4)			# t5 = t4[28]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 32($t4)			# t5 = t4[32]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 36($t4)			# t5 = t4[36]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 40($t4)			# t5 = t4[20]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 44($t4)			# t5 = t4[44]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
 
-
-
-
-    j SET_SCORE_BOARD
-
+    j SET_SCORE_BOARD			# jump to set score board
 
 SET_S2_NUMBER_SEVEN:
 
-    la $t4, number_seven	# - t change
-    lw $t5, 0($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 4($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 8($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 12($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 16($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 20($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 24($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
+    la $t4, number_seven 		# t4 = addr(seven)
+    lw $t5, 0($t4)			# t5 = t4[0]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 4($t4)			# t5 = t4[4]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 8($t4)			# t5 = t4[8]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 12($t4)			# t5 = t4[12]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 16($t4)			# t5 = t4[16]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 20($t4)			# t5 = t4[20]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 24($t4)			# t5 = t4[24]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
 
-
-
-
-
-    j SET_SCORE_BOARD
-
+    j SET_SCORE_BOARD			# jump back to set score board
 
 SET_S2_NUMBER_EIGHT:
 
-    la $t4, number_eight	# - t change
-    lw $t5, 0($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 4($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 8($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 12($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 16($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 20($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 24($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 28($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 32($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
+    la $t4, number_eight		# t4 = addr(eight)
+    lw $t5, 0($t4)			# t5 = t4[0]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 4($t4)			# t5 = t4[4]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 8($t4)			# t5 = t4[8]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 12($t4)			# t5 = t4[12]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 16($t4)			# t5 = t4[16]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 20($t4)			# t5 = t4[20]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 24($t4)			# t5 = t4[24]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 28($t4)			# t5 = t4[28]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 32($t4)			# t5 = t4[32]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 36($t4)			# t5 = t4[36]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 40($t4)			# t5 = t4[40]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 44($t4)			# t5 = t4[44]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 48($t4)			# t5 = t4[48]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
 
-    lw $t5, 36($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-
-    lw $t5, 40($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-
-    lw $t5, 44($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-
-    lw $t5, 48($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-
-
-    j SET_SCORE_BOARD
+    j SET_SCORE_BOARD			# jump back to set score board
 
 SET_S2_NUMBER_NINE:
 
-    la $t4, number_nine	# - t change
-    lw $t5, 0($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 4($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 8($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 12($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 16($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 20($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 24($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 28($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-    lw $t5, 32($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
+    la $t4, number_nine			# t4 = addr(nine)
+    lw $t5, 0($t4)			# t5 = t4[0]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 4($t4)			# t5 = t4[4]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 8($t4)			# t5 = t4[8]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 12($t4)			# t5 = t4[12]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 16($t4)			# t5 = t4[16]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 20($t4)			# t5 = t4[20]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 24($t4)			# t5 = t4[24]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 28($t4)			# t5 = t4[28]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 32($t4)			# t5 = t4[32] 
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
+    lw $t5, 36($t4)			# t5 = t4[36]
+    add $t5, $t5, $a0 			# t5 = t5 + a0
+    add $t5, $t5, $t0			# t5 = t5 + t0
+    sw $t8, 0($t5)			# t5[0] = t8
 
-    lw $t5, 36($t4)
-    add $t5, $t5, $a0 	# change num to follow digit
-    add $t5, $t5, $t0
-    sw $t8, 0($t5)
-
-    j SET_SCORE_BOARD    
-
+    j SET_SCORE_BOARD    		# jump back to set score board
 
 PICK_UP_COIN:
-    la $t3, coin_spawn_counter
-    sw $zero, 0($t3)
 
-    la $t3, coin_item
-    lw $t4, 0($t3)
+    la $t3, coin_spawn_counter	# t3 = addr(coin_spawn counter)
+    sw $zero, 0($t3)		# t3[0] = zero
 
-    add $t5, $t0, $t4
-    sw $zero, 0($t3)
+    la $t3, coin_item		# t3 = addr(coin_item)
+    lw $t4, 0($t3)		# t4 = t3[0]
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $zero, 0($t3)		# t3[0] = zero
 
-    la $t3, obstacles_thrown
-    lw $t4, obstacles_thrown
-    add $t4, $t4, 20
-    beq $t4, 999, WHILE_GAME
-    sw $t4, 0($t3)
-    J WHILE_GAME
+    la $t3, obstacles_thrown	# t3 = addr(obstacles_thrown)
+    lw $t4, obstacles_thrown	# t4 = t3[0]
+    add $t4, $t4, 20		# t4 = t4 + 20
+    beq $t4, 999, WHILE_GAME	# t4 = 999, jump back to main loop
+    sw $t4, 0($t3)		# t3[0] = t4
+    
+    J WHILE_GAME		# jump back to main loop
 
 PICK_UP_HEART:
-    la $t3, heart_spawn_counter
-    sw $zero, 0($t3)
+    la $t3, heart_spawn_counter	# t3 = addr(heart_spawn_counter)
+    sw $zero, 0($t3)		# t3[0] = zero
 
-    la $t3, heart_item
-    lw $t4, 0($t3)
+    la $t3, heart_item		# t3 = addr(heart_item)
+    lw $t4, 0($t3)		# t4 = t3[0] 
+    add $t5, $t0, $t4		# t5 = t0 + t4
+    sw $zero, 0($t3)		# t3[0] = zero
 
-    add $t5, $t0, $t4
-    sw $zero, 0($t3)
+    la $t3, total_collisions	# t3 = addr(total_collisions)
+    lw $t4, 0($t3)		# t4 = t3[0]
+    addi $t4, $t4, -1		# t4 = t4 - 1
+    sw $t4, 0($t3)		# t3[0] = t4
 
-    la $t3, total_collisions
-    lw $t4, 0($t3)
-    addi $t4, $t4, -1
-    sw $t4, 0($t3)
+    la $t3, hearts		# t3 = addr(hearts)
+    sll $t4, $t4, 2		# t4 = t4 x 4
+    add $t4, $t4, $t3		# t4 = t4 + t3
+    lw $t5, 0($t4)		# t5 = t4[0]
+    add $t6, $t5, $t0		# t6 = t5 + t0
+    li $t7, red			# t7 = red
+    sw $t7, 0($t6) 		# t6[0] = t7
 
-    la $t3, hearts
-    sll $t4, $t4, 2
-    add $t4, $t4, $t3
-    lw $t5, 0($t4)
-    add $t6, $t5, $t0
-    li $t7, red
-    sw $t7, 0($t6) 
-
-
-
-    J WHILE_GAME
+    J WHILE_GAME		# jump back to main loop
 
 DRAWING_DONE:
-    lw $t3, 0xffff0000
-    beq $t3, 1, PRESSED_P
-    j DRAWING_DONE
+    lw $t3, 0xffff0000		# key press input
+    beq $t3, 1, PRESSED_P	# if key was pressed
+    j DRAWING_DONE		# jump back to drawing done
 
 PRESSED_P:
-    lw $t4, 0xffff0004
-    beq $t4, 0x70, respond_to_p
-    j DRAWING_DONE
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    lw $t4, 0xffff0004		# looks at the input
+    beq $t4, 0x70, respond_to_p	# if input is p go back to main loop
+    j DRAWING_DONE		# jump back to drwaing done
