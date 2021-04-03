@@ -16,14 +16,15 @@
 # - Milestone 4
 #
 # Which approved features have been implemented for milestone 4?
-# 1. Scoreboard. Scoreboard is shown at the gameover screen. 
+# 1. Scoreboard. Scoreboard is shown at the gameover screen (capped at 999). 
 # Score is based on number of flying obstacles launched (e.g., 16 obstacles = 16 points)
 #
 # 2. health and coins pickup. Health is red pixel granting you one health
 # Coin pickup is a golden pixel granting 20 points per pick up. They appear per 
 # twenty obstacles and health only appears if you are under five health bar.
 #
-# 3. Enemy ships. Every twenty or so obstacles a verticle obstacle appears (looks like the ship but in red)
+# 3. Enemy ships. After 20 obstacles an enemy ship appear that can change direction.
+# (its randomly generated similar to other obstacles)
 #
 # Link to video demonstration for final submission:
 # - (insert YouTube / MyMedia / other URL here). Make sure we can view it!
@@ -767,7 +768,70 @@ WHILE_GAME:
             sw $t2, 0($t6)					# $t6[0] = $t2 - black
 
             lw $t7, 0($t3)					# $t7 = addr(counter)
-            beq $t7, 30, RESET_COUNTER_ENEMY_SHIP		# if $t7 == 30, reset
+            beq $t7, 36, RESET_COUNTER_ENEMY_SHIP		# if $t7 == 30, reset
+            beq $t7, 15, GO_DOWNWARDS				# if t7 >= 15 to 20 go downwards
+            beq $t7, 16, GO_DOWNWARDS				# if t7 == 15 to 20 go downwards
+            beq $t7, 17, GO_DOWNWARDS				# if t7 == 15 to 20 go downwards
+            beq $t7, 18, GO_DOWNWARDS				# if t7 == 15 to 20 go downwards
+            beq $t7, 19, GO_DOWNWARDS				# if t7 == 15 to 20 go downwards
+            beq $t7, 20, GO_DOWNWARDS				# if t7 == 15 to 20 go downwards
+
+            lw $t5, 0($t4)					# $t5 = asteroid[0]
+            addi $t5, $t5, -4					# $t5 = $t5 - 128
+            sw $t5, 0($t4)					# $t4[0] = $t5
+            add $t6, $t5, $t0					# $t6 = addr(default + $t5)
+
+            lw $t7, 0($t6)					# t7 = t6[0]
+            beq $t7, $t8, RESET_COUNTER_COLLISION_ENEMY_SHIP	# if t7 = t8, jump to reset collision counter
+            beq $t7, $t9, RESET_COUNTER_COLLISION_ENEMY_SHIP	# if t7 = t9, jump to reset collision counter
+            sw $s0, 0($t6)					# $t6[0] = $t1 - grey
+
+            lw $t5, 4($t4)					# $t5 = ship[4]
+            addi $t5, $t5, -4					# $t5 = $t5 - 128
+            sw $t5, 4($t4)					# $t4[0] = $t5
+            add $t6, $t5, $t0					# $t6 = addr(default + $t5)
+
+            lw $t7, 0($t6)					# t7 = t6[0]
+            beq $t7, $t8, RESET_COUNTER_COLLISION_ENEMY_SHIP	# if t7 = t8, jump to reset collision counter
+            beq $t7, $t9, RESET_COUNTER_COLLISION_ENEMY_SHIP	# if t7 = t9, jump to reset collision counter
+            sw $s0, 0($t6)					# $t6[0] = $t1 - grey
+
+            lw $t5, 8($t4)					# $t5 = ship[8]
+            addi $t5, $t5, -4					# $t5 = $t5 - 128
+            sw $t5, 8($t4)					# $t4[0] = $t5
+            add $t6, $t5, $t0					# $t6 = addr(default + $t5)
+
+            lw $t7, 0($t6)					# t7 = t6[0]
+            beq $t7, $t8, RESET_COUNTER_COLLISION_ENEMY_SHIP	# if t7 = t8, jump to reset collision counter
+            beq $t7, $t9, RESET_COUNTER_COLLISION_ENEMY_SHIP	# if t7 = t9, jump to reset collision counter
+            sw $s0, 0($t6)					# $t6[0] = $t1 - grey
+
+            la $t3, enemy_ship_counter				# $t3 = addr(counter)
+            lw $t4, 0($t3)					# $t4 = $t3[0]
+            addi $t4, $t4, 1					# $t4 = $t4 + 1
+            sw $t4, 0($t3)					# counter[0] = $t4		
+
+        DROPS:
+       		la $t3, heart_item		# t3 = addr(heart_item)
+       	 	lw $t4, 0($t3)			# t4 = t3[0]
+        	beq $t4, 0, COIN_RESPAWN	# if t4 = 0, respawn coin
+        	li $t7, red			# t7 = red
+        	add $t4, $t4, $t0		# t4 = t4 + t0
+        	sw $t7, 0($t4)			# t4[0] = t7
+
+        COIN_RESPAWN:
+        	la $t3, coin_item		# t3 = addr(coin_item)
+       	 	lw $t4, 0($t3)			# t4 = t3[0]
+        	beq $t4, 0, WHILE_GAME		# if t4 = 0, jump to while_game
+        	li $t7, 0xFFD700		# t7 = gold
+        	add $t4, $t4, $t0		# t4 = t4 + t0
+       	 	sw $t7, 0($t4)			# t4[0] = t7
+
+        j WHILE_GAME				# start main loop again
+        
+        
+ 
+GO_DOWNWARDS:
 
             lw $t5, 0($t4)					# $t5 = asteroid[0]
             addi $t5, $t5, -128					# $t5 = $t5 - 128
@@ -802,25 +866,9 @@ WHILE_GAME:
             la $t3, enemy_ship_counter				# $t3 = addr(counter)
             lw $t4, 0($t3)					# $t4 = $t3[0]
             addi $t4, $t4, 1					# $t4 = $t4 + 1
-            sw $t4, 0($t3)					# counter[0] = $t4		
-
-        DROPS:
-       		la $t3, heart_item		# t3 = addr(heart_item)
-       	 	lw $t4, 0($t3)			# t4 = t3[0]
-        	beq $t4, 0, COIN_RESPAWN	# if t4 = 0, respawn coin
-        	li $t7, red			# t7 = red
-        	add $t4, $t4, $t0		# t4 = t4 + t0
-        	sw $t7, 0($t4)			# t4[0] = t7
-
-        COIN_RESPAWN:
-        	la $t3, coin_item		# t3 = addr(coin_item)
-       	 	lw $t4, 0($t3)			# t4 = t3[0]
-        	beq $t4, 0, WHILE_GAME		# if t4 = 0, jump to while_game
-        	li $t7, 0xFFD700		# t7 = gold
-        	add $t4, $t4, $t0		# t4 = t4 + t0
-       	 	sw $t7, 0($t4)			# t4[0] = t7
-
-        j WHILE_GAME				# start main loop again
+            sw $t4, 0($t3)					# counter[0] = $t4
+            j DROPS
+	
 
 RESET_COUNTER_COLLISION_ENEMY_SHIP:
     li $a0, 0			# a0 = 0
@@ -885,25 +933,27 @@ RESET_COUNTER_COLLISION_ENEMY_SHIP:
 SET_ENEMY_SHIP:
     li $v0, 42			# syscall for random number generation
     li $a0, 0			# a0 contains the random number from 0 to 14
-    li $a1, 14
+    li $a1, 8
     syscall
     
-    li $t3,  3744		# t3 = 3744
+    addi $a0, $a0, 15		# a0 = a0 + 15
+    li $t4, 128			# t4 = 128
     li $t5, tomato		# t5 = tomato colour
-    sll $a0, $a0, 2		# a0 = a0 x 4
-    add $a0, $a0, $t3		# a0 = a0 + t3
+    mult $a0, $t4		# a0 x 128
+    mflo $a0
+    addi $a0, $a0, 124		# a0 = a0 + t3
 
     la $t3, enemy_ship		# $t3 = addr(enemy_ship)
     sw $a0, 0($t3)		# t3[0] = a0
     add $t4, $a0, $t0		# t4 = a0 + t0
     sw $t5, 0($t4)		# t4[0] = t5
-
-    add $a0, $a0, 8		# a0 = a0 + 8
+    
+    add $a0, $a0, 124
     sw $a0, 4($t3)		# t3[4] = a0 
     add $t4, $a0, $t0		# t4 = a0 + t0
     sw $t5, 0($t4)		# t4[0] = t5
 
-    add $a0, $a0, -132		# a0 = a0 - 132
+    add $a0, $a0, 132
     sw $a0, 8($t3)		# t3[8] = a0
     add $t4, $a0, $t0		# t4 = a0 + t0
     sw $t5, 0($t4)		# t4[0] = t5
