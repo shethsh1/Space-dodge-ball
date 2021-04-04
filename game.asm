@@ -18,20 +18,22 @@
 # Which approved features have been implemented for milestone 4?
 # 1. Scoreboard. Scoreboard is shown at the gameover screen (capped at 999). 
 # Score is based on number of flying obstacles launched (e.g., 16 obstacles = 16 points)
+# Score can also go up with coin pickups
 #
-# 2. health and coins pickup. Health is red pixel granting you one health
+# 2. health and coins pickup. Health pickup is red pixel granting you one health
 # Coin pickup is a golden pixel granting 20 points per pick up. They appear per 
 # twenty obstacles and health only appears if you are under five health bar.
+# coins will stop spawning after you are at max score (999)
 #
 # 3. Enemy ships. After 20 obstacles an enemy ship appear that can change direction.
 # (its randomly generated similar to other obstacles)
 #
 # Link to video demonstration for final submission:
-# - (insert YouTube / MyMedia / other URL here). Make sure we can view it!
+# - https://play.library.utoronto.ca/6b395bcf8ccc3bcd6fe24c4991379d39
 #
 # Are you OK with us sharing the video with people outside course staff?
 # - yes
-# - https://github.com/shethsh1/Space-dodge-ball (public after we are allowed)
+# - https://github.com/shethsh1/Space-dodge-ball (as of handing this in its private)
 #
 # Any additional information that the TA needs to know:
 # - (write here, if any)
@@ -55,22 +57,28 @@
 .eqv tomato 0xff6347
 
 .data
-
+    # asteroid location + counter
     asteroid_1:			.word	0:5
     asteroid_1_counter:		.word   0
     asteroid_2:			.word	0:5
     asteroid_2_counter:		.word   0
     asteroid_3:			.word	0:5
     asteroid_3_counter:		.word   0
+    # enemy ship location + counter
     enemy_ship:			.word	0:3
     enemy_ship_counter:		.word   0
+    # ship location
     ship:			.word	0:3
+    # edges that ships cant go over
     d_edge:			.word   116, 244, 372, 500, 628, 756, 884, 1012, 1140, 1268, 1396, 1524, 1652, 1780, 1908, 2036, 2164, 2292, 2420, 2548, 2676, 2804, 2932, 3060, 3188, 3316, 3444, 3572, 3700, 3828, 3956, 4084, -1
     w_edge:			.word	128, 132, 136, 140, 144, 148, 152, 156, 160, 164, 168, 172, 176, 180, 184, 188, 192, 196, 200, 204, 208, 212, 216, 220, 224, 228, 232, 236, 240, 244, 248, 252, -1
     s_edge:			.word	3584, 3588, 3592, 3596, 3600, 3604, 3608, 3612, 3616, 3620, 3624, 3628, 3632, 3636, 3640, 3644, 3648, 3652, 3656, 3660, 3664, 3668, 3672, 3676, 3680, 3684, 3688, 3692, 3696, 3700, 3704, 3708, -1
     a_edge:			.word	4, 132, 260, 388, 516, 644, 772, 900, 1028, 1156, 1284, 1412, 1540, 1668, 1796, 1924, 2052, 2180, 2308, 2436, 2564, 2692, 2820, 2948, 3076, 3204, 3332, 3460, 3588, 3716, 3844, 3972, -1
+    # total # of collisions
     total_collisions:		.word	0
+    # ships health
     hearts:			.word	3928, 3936, 3944, 3952, 3960
+    # alphabet
     Alphabet_G:			.word 	524, 652, 780, 908, 912, 916, 920, 924, 796, 668, 664, 412, 408, 404, 400
     Alphabet_A:			.word   936, 808, 680, 552, 428, 432, 436, 568, 696, 824, 952, 812, 816, 820
     Alphabet_M:			.word	964, 836, 708, 580, 456, 460, 588, 716, 844, 972, 464, 596, 724, 852, 980
@@ -79,8 +87,10 @@
     Alphabet_V:			.word	1448, 1320, 1576, 1708, 1840, 1716, 1592, 1464, 1336
     Alphabet_E_2:		.word	1348, 1352, 1356,1360,1364, 1476, 1604, 1608, 1612,1616, 1732, 1860, 1864,1868,1872,1876
     Alphabet_R:			.word	1888, 1760, 1632, 1504, 1376, 1380, 1384, 1388, 1520, 1648, 1644,1772, 1904, 1640, 1636
+    # total # of obstacles thrown
     obstacles_thrown:		.word	0
     number_zero:		.word	3364, 3240, 3112, 2984, 2852, 2976, 3104, 3232, 3360, 3368, 2856, 2848
+    # numbers 0 - 9
     number_one:			.word	3360, 3364, 3368, 3236, 3108, 2980, 2852, 2848
     number_two:			.word	3360, 3364, 3368, 3232,3104,3108,3112,2984, 2856, 2852, 2848
     number_three:		.word	3360, 3364, 3368,3240,3112, 2984, 2856, 2852, 2848, 3108
@@ -90,16 +100,19 @@
     number_seven:		.word 	3368, 3240, 3112,2984, 2856, 2852, 2848
     number_eight:		.word	3360, 3364, 3368, 3240,3112,3108,3104,3232, 2976, 2848, 2852, 2856, 2984
     number_nine:		.word	3368, 3240,3112,3108,3104, 2976, 2848, 2852, 2856, 2984
+    # most significant digit to lowest significant digit
     s2:				.word	0
     s1:				.word	0
     s0:				.word	0
+    # coin item, randomized location, and counter
     coin_item:			.word	0
     coin_location:		.word	1168,3232, 24
     coin_spawn_counter:		.word	0
+    # heart item, randomized location, and counter
     heart_item:			.word	0
     heart_spawn_counter:	.word	0
     heart_location:		.word	3136, 3000, 1228
-    
+    # starting prompt
     intro_prompt:		.asciiz "To play the game use controls w, a, s, d to move and p to restart\n"
     border:			.asciiz  "-------------------------------------------------------------------\n"
     
@@ -112,7 +125,7 @@
     li $t9, 0xFFFF00		# $t9 stores the yellow colour code
     
     li $v0, 4
-    la $a0, border	# prints border
+    la $a0, border		# prints border
     syscall
     
     li $v0, 4
@@ -120,7 +133,7 @@
     syscall
     
     li $v0, 4
-    la $a0, border	# prints border
+    la $a0, border		# prints border
     syscall
 
 GAME_START:
