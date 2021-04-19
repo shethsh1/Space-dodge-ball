@@ -3,7 +3,6 @@
 # CSCB58 Winter 2021 Assembly Final Project
 # University of Toronto, Scarborough
 #
-# Student: Shaahid Sheth, 1002546060, shethsh1
 #
 # Bitmap Display Configuration:
 # - Unit width in pixels: 8 
